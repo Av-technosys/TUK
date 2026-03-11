@@ -1,166 +1,179 @@
 "use client"
 
 import React from "react"
-import Image from "next/image"
 import Link from "next/link"
-import { IconCheck, IconBrandTwitterFilled, IconBrandLinkedinFilled, IconShieldCheck } from "@tabler/icons-react"
+import Image from "next/image"
+
+import { Button } from "@/components/ui/button"
+
+import {
+IconBrandLinkedin,
+IconBrandTwitter,
+IconShieldCheck,
+IconCheck,
+IconCertificate,
+IconMapPin
+} from "@tabler/icons-react"
 
 const Footer = () => {
-  return (
-    <footer className="bg-gray-800 text-[#9CA3AF]">
-      <div className="max-w-6xl mx-auto  py-12 grid grid-cols-1 md:grid-cols-4 gap-8">
-        {/* logo & description */}
-        <div className="space-y-4">
-          <div className="flex items-center space-x-2">
-            <Image src="/logo.png" alt="TUK Ltd" width={120} height={40} />
-          </div>
-          <p className="text-sm">
-            Britain’s leading B2B manufacturer and supplier of voice and data
-            copper cabling solutions. ISO 9001 certified. Trade only.
-          </p>
-          <div className="flex space-x-3">
-           <div className="h-10 w-10  bg-[#1E3A8A] items-center justify-center rounded-md flex">
-             <Link href="https://linkedin.com" className="text-white" aria-label="LinkedIn">
-            <IconBrandLinkedinFilled  size={24} />
-          </Link>
-           </div>
-          <div className="h-10 w-10 bg-[#1E3A8A] items-center justify-center rounded-md flex">
-            <Link href="https://twitter.com" className="text-white" aria-label="Twitter">
-            <IconBrandTwitterFilled size={24} />
-          </Link>
-          </div>
-          
-          </div>
-        </div>
+return (
 
-        {/* product categories */}
-        <div>
-          <h3 className="font-semibold mb-2 text-white">Product Categories</h3>
-          <ul className="space-y-1 text-sm">
-            <li>
-              <Link href="/products/rails-connections" className="hover:text-white">
-                Rails Connections
-              </Link>
-            </li>
-            <li>
-              <Link href="/products/patch-panels" className="hover:text-white">
-                Patch Panels
-              </Link>
-            </li>
-            <li>
-              <Link href="/products/data-cable" className="hover:text-white">
-                Data Cable
-              </Link>
-            </li>
-            <li>
-              <Link href="/products/voice-cable" className="hover:text-white">
-                Voice Cable
-              </Link>
-            </li>
-            <li>
-              <Link href="/products/keystone-jacks" className="hover:text-white">
-                Keystone Jacks
-              </Link>
-            </li>
-            <li>
-              <Link href="/products/patch-leads" className="hover:text-white">
-                Patch Leads
-              </Link>
-            </li>
-            <li>
-              <Link href="/products/cable-management" className="hover:text-white">
-                Cable Management
-              </Link>
-            </li>
-          </ul>
-        </div>
+<footer className="bg-[#16233a] text-white">
 
-        {/* company links */}
-        <div>
-          <h3 className="font-semibold mb-2 text-white">Company</h3>
-          <ul className="space-y-1 text-sm">
-            <li>
-              <Link href="/about" className="hover:text-white">
-                About TUK
-              </Link>
-            </li>
-            <li>
-              <Link href="/case-studies" className="hover:text-white">
-                Case Studies
-              </Link>
-            </li>
-            <li>
-              <Link href="/free-product-guide" className="hover:text-white">
-                Free Product Guide
-              </Link>
-            </li>
-            <li>
-              <Link href="/technical-support" className="hover:text-white">
-                Technical Support
-              </Link>
-            </li>
-            <li>
-              <Link href="/become-a-distributor" className="hover:text-white">
-                Become a Distributor
-              </Link>
-            </li>
-            <li>
-              <Link href="/contact" className="hover:text-white">
-                Contact Us
-              </Link>
-            </li>
-          </ul>
-        </div>
+<div className="max-w-7xl mx-auto px-6 md:px-10 xl:px-16 py-12">
 
-        {/* quality & compliance */}
-        <div>
-          <h3 className="font-semibold mb-2 text-white">Quality &amp; Compliance</h3>
-          <ul className="space-y-2 text-sm">
-            <div className="h-10 w-full p-3 rounded-lg bg-[#1E3A8A]"><li className="flex items-center">
-              <IconShieldCheck size={16} className="text-[#FB923C] mr-2" />
-              ISO 9001:2015 Certified
-            </li></div>
-            <div className="h-10 w-full p-3 rounded-lg bg-[#1E3A8A]">
-                <li className="flex items-center">
-              <IconCheck size={16} className="text-[#FB923C] mr-2" />
-              UKCA &amp; CE Marked
-            </li>
-            </div>
-           <div className="h-10 w-full p-3 rounded-lg bg-[#1E3A8A]">
-             <li className="flex items-center">
-              <IconCheck size={16} className="text-[#FB923C] mr-2" />
-              RoHS Compliant
-            </li>
-           </div>
-            <div className="h-10 w-full p-3 rounded-lg bg-[#1E3A8A]">
-                <li className="flex items-center">
-              <IconCheck size={16} className="text-[#FB923C] mr-2" />
-              Made in Britain
-            </li>
-            </div>
-          </ul>
-        </div>
-      </div>
+<div className="grid gap-10 md:grid-cols-2 xl:grid-cols-4">
 
-      <div className=" max-w-6xl mx-auto flex w-full h-16 justify-between border-t border-gray-700 mt-8 pt-4">
-        <div className="w-full">
-             <p className="text-center text-xs">© 2026 TUK Ltd. All rights reserved. Registered in England &amp; Wales. B2B Trade Only</p>
-        
-        </div>
-       <div className=" w-full float-right flex text-center space-x-4 text-xs">
-          <Link href="/privacy-policy" className="hover:text-white">
-            Privacy Policy
-          </Link>
-          <Link href="/terms-conditions" className="hover:text-white">
-            Terms &amp; Conditions
-          </Link>
-          <Link href="/cookie-policy" className="hover:text-white">
-            Cookie Policy
-          </Link>
-        </div>
-      </div>
-    </footer>
-  )
+{/* company info */}
+<div className="space-y-4">
+
+<div className="flex items-center gap-3">
+<div className="bg-white rounded-full p-2">
+<Image
+src="/footerlogo.png"
+alt="logo"
+width={20}
+height={20}
+/>
+</div>
+
+<div>
+<p className="font-semibold text-lg">TUK Ltd</p>
+<p className="text-orange-400 text-sm">
+Since 1984 · Wimbledon, London
+</p>
+</div>
+</div>
+
+<p className="text-gray-300 text-sm leading-relaxed">
+Britain's leading B2B manufacturer and supplier of voice and data
+copper cabling solutions. ISO 9001 certified. Trade only.
+</p>
+
+<div className="flex gap-3 pt-2">
+
+<Button
+variant="secondary"
+size="icon"
+className="bg-[#23345a] hover:bg-[#2e4472]"
+>
+<IconBrandLinkedin size={18}/>
+</Button>
+
+<Button
+variant="secondary"
+size="icon"
+className="bg-[#23345a] hover:bg-[#2e4472]"
+>
+<IconBrandTwitter size={18}/>
+</Button>
+
+</div>
+
+</div>
+
+
+{/* product categories */}
+<div className="space-y-3">
+
+<h3 className="font-semibold text-lg">
+Product Categories
+</h3>
+
+<div className="flex flex-col space-y-2 text-gray-300 text-sm">
+
+<Link href="#">RJ45 Connectors</Link>
+<Link href="#">Patch Panels</Link>
+<Link href="#">Data Cable</Link>
+<Link href="#">Voice Cable</Link>
+<Link href="#">Keystone Jacks</Link>
+<Link href="#">Patch Leads</Link>
+<Link href="#">Cable Management</Link>
+
+</div>
+
+</div>
+
+
+{/* company */}
+<div className="space-y-3">
+
+<h3 className="font-semibold text-lg">
+Company
+</h3>
+
+<div className="flex flex-col space-y-2 text-gray-300 text-sm">
+
+<Link href="#">About TUK</Link>
+<Link href="#">Case Studies</Link>
+<Link href="#">Free Product Guide</Link>
+<Link href="#">Technical Support</Link>
+<Link href="#">Become a Distributor</Link>
+<Link href="#">Contact Us</Link>
+
+</div>
+
+</div>
+
+
+{/* quality */}
+<div className="space-y-3">
+
+<h3 className="font-semibold text-lg">
+Quality & Compliance
+</h3>
+
+<div className="space-y-3">
+
+<div className="flex items-center gap-3 bg-[#23345a] px-4 py-3 rounded-lg">
+<IconShieldCheck size={18}/>
+<p className="text-sm">ISO 9001:2015 Certified</p>
+</div>
+
+<div className="flex items-center gap-3 bg-[#23345a] px-4 py-3 rounded-lg">
+<IconCheck size={18}/>
+<p className="text-sm">UKCA & CE Marked</p>
+</div>
+
+<div className="flex items-center gap-3 bg-[#23345a] px-4 py-3 rounded-lg">
+<IconCertificate size={18}/>
+<p className="text-sm">RoHS Compliant</p>
+</div>
+
+<div className="flex items-center gap-3 bg-[#23345a] px-4 py-3 rounded-lg">
+<IconMapPin size={18}/>
+<p className="text-sm">Made in Britain</p>
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+
+{/* bottom bar */}
+
+<div className="border-t border-blue-900 mt-10 pt-6 flex flex-col md:flex-row items-center justify-between gap-4 text-sm text-gray-400">
+
+<p>
+© 2026 TUK Ltd. All rights reserved. Registered in England & Wales.
+B2B Trade Only
+</p>
+
+<div className="flex items-center gap-6">
+<Link href="#">Privacy Policy</Link>
+<Link href="#">Terms & Conditions</Link>
+<Link href="#">Cookie Policy</Link>
+</div>
+
+</div>
+
+</div>
+
+</footer>
+
+)
 }
 
 export default Footer
