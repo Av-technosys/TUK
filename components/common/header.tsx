@@ -33,7 +33,7 @@ return(
 
 <div className="container mx-auto flex items-center justify-between py-3 px-4 lg:px-8 xl:px-12">
 
-{/* logo */}
+
 
 <Link href="/" className="flex items-center">
 <Image
@@ -44,7 +44,7 @@ height={40}
 />
 </Link>
 
-{/* desktop nav */}
+
 
 <nav className="hidden lg:flex items-center gap-8">
 
@@ -60,7 +60,7 @@ className="text-sm font-medium text-[#374151] hover:text-primary"
 
 </nav>
 
-{/* desktop right */}
+
 
 <div className="hidden lg:flex items-center gap-4">
 
@@ -86,7 +86,7 @@ Request Quote
 
 </div>
 
-{/* mobile + tablet sidebar */}
+
 
 <div className="lg:hidden">
 
