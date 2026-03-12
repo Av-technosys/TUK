@@ -1,0 +1,80 @@
+"use client"
+
+import Image from "next/image"
+
+const Vision = () => {
+  return (
+    <section className="w-full bg-white">
+      <div className="max-w-6xl mx-auto px-4 sm:px-6 xl:px-8 py-16">
+
+        <div className="grid xl:grid-cols-2 gap-12 items-center">
+
+          {/* LEFT CONTENT */}
+          <div className="space-y-10">
+
+            <div className="space-y-4">
+              <h2 className="text-[#0300A7] font-bold text-2xl xl:text-3xl">
+                Our Mission
+              </h2>
+
+              <p className="text-black leading-relaxed max-w-xl">
+                Our mission is to deliver reliable passive data and multimedia
+                connectivity systems through a continuously evolving product
+                range. We focus on quality, innovation, and dependable
+                performance while providing high-value solutions and exceptional
+                service that support our customers’ communication infrastructure
+                and long-term success.
+              </p>
+            </div>
+
+            <div className="space-y-4">
+              <h2 className="text-[#0300A7] font-bold text-2xl xl:text-3xl">
+                Our Core Values
+              </h2>
+
+              <p className="text-black leading-relaxed max-w-xl">
+                Our values guide the way we deliver our mission. We are
+                passionate about providing excellent value and service while
+                building long-term partnerships with our customers. We value,
+                respect, and trust one another, take pride in working together
+                as a strong team, and remain committed to completing our work
+                efficiently and to the highest standards.
+              </p>
+            </div>
+
+          </div>
+
+       {/* RIGHT IMAGES */}
+<div className="relative flex justify-center xl:justify-end">
+
+  {/* TOP IMAGE */}
+  <div className="relative rounded-2xl overflow-hidden shadow-lg w-[75%] sm:w-[70%] xl:w-[72%]">
+    <Image
+      src="/image/vision.png"
+      alt="vision image"
+      width={600}
+      height={400}
+      className="object-cover w-full h-full"
+    />
+  </div>
+
+  {/* BOTTOM IMAGE */}
+  <div className="absolute -bottom-12 left-2 rounded-2xl overflow-hidden shadow-lg w-[60%] sm:w-[55%] xl:w-[60%]">
+    <Image
+      src="/image/mision.png"
+      alt="vision image"
+      width={500}
+      height={320}
+      className="object-cover w-full h-full"
+    />
+  </div>
+
+</div>
+        </div>
+
+      </div>
+    </section>
+  )
+}
+
+export default Vision

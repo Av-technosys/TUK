@@ -53,19 +53,23 @@ copper cabling solutions. ISO 9001 certified. Trade only.
 <div className="flex gap-3 pt-2">
 
 <Button
-variant="secondary"
-size="icon"
-className="bg-[#23345a] hover:bg-[#2e4472]"
+  variant="ghost"
+  size="icon"
+  className="bg-[#23345a] hover:bg-[#2e4472] rounded-md"
 >
-<IconBrandLinkedin size={18}/>
+  <div className="bg-white text-[#2e4ea1] p-1 rounded-sm flex items-center justify-center">
+    <IconBrandLinkedin size={16} />
+  </div>
 </Button>
 
 <Button
-variant="secondary"
-size="icon"
-className="bg-[#23345a] hover:bg-[#2e4472]"
+  variant="ghost"
+  size="icon"
+  className="bg-[#23345a] hover:bg-[#2e4472] rounded-md"
 >
-<IconBrandTwitter size={18}/>
+  <div className="bg-white text-[#2e4ea1] p-1 rounded-sm flex items-center justify-center">
+    <IconBrandTwitter size={16} />
+  </div>
 </Button>
 
 </div>
