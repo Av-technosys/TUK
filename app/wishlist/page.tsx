@@ -24,19 +24,19 @@ const products = [
     name: "Speedy RJ45 Cat 6 Plugs",
     code: "TUK-SRJ6-50",
     stock: "In Stock",
-    img: "/p1.png",
+    img: "/image/wishlist.png",
   },
   {
     name: "1U 24 Port Toolless Patch Panel",
     code: "TUK-PP-24U",
     stock: "Available to Order",
-    img: "/p2.png",
+    img: "/image/wishlist.png",
   },
   {
     name: "Cat 6A Keystone Jack - Shuttered",
     code: "TUK-KJ6A-W",
     stock: "In Stock",
-    img: "/p3.png",
+    img: "/image/wishlist.png",
   },
 ]
 
@@ -81,15 +81,16 @@ const Page = () => {
 
                   {/* Product Image */}
                   <div className="md:col-span-2 flex items-center">
-                    <div className="bg-gray-100 rounded-lg p-3">
-                      <Image
-                        src={item.img}
-                        alt="product"
-                        width={60}
-                        height={60}
-                        className="object-contain"
-                      />
-                    </div>
+                  {/* Product Image */}
+<div className="md:col-span-2 flex items-center">
+  <Image
+    src={item.img}
+    alt="product"
+    width={80}
+    height={80}
+    className="object-contain rounded-lg"
+  />
+</div>
                   </div>
 
                   {/* Details */}

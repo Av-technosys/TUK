@@ -9,7 +9,7 @@ export default function TechnicalDataSheet() {
 
       <div className="flex items-center gap-4">
 
-        <div className="bg-red-500 text-white rounded-xl p-4 flex items-center justify-center">
+        <div className="bg-[#eb3e3e] text-white rounded-xl p-4 flex items-center justify-center">
           <IconFileTypePdf size={26} />
         </div>
 

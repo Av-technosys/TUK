@@ -29,16 +29,19 @@ return (
 
 <div className="flex items-center gap-3">
 <div className="bg-white rounded-full p-2">
-<Image
-src="/footerlogo.png"
-alt="logo"
-width={20}
-height={20}
-/>
+<Link href="/">
+  <Image
+    src="/footerlogo.png"
+    alt="logo"
+    width={20}
+    height={20}
+    className="cursor-pointer"
+  />
+</Link>
 </div>
 
 <div>
-<p className="font-semibold text-lg">TUK Ltd</p>
+<Link href="/"><p className="font-semibold text-lg">TUK Ltd</p></Link>
 <p className="text-orange-400 text-sm">
 Since 1984 · Wimbledon, London
 </p>
@@ -51,6 +54,7 @@ copper cabling solutions. ISO 9001 certified. Trade only.
 </p>
 
 <div className="flex gap-3 pt-2">
+
 
 <Button
   variant="ghost"
@@ -108,12 +112,10 @@ Company
 
 <div className="flex flex-col space-y-2 text-gray-300 text-sm">
 
-<Link href="#">About TUK</Link>
-<Link href="#">Case Studies</Link>
+<Link href="/about">About TUK</Link>
 <Link href="#">Free Product Guide</Link>
-<Link href="#">Technical Support</Link>
-<Link href="#">Become a Distributor</Link>
-<Link href="#">Contact Us</Link>
+<Link href="/distributor">Become a Distributor</Link>
+<Link href="/contact">Contact Us</Link>
 
 </div>
 
@@ -158,7 +160,7 @@ Quality & Compliance
 
 {/* bottom bar */}
 
-<div className="border-t border-blue-900 mt-10 pt-6 flex flex-col md:flex-row items-center justify-between gap-4 text-sm text-gray-400">
+<div className="border-t border-[#1E3A8A] mt-10 pt-6 flex flex-col md:flex-row items-center justify-between gap-4 text-sm text-gray-400">
 
 <p>
 © 2026 TUK Ltd. All rights reserved. Registered in England & Wales.
@@ -166,9 +168,9 @@ B2B Trade Only
 </p>
 
 <div className="flex items-center gap-6">
-<Link href="#">Privacy Policy</Link>
-<Link href="#">Terms & Conditions</Link>
-<Link href="#">Cookie Policy</Link>
+<Link href="/privacy-policy">Privacy Policy</Link>
+<Link href="/terms-conditions">Terms & Conditions</Link>
+<Link href="/cookie-policy">Cookie Policy</Link>
 </div>
 
 </div>

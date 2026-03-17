@@ -5,7 +5,7 @@ import Image from "next/image"
 const Vision = () => {
   return (
     <section className="w-full bg-white">
-      <div className="max-w-6xl mx-auto px-4 sm:px-6 xl:px-8 py-16">
+      <div className="max-w-6xl mx-auto px-4 sm:px-6 xl:px-8 py-10">
 
         <div className="grid xl:grid-cols-2 gap-12 items-center">
 
