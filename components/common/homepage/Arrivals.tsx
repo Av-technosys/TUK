@@ -27,7 +27,7 @@ const products = [
 const Arrivals = () => {
   return (
     <section className="w-full bg-white">
-      <div className="max-w-6xl mx-auto px-4 sm:px-6 xl:px-8 py-14 space-y-10">
+      <div className="max-w-6xl mx-auto px-4 sm:px-6 xl:px-8 py-3 space-y-10">
         
         <div className="text-center">
           <h2 className="text-2xl xl:text-3xl font-bold">

@@ -11,9 +11,15 @@ const products = [
     image: "/image/arival1.png",
   },
   {
+    badge: "",
+    title: "Professional Kit Pro",
+    desc: "Complete toolset for field technicians, including crimpers, testers, and cutters.",
+    image: "/image/arival3.png",
+  },
+  {
     badge: "POPULAR",
     title: "24-Port Angled Panel",
-    desc: "High-density patch panel with forty five degree angle ports for optimized cable management.",
+    desc: "High-density patch panel with 45-degree angle ports for optimized cable management.",
     image: "/image/arival2.png",
   },
   {
@@ -24,27 +30,30 @@ const products = [
   },
 ]
 
-const FeaturedProducts = () => {
+const RelatedProducts = () => {
   return (
-    <section className="w-full bg-white">
-      <div className="max-w-6xl mx-auto px-4 sm:px-6 xl:px-8 py-5 space-y-10">
-        
-        <div className="text-center">
-          <h2 className="text-2xl xl:text-3xl font-bold">
-            Featured Products
+    <section className="w-full bg-muted/30">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 xl:px-8 py-12 space-y-10">
+
+        {/* Heading */}
+        <div>
+          <h2 className="text-2xl xl:text-3xl font-semibold text-foreground">
+            Related Products
           </h2>
         </div>
 
-        <div className="grid sm:grid-cols-2 xl:grid-cols-3 gap-8">
+        {/* Grid */}
+       <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-6">
           {products.map((item, index) => (
             <div
               key={index}
-              className="bg-background border rounded-xl overflow-hidden hover:shadow-lg transition"
+              className="bg-background border rounded-xl overflow-hidden hover:shadow-md transition"
             >
-              
-              <div className="relative w-full h-56">
+
+              {/* Image */}
+              <div className="relative w-full h-48">
                 {item.badge && (
-                  <span className="absolute top-4 left-4 bg-[#0300A7] text-primary-foreground text-xs px-3 py-1 rounded-full z-10">
+                  <span className="absolute top-3 left-3 bg-[#0300A7] text-white text-xs px-3 py-1 rounded-full z-10">
                     {item.badge}
                   </span>
                 )}
@@ -57,8 +66,9 @@ const FeaturedProducts = () => {
                 />
               </div>
 
-              <div className="p-6 space-y-4">
-                <h3 className="text-lg font-semibold text-foreground">
+              {/* Content */}
+              <div className="p-5 space-y-3">
+                <h3 className="text-base xl:text-lg font-semibold text-foreground">
                   {item.title}
                 </h3>
 
@@ -66,8 +76,8 @@ const FeaturedProducts = () => {
                   {item.desc}
                 </p>
 
+                {/* Footer */}
                 <div className="flex items-center justify-between pt-2">
-                  
                   <button className="flex items-center gap-1 text-[#0300A7] font-medium text-sm hover:underline">
                     View Specs
                     <IconArrowUpRight size={16} />
@@ -76,7 +86,6 @@ const FeaturedProducts = () => {
                   <button className="border rounded-full p-2 hover:bg-muted transition text-[#0300A7]">
                     <IconHeart size={18} />
                   </button>
-
                 </div>
               </div>
 
@@ -89,4 +98,4 @@ const FeaturedProducts = () => {
   )
 }
 
-export default FeaturedProducts
+export default RelatedProducts

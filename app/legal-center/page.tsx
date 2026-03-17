@@ -44,7 +44,7 @@ const page = () => {
     <div className="space-y-2">
 
       {/* ACTIVE */}
-      <div className="flex items-center gap-3 rounded-lg bg-indigo-100 text-indigo-700 px-4 py-3 font-medium">
+      <div className="flex items-center gap-3 rounded-lg bg-indigo-100 text-[#0300A7] px-4 py-3 font-medium">
         <IconFileText size={20} />
         <span>Terms & Conditions</span>
       </div>
@@ -108,7 +108,7 @@ const page = () => {
     <CardContent className="py-6 space-y-3">
 
       <div className="flex items-center gap-2 font-semibold text-sm">
-        <IconInfoCircle size={18} className="text-indigo-600"/>
+        <IconInfoCircle size={18} className="text-[#0300A7]"/>
         Regulatory Context
       </div>
 
@@ -137,7 +137,7 @@ const page = () => {
 
     <p className="text-sm text-muted-foreground">
       TUK Ltd is registered with the Environment Agency under producer number:
-      <span className="text-indigo-600 font-medium ml-1">
+      <span className="text-[#0300A7] font-medium ml-1">
         WEE/ABC123XYZ
       </span>
     </p>
@@ -165,11 +165,11 @@ const page = () => {
 <div className="flex gap-4 rounded-lg bg-[#eef0f6] p-5">
 
   {/* LEFT BLUE LINE */}
-  <div className="w-1 rounded bg-indigo-700"></div>
+  <div className="w-1 rounded bg-[#0300A7]"></div>
 
   <div className="flex gap-3">
 
-    <IconInfoCircle className="text-indigo-700 mt-1" size={22} />
+    <IconInfoCircle className="text-[#0300A7] mt-1" size={22} />
 
     <div>
       <p className="font-semibold text-slate-800">
@@ -209,7 +209,7 @@ const page = () => {
     <div className="flex flex-wrap gap-4">
 
       {/* EMAIL BUTTON */}
-      <Button className="bg-blue-700 hover:bg-blue-800 text-white flex items-center gap-2 px-6 py-3">
+      <Button className="bg-[#0300A7] hover:bg-[#0300A7] text-white flex items-center gap-2 px-6 py-3">
         <IconMail size={18} />
         b2b-weee@tuk.co.uk
       </Button>

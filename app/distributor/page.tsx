@@ -18,49 +18,49 @@ const distributors = [
   {
     name: "CPC Farnell",
     desc: "Voice & Data Cabling Solutions",
-    logo: "/distributors/cpc.png",
+    logo: "/image/distributor.png",
     region: "£ UK"
   },
   {
     name: "Anixter",
     desc: "Voice & Data Cabling Solutions",
-    logo: "/distributors/anixter.png",
+    logo: "/image/distributor.png",
     region: "$ International"
   },
   {
     name: "Euronetwork",
     desc: "Voice & Data Cabling Solutions",
-    logo: "/distributors/euronet.png",
+    logo: "/image/distributor.png",
     region: "£ UK"
   },
   {
     name: "InfraTEL",
     desc: "Voice & Data Cabling Solutions",
-    logo: "/distributors/infratel.png",
+    logo: "/image/distributor.png",
     region: "€ Europe"
   },
   {
     name: "CPC Farnell",
     desc: "Voice & Data Cabling Solutions",
-    logo: "/distributors/cpc.png",
+    logo: "/image/distributor.png",
     region: "£ UK"
   },
   {
     name: "Anixter",
     desc: "Voice & Data Cabling Solutions",
-    logo: "/distributors/anixter.png",
+    logo: "/image/distributor.png",
     region: "$ International"
   },
   {
     name: "Euronetwork",
     desc: "Voice & Data Cabling Solutions",
-    logo: "/distributors/euronet.png",
+    logo: "/image/distributor.png",
     region: "£ UK"
   },
   {
     name: "InfraTEL",
     desc: "Voice & Data Cabling Solutions",
-    logo: "/distributors/infratel.png",
+    logo: "/image/distributor.png",
     region: "€ Europe"
   }
 ]
@@ -71,7 +71,12 @@ const page = () => {
       <Header />
 
       {/* Hero Section */}
-      <section className="bg-[#334b9b] text-white">
+     <section
+  className="text-white"
+  style={{
+    background: "linear-gradient(to right, #141D3D, #364FA3)"
+  }}
+>
         <div className="max-w-7xl mx-auto px-4 py-16 text-center">
 
           <h1 className="text-3xl md:text-4xl xl:text-5xl font-semibold">

@@ -16,7 +16,7 @@ export default function Page() {
     <>
       <Header />
 
-      <div className="w-full bg-gray-100 border-b">
+      <div className="w-full bg-gray-100 ">
         <div className="max-w-6xl mx-auto px-4 py-3 text-sm text-gray-600 flex items-center gap-2">
 
           <Link href="/" className="hover:text-black">
