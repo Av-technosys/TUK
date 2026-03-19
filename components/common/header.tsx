@@ -73,8 +73,8 @@
 
     </div>
 
-    <Button className="rounded-full bg-[#1E3A8A] hover:bg-[#1E3A8A] text-xs px-2 h-8">
-        Request Quote
+    <Button className="rounded-full bg-[#1E3A8A] hover:bg-[#1E3A8A] text-xs px-6 h-8">
+        Enquiries
     </Button>
 
     </div>
@@ -120,7 +120,7 @@
                     </div>
 
                     <Button className="bg-[#1E3A8A] hover:bg-blue-800 text-xs h-8">
-                    Request Quote
+                    Enquiries
                     </Button>
 
                 </div>

@@ -18,15 +18,8 @@ import {
 
 const navItems = [
   { label: "Dashboard", href: "/admin", icon: LayoutGrid },
-  { label: "blog", href: "/admin/blog", icon: LayoutGrid },
-  
   { label: "Product", href: "/admin/product", icon: Box },
   { label: "Category", href: "/admin/category", icon: List },
-  { label: "Order", href: "/admin/order", icon: FileText },
-  { label: "User", href: "/admin/users", icon: User },
-  { label: "Review", href: "/admin/review", icon: MessageSquare },
-    { label: "Payment", href: "/admin/payment", icon: IndianRupee },
-
   {
     label: "Featured Products",
     href: "/admin/featured-products",
@@ -37,7 +30,6 @@ const navItems = [
     href: "/admin/featured-categories",
     icon: Feather ,
   },
-  { label: "Coupon", href: "/admin/coupon", icon: Code },
   { label: "Settings", href: "/admin/settings", icon: Settings },
 ];
 
