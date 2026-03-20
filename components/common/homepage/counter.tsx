@@ -49,11 +49,11 @@ const Counter = () => {
               className="py-4 flex flex-col items-center justify-center"
             >
 
-              <h3 className="text-xl xl:text-2xl font-bold text-[#FB923C]">
-                {item.prefix}{counts[index].toLocaleString()}{item.suffix}
+              <h3 className="text-xl xl:text-2xl font-barlow font-bold text-[#FB923C]">
+                {item.prefix}{counts[index]}{item.suffix}
               </h3>
 
-              <p className="text-xs xl:text-sm text-gray-200">
+              <p className="text-xs font-inter xl:text-sm text-gray-200">
                 {item.label}
               </p>
 

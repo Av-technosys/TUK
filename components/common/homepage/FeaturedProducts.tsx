@@ -26,7 +26,7 @@ const products = [
 
 const FeaturedProducts = () => {
   return (
-    <section className="w-full bg-white">
+    <section className="w-full bg-white font-poppins">
       <div className="max-w-6xl mx-auto px-4 sm:px-6 xl:px-8 py-5 space-y-10">
         
         <div className="text-center">
@@ -68,7 +68,7 @@ const FeaturedProducts = () => {
 
                 <div className="flex items-center justify-between pt-2">
                   
-                  <button className="flex items-center gap-1 text-[#0300A7] font-medium text-sm hover:underline">
+                  <button className="flex items-center gap-1 text-[#0300A7] font-semibold font-poppins text-sm hover:underline">
                     View Specs
                     <IconArrowUpRight size={16} />
                   </button>

@@ -25,7 +25,7 @@ export default function Page() {
 
           <span>›</span>
 
-          <Link href="/products" className="hover:text-black">
+          <Link href="/product" className="hover:text-black">
             Products
           </Link>
 

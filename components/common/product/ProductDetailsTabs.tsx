@@ -17,9 +17,20 @@ export default function ProductDetailsTabs() {
 
         <TabsList className="flex flex-wrap gap-3 bg-transparent justify-center">
 
-          <TabsTrigger value="description" className="rounded-full">
-            Description
-          </TabsTrigger>
+          <TabsTrigger
+    value="description"
+    className="
+      px-4 py-2 rounded-full border border-[#0300A7]
+      text-[#0300A7] text-sm font-medium
+      transition-all
+
+      data-[state=active]:bg-[#0300A7]
+      data-[state=active]:text-white
+      data-[state=active]:border-[#0300A7]
+    "
+  >
+    Description
+  </TabsTrigger>
 
           <TabsTrigger value="usage" className="rounded-full">
             Usage

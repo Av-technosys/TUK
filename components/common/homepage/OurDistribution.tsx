@@ -1,6 +1,6 @@
 "use client"
 
-import { IconArrowRight } from "@tabler/icons-react"
+import { IconArrowRight, IconChevronRight } from "@tabler/icons-react"
 import Image from "next/image"
 
 const distributors = [
@@ -14,7 +14,7 @@ const distributors = [
 
 const OurDistribution = () => {
   return (
-    <section className="w-full bg-white">
+    <section className="w-full bg-white font-poppins">
       <div className="max-w-6xl mx-auto px-4 sm:px-6 xl:px-8 py-8">
 
         {/* heading with lines */}
@@ -39,11 +39,11 @@ const OurDistribution = () => {
         </p>
 
         {/* images grid */}
-        <div className="grid grid-cols-2 sm:grid-cols-3 xl:grid-cols-6 gap-6 mt-12">
+        <div className="grid grid-cols-2 sm:grid-cols-3 xl:grid-cols-6 gap-6 mt-8">
           {distributors.map((img, index) => (
             <div
               key={index}
-              className="bg-gray-50 border border-gray-300 rounded-xl p-4 flex items-center justify-center"
+              className="bg-[#F9FAFB]  rounded-xl p-4 flex items-center justify-center"
             >
               <div className="relative w-full h-16">
                 <Image
@@ -61,7 +61,7 @@ const OurDistribution = () => {
        <div className="text-center mt-10">
   <a className="text-[#1E3A8A] font-semibold inline-flex items-center gap-2">
     Become an Authorised Distributor
-    <IconArrowRight className="w-4 h-4" />
+    <IconChevronRight className="w-4 h-4" />
   </a>
 </div>
       </div>

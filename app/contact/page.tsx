@@ -1,21 +1,28 @@
 "use client"
 
-import React from "react"
+import React, { useState } from "react"
 import {
   IconMapPin,
   IconPhone,
   IconMail,
-  IconSend
+  IconSend,
+  IconMapPinFilled,
+  IconPhoneFilled,
+  IconMailFilled,
+  IconFileDescriptionFilled
 } from "@tabler/icons-react"
 
 import { Button } from "@/components/ui/button"
 import Footer from "@/components/common/footer"
 import Header from "@/components/common/header"
+import { Label } from "@/components/ui/label"
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 
 const Page = () => {
+  const [isChecked, setIsChecked] = useState(false);
   return (<>
   <Header/>
-    <section className="w-full bg-gray-100">
+    <section className="w-full bg-gray-100 font-poppins">
 
       {/* HEADER */}
       <div
@@ -26,8 +33,8 @@ const Page = () => {
 >
         <div className="max-w-7xl mx-auto px-6 text-center space-y-4">
           <h1 className="text-3xl font-bold">Contact Us</h1>
-          <p className="text-sm opacity-90">
-            Get in touch with our expert team for voice and data cabling solutions,
+          <p className="text-sm font-light opacity-90">
+            Get in touch with our expert team for voice and data cabling solutions, <br />
             technical support, or bespoke requirements.
           </p>
         </div>
@@ -43,7 +50,9 @@ const Page = () => {
 
           {/* ADDRESS */}
           <div className="flex gap-4">
-            <IconMapPin className="text-[#1E3A8A]" />
+            <div className="p-2 rounded-md bg-[#2596BE1A]">
+              <IconMapPinFilled className="text-[#2596BE]" />
+            </div>
             <div className="text-sm text-gray-700">
               <p className="font-semibold">Our Address</p>
               <p>Your business address here</p>
@@ -52,7 +61,10 @@ const Page = () => {
 
           {/* PHONE */}
           <div className="flex gap-4">
-            <IconPhone className="text-[#1E3A8A]" />
+             <div className="p-2 rounded-md bg-[#2596BE1A]">
+              <IconPhoneFilled className="text-[#2596BE]" />
+            </div>
+            {/* <IconPhone className="text-[#1E3A8A]" /> */}
             <div className="text-sm text-gray-700">
               <p className="font-semibold">Phone</p>
               <p>+91 000000000</p>
@@ -61,7 +73,10 @@ const Page = () => {
 
           {/* EMAIL */}
           <div className="flex gap-4">
-            <IconMail className="text-[#1E3A8A]" />
+           <div className="p-2 rounded-md bg-[#2596BE1A]">
+              <IconMailFilled className="text-[#2596BE]" />
+            </div>
+            {/* <IconMail className="text-[#1E3A8A]" /> */}
             <div className="text-sm text-gray-700">
               <p className="font-semibold">Email</p>
               <p>support@email.com</p>
@@ -89,9 +104,10 @@ const Page = () => {
               Click below to jump to our quick quote request form.
             </p>
 
-            <Button className="w-full bg-[#1E3A8A] hover:bg-blue-900 rounded-full py-6 text-sm font-semibold tracking-wide">
-              REQUEST A QUOTE
-            </Button>
+            <Button className="bg-[#0300A7] py-6 rounded-full   hover:bg-blue-900 w-full flex items-center justify-center gap-2">
+            <IconFileDescriptionFilled size={18} />
+            REQUEST A QUOTE
+          </Button>
 
           </div>
 
@@ -105,12 +121,15 @@ const Page = () => {
           </h2>
 
           <div className="grid md:grid-cols-2 gap-6">
-
+            <div>
+               {/* <Label htmlFor="name">Full Name</Label> */}
             <input
               type="text"
+              id="name"
               placeholder="Full Name"
               className="border rounded-lg px-4 py-3 text-sm w-full"
             />
+            </div>
 
             <input
               type="text"
@@ -136,18 +155,38 @@ const Page = () => {
 
           </div>
 
-          <input
-            type="text"
-            placeholder="Subject"
-            className="border rounded-lg px-4 py-3 text-sm w-full"
-          />
+          <Select onValueChange={(value) => console.log(value)}>
+      <SelectTrigger className="w-full">
+        <SelectValue placeholder="Select " />
+      </SelectTrigger>
+
+      <SelectContent>
+        <SelectItem value="product">Product enquiry</SelectItem>
+        <SelectItem value="service">Service inquiry</SelectItem>
+        <SelectItem value="general">General inquiry</SelectItem>
+      </SelectContent>
+    </Select>
 
           <textarea
             placeholder="Message"
             className="border rounded-lg px-4 py-3 text-sm w-full h-32"
           ></textarea>
 
-          <Button className="bg-[#1E3A8A] hover:bg-blue-900 w-full flex items-center justify-center gap-2">
+            <label className="flex items-start gap-2 cursor-pointer">
+        <input
+          type="checkbox"
+          checked={isChecked}
+          onChange={(e) => setIsChecked(e.target.checked)}
+          className="mt-1"
+        />
+
+        <span className="text-sm">
+          I agree to the <span className="text-blue-600 underline"> Terms & Conditions </span> 
+          and <span className="text-blue-600 underline"> Privacy Policy </span>.
+        </span>
+      </label>
+
+          <Button className="bg-[#0300A7] py-6 rounded-full   hover:bg-blue-900 w-full flex items-center justify-center gap-2">
             <IconSend size={18} />
             SEND MESSAGE
           </Button>

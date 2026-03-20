@@ -6,15 +6,15 @@ import { Button } from "@/components/ui/button"
 
 const Topbar = () => {
   return (
-    <div className="w-full bg-[#0b1d39] text-white font-inter">
-      <div className="max-w-7xl mx-auto px-4 md:px-6 xl:px-8 py-1 flex items-center justify-between flex-wrap">
+    <div className="w-full bg-[#0b1d39] text-white font-inter ">
+      <div className="max-w-7xl mx-auto px-4 md:px-6 xl:px-8 py-2 flex items-center justify-between flex-wrap">
 
         {/* Left */}
         <div className="flex flex-col md:flex-row md:items-center gap-0.5 md:gap-3 text-xs">
 
           <div className="flex items-center gap-1 font-inter">
             <IconPhone className="w-3.5 h-3.5 text-[#FB923C]" />
-            <span className="font-inter">+44 (0)20 8543 3131</span>
+            <span className="font-inter font-normal">+44 (0)20 8543 3131</span>
           </div>
 
           <div className="flex items-center gap-1">
@@ -36,7 +36,7 @@ const Topbar = () => {
             B2B Trade Only — Authorised Distributors Welcome
           </span>
 
-          <Button className="bg-orange-500 hover:bg-orange-600 text-white text-[10px] px-2 py-1 h-auto">
+          <Button className="bg-orange-500 hover:bg-orange-600 text-white text-[10px] px-2 py-2 h-auto">
             Free Product Guide
           </Button>
 

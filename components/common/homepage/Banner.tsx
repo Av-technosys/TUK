@@ -95,17 +95,17 @@ Banner = () => {
 
                   <div className="max-w-3xl text-white px-6">
 
-                    <h1 className="text-4xl md:text-6xl font-bold leading-tight">
+                    <h1 className="text-4xl md:text-6xl font-bold font-barlow leading-tight">
                       {slide.title}
                     </h1>
 
-                    <p className="mt-4 text-lg text-gray-200">
+                    <p className="mt-4 text-lg font-inter text-gray-200">
                       {slide.desc}
                     </p>
 
                     <div className="mt-6">
 
-                      <Button className="bg-[#F97316]  text-white rounded-full">
+                      <Button className="bg-[#F97316] font-inter font-bold px-4 py-6  text-white rounded-full">
                         {slide.btn}
                       </Button>
 

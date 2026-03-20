@@ -4,7 +4,7 @@ import Image from "next/image"
 
 const Vision = () => {
   return (
-    <section className="w-full bg-white">
+    <section className="w-full bg-white font-poppins">
       <div className="max-w-6xl mx-auto px-4 sm:px-6 xl:px-8 py-10">
 
         <div className="grid xl:grid-cols-2 gap-12 items-center">
@@ -12,12 +12,12 @@ const Vision = () => {
           {/* LEFT CONTENT */}
           <div className="space-y-10">
 
-            <div className="space-y-4">
+            <div className="space-y-3">
               <h2 className="text-[#0300A7] font-bold text-2xl xl:text-3xl">
                 Our Mission
               </h2>
 
-              <p className="text-black leading-relaxed max-w-xl">
+              <p className="text-black leading-6 text-sm max-w-xl">
                 Our mission is to deliver reliable passive data and multimedia
                 connectivity systems through a continuously evolving product
                 range. We focus on quality, innovation, and dependable
@@ -27,12 +27,12 @@ const Vision = () => {
               </p>
             </div>
 
-            <div className="space-y-4">
+            <div className="space-y-3">
               <h2 className="text-[#0300A7] font-bold text-2xl xl:text-3xl">
                 Our Core Values
               </h2>
 
-              <p className="text-black leading-relaxed max-w-xl">
+              <p className="text-black leading-6 text-sm  max-w-xl">
                 Our values guide the way we deliver our mission. We are
                 passionate about providing excellent value and service while
                 building long-term partnerships with our customers. We value,

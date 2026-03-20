@@ -48,7 +48,7 @@ Since 1984 · Wimbledon, London
 </div>
 </div>
 
-<p className="text-gray-300 text-sm leading-relaxed">
+<p className="text-[#9CA3AF] text-sm leading-relaxed">
 Britain's leading B2B manufacturer and supplier of voice and data
 copper cabling solutions. ISO 9001 certified. Trade only.
 </p>
@@ -59,22 +59,13 @@ copper cabling solutions. ISO 9001 certified. Trade only.
 <Button
   variant="ghost"
   size="icon"
-  className="bg-[#23345a] hover:bg-[#2e4472] rounded-md"
+  className=" hover:bg-[#2e4472] rounded-md"
 >
-  <div className="bg-white text-[#2e4ea1] p-1 rounded-sm flex items-center justify-center">
-    <IconBrandLinkedin size={16} />
+  <div className="bg-[#2e4ea1] text-[#D1D5DB]  p-2 rounded-sm flex items-center justify-center">
+    <IconBrandLinkedin  size={16} className="" />
   </div>
 </Button>
 
-<Button
-  variant="ghost"
-  size="icon"
-  className="bg-[#23345a] hover:bg-[#2e4472] rounded-md"
->
-  <div className="bg-white text-[#2e4ea1] p-1 rounded-sm flex items-center justify-center">
-    <IconBrandTwitter size={16} />
-  </div>
-</Button>
 
 </div>
 
@@ -88,7 +79,7 @@ copper cabling solutions. ISO 9001 certified. Trade only.
 Product Categories
 </h3>
 
-<div className="flex flex-col space-y-2 text-gray-300 text-sm">
+<div className="flex flex-col space-y-2 text-[#9CA3AF] text-sm">
 
 <Link href="#">RJ45 Connectors</Link>
 <Link href="#">Patch Panels</Link>
@@ -110,7 +101,7 @@ Product Categories
 Company
 </h3>
 
-<div className="flex flex-col space-y-2 text-gray-300 text-sm">
+<div className="flex flex-col space-y-2 text-[#9CA3AF] text-sm">
 
 <Link href="/about">About TUK</Link>
 <Link href="#">Free Product Guide</Link>
@@ -129,27 +120,24 @@ Company
 Quality & Compliance
 </h3>
 
-<div className="space-y-3">
+<div className="space-y-3 text-[#D1D5DB] ">
 
 <div className="flex items-center gap-3 bg-[#23345a] px-4 py-3 rounded-lg">
-<IconShieldCheck size={18}/>
+<IconShieldCheck size={18} className="text-[#FB923C]"/>
 <p className="text-sm">ISO 9001:2015 Certified</p>
 </div>
 
 <div className="flex items-center gap-3 bg-[#23345a] px-4 py-3 rounded-lg">
-<IconCheck size={18}/>
+<IconCheck size={18} className="text-[#FB923C]"/>
 <p className="text-sm">UKCA & CE Marked</p>
 </div>
 
 <div className="flex items-center gap-3 bg-[#23345a] px-4 py-3 rounded-lg">
-<IconCertificate size={18}/>
+<IconCertificate size={18} className="text-[#FB923C]"/>
 <p className="text-sm">RoHS Compliant</p>
 </div>
 
-<div className="flex items-center gap-3 bg-[#23345a] px-4 py-3 rounded-lg">
-<IconMapPin size={18}/>
-<p className="text-sm">Made in Britain</p>
-</div>
+
 
 </div>
 
@@ -160,7 +148,7 @@ Quality & Compliance
 
 {/* bottom bar */}
 
-<div className="border-t border-[#1E3A8A] mt-10 pt-6 flex flex-col md:flex-row items-center justify-between gap-4 text-sm text-gray-400">
+<div className="border-t  border-[#1E3A8A] mt-10 pt-6 flex flex-col md:flex-row items-center justify-between gap-4 text-sm text-gray-400">
 
 <p>
 © 2026 TUK Ltd. All rights reserved. Registered in England & Wales.

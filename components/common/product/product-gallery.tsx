@@ -117,8 +117,8 @@ export default function ProductGallery() {
           <Card
             key={i}
             onClick={() => setIndex(i)}
-            className={`cursor-pointer overflow-hidden rounded-xl border 
-            ${i === index ? "ring-2 ring-primary" : ""}`}
+            className={`cursor-pointer overflow-hidden rounded-xl 
+            ${i === index ? "ring-2 " : ""}`}
           >
             <Image
               src={img}

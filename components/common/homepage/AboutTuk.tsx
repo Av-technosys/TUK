@@ -22,7 +22,7 @@ const AboutTuk = () => {
   ]
 
   return (
-    <section className="w-full bg-white">
+    <section className="w-full bg-white font-poppins">
       <div className="max-w-6xl mx-auto px-4 sm:px-6 xl:px-8 py-8">
 
         <div className="grid xl:grid-cols-2 gap-10 items-center">

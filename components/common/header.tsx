@@ -27,7 +27,7 @@
 
     export default function Header(){
     return(
-        <header className="w-full border-b bg-white">
+        <header className="w-full border-b bg-white font-poppins ">
 
         <div className="container mx-auto flex items-center justify-between py-2 px-4 lg:px-6 xl:px-8">
 
@@ -47,7 +47,7 @@
         <Link
         key={item.name}
         href={item.href}
-        className="text-sm font-bold text-black hover:text-primary"
+        className="font-medium text-sm text-black hover:text-primary"
         >
         {item.name}
         </Link>
@@ -61,7 +61,7 @@
 
     <Input
     placeholder="Search"
-    className="border-none focus-visible:ring-0 shadow-none"
+    className="border-none focus-visible:ring-0 shadow-none font-inter"
     />
 
     <Button
@@ -107,7 +107,7 @@
 
                     <Input
                         placeholder="Search"
-                        className="border-none focus-visible:ring-0 shadow-none text-xs h-8"
+                        className="border-none focus-visible:ring-0 shadow-none text-xs h-8 font-inter"
                     />
 
                     <Button

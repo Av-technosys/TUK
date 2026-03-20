@@ -43,7 +43,7 @@ const Cards = () => {
     <section className="w-full bg-white py-6">
 
       {/* GRAY BAR */}
-      <div className="w-full bg-gray-100">
+      <div className="w-full bg-[#F9FAFB]">
 
         {/* CONTENT WIDTH */}
         <div className="max-w-5xl mx-auto px-4 sm:px-6 xl:px-8 py-6">
