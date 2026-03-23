@@ -94,10 +94,10 @@ export default function CategoryPage() {
 
                 {/* 🔥 DELETE WITH DIALOG */}
                 <AlertDialog>
-                  <AlertDialogTrigger asChild>
-                    <Button variant="destructive">
+                  <AlertDialogTrigger>
+                    <button className="px-3 py-1 text-sm font-medium text-red-600 border border-red-600 rounded hover:bg-red-50">
                       Delete
-                    </Button>
+                    </button>
                   </AlertDialogTrigger>
 
                   <AlertDialogContent>

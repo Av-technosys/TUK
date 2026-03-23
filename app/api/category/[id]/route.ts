@@ -7,14 +7,14 @@ import { NextResponse } from "next/server";
 // ✅ GET SINGLE CATEGORY
 export async function GET(
   req: Request,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
   try {
+    const { id } = await params;
     const data = await db
       .select()
-      .from(categories
-      )
-      .where(eq(categories.id, params.id));
+      .from(categories)
+      .where(eq(categories.id, id));
 
     return NextResponse.json(data[0]);
   } catch (error) {
@@ -26,9 +26,10 @@ export async function GET(
 // ✅ UPDATE CATEGORY
 export async function PUT(
   req: Request,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
   try {
+    const { id } = await params;
     const body = await req.json();
 
     const updated = await db
@@ -40,7 +41,7 @@ export async function PUT(
         image: body.image,
         updatedAt: new Date(),
       })
-      .where(eq(categories.id, params.id))
+      .where(eq(categories.id, id))
       .returning();
 
     return NextResponse.json(updated[0]);
@@ -53,12 +54,13 @@ export async function PUT(
 // ✅ DELETE CATEGORY
 export async function DELETE(
   req: Request,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
   try {
+    const { id } = await params;
     await db
       .delete(categories)
-      .where(eq(categories.id, params.id));
+      .where(eq(categories.id, id));
 
     return NextResponse.json({ message: "Deleted successfully" });
   } catch (error) {

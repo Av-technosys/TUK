@@ -1,0 +1,1 @@
+ALTER TABLE "products" ADD COLUMN "banner_image_url" text NOT NULL;

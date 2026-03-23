@@ -4,7 +4,8 @@ import { distributors } from "@/src/db/schema";
 import { eq } from "drizzle-orm";
 import { NextResponse } from "next/server";
 
-export async function PUT(req: Request, { params }: any) {
+export async function PUT(req: Request, { params }: { params: Promise<{ id: string }> }) {
+  const { id } = await params;
   const body = await req.json();
 
   const updated = await db
@@ -16,14 +17,15 @@ export async function PUT(req: Request, { params }: any) {
       image: body.image,
       updatedAt: new Date(),
     })
-    .where(eq(distributors.id, params.id))
+    .where(eq(distributors.id, id))
     .returning();
 
   return NextResponse.json(updated);
 }
 
-export async function DELETE(_: Request, { params }: any) {
-  await db.delete(distributors).where(eq(distributors.id, params.id));
+export async function DELETE(_: Request, { params }: { params: Promise<{ id: string }> }) {
+  const { id } = await params;
+  await db.delete(distributors).where(eq(distributors.id, id));
 
   return NextResponse.json({ success: true });
 }

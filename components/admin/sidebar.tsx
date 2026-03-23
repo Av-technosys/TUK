@@ -18,7 +18,7 @@ import {
 
 const navItems = [
   { label: "Dashboard", href: "/admin", icon: LayoutGrid },
-  { label: "Product", href: "/admin/product", icon: Box },
+  { label: "Product", href: "/admin/Product", icon: Box },
   { label: "Category", href: "/admin/category", icon: List },
   { label: "Distributors", href: "/admin/distributors", icon: User },
   {

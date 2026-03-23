@@ -1,0 +1,1 @@
+ALTER TABLE "products" ALTER COLUMN "banner_image_url" DROP NOT NULL;
