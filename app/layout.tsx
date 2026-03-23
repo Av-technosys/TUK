@@ -34,6 +34,15 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
+      <head>
+        <script src="https://di.oemsecrets.com/js/distributor-inventory_0.3.0.min.js"></script>
+<link href="https://di.oemsecrets.com/css/distributor-inventory_0.0.4.min.css" 
+rel="stylesheet"></link>
+<script src="https://di.oemsecrets.com/loader/project.js" 
+data-di-key="lzi9id925qx3h1102dsdm5jaqrbyyeam7zseny811ujijtvn3o9f2ayj1zgz42bk"
+data-di-project="product"
+></script>
+      </head>
       <body
         className={`${inter.variable} ${poppins.variable} ${barlow.variable}`}
       >

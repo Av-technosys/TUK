@@ -20,6 +20,7 @@ const navItems = [
   { label: "Dashboard", href: "/admin", icon: LayoutGrid },
   { label: "Product", href: "/admin/product", icon: Box },
   { label: "Category", href: "/admin/category", icon: List },
+  { label: "Distributors", href: "/admin/distributors", icon: User },
   {
     label: "Featured Products",
     href: "/admin/featured-products",

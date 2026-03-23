@@ -18,6 +18,7 @@ import FeaturedProducts from "@/components/common/homepage/FeaturedProducts";
 export default function Home() {
   return (
     <>
+    
       <Topbar />
       <Header />
       <Banner/>

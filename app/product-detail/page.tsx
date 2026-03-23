@@ -51,11 +51,13 @@ export default function Page() {
           <div className="grid lg:grid-cols-2 gap-10">
             <ProductGallery />
             <ProductInfo />
+             <div data-di-terms="SEPZ1yw|SEPZ2yw|SEPZ3yw|SEPZ5yw"></div>
           </div>
 
           {/* Technical Data Sheet Section */}
           <div className="mt-10">
             <TechnicalDataSheet />
+           
             <ProductDetailsTabs />
             <RelatedProducts />
           </div>
