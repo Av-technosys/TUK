@@ -21,17 +21,7 @@ const navItems = [
   { label: "Product", href: "/admin/Product", icon: Box },
   { label: "Category", href: "/admin/category", icon: List },
   { label: "Distributors", href: "/admin/distributors", icon: User },
-  {
-    label: "Featured Products",
-    href: "/admin/featured-products",
-    icon: ShoppingCart ,
-  },
-  {
-    label: "Featured Categories",
-    href: "/admin/featured-categories",
-    icon: Feather ,
-  },
-  { label: "Settings", href: "/admin/settings", icon: Settings },
+ 
 ];
 
 export function Sidebar() {
@@ -49,7 +39,7 @@ export function Sidebar() {
       </div>
 
       {/* Navigation */}
-      <nav className="space-y-3 overflow-y-auto h-[78vh]">
+      <nav className="space-y-4 overflow-y-auto h-[78vh]">
         {navItems.map(({ label, href, icon: Icon }) => {
           let active = false;
           if (href === "/admin") {

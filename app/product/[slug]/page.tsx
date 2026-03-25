@@ -1,47 +1,51 @@
-import Header from "@/components/common/header"
-import Footer from "@/components/common/footer"
+import Header from "@/components/common/header";
+import Footer from "@/components/common/footer";
 
-import ProductGallery from "@/components/common/product/product-gallery"
-import ProductInfo from "@/components/common/product/product-info"
-import TechnicalDataSheet from "@/components/common/product/TechnicalDataSheet"
-import ProductDetailsTabs from "@/components/common/product/ProductDetailsTabs"
-import RelatedProducts from "@/components/common/Related Products"
+import ProductGallery from "@/components/common/product/product-gallery";
+import ProductInfo from "@/components/common/product/product-info";
+import TechnicalDataSheet from "@/components/common/product/TechnicalDataSheet";
+import ProductDetailsTabs from "@/components/common/product/ProductDetailsTabs";
+import RelatedProducts from "@/components/common/Related Products";
 
-import Link from "next/link"
-import { notFound } from "next/navigation"
+import Link from "next/link";
+import { notFound } from "next/navigation";
+import DitermsSelector from "./DitermsSelector";
 
 interface ProductPageProps {
   params: Promise<{
-    slug: string
-  }>
+    slug: string;
+  }>;
 }
 
 export default async function Page({ params }: ProductPageProps) {
-  const { slug } = await params
+  const { slug } = await params;
 
   // Fetch product data
-  let product = null
-  let error = false
+  let product = null;
+  let error = false;
 
   try {
-    const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || "http://localhost:3000"
+    const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || "http://localhost:3000";
     const response = await fetch(`${baseUrl}/api/products/slug/${slug}`, {
       cache: "no-store",
-    })
+    });
 
     if (!response.ok) {
-      error = true
+      error = true;
     } else {
-      product = await response.json()
+      product = await response.json();
     }
   } catch (err) {
-    error = true
+    error = true;
   }
 
   // Show 404 if product not found
   if (error || !product) {
-    notFound()
+    notFound();
   }
+
+  const diTerms =
+    product.diTerms?.map((term: any) => term.value).join("|") || "";
 
   return (
     <>
@@ -50,7 +54,6 @@ export default async function Page({ params }: ProductPageProps) {
       {/* ✅ Breadcrumb Start */}
       <div className="w-full bg-gray-50 ">
         <div className="container mx-auto px-4 py-4 text-sm text-muted-foreground flex flex-wrap items-center gap-2">
-
           <Link href="/" className="hover:text-foreground transition">
             Home
           </Link>
@@ -72,36 +75,30 @@ export default async function Page({ params }: ProductPageProps) {
           <span className="text-foreground font-medium">
             {product.name || "Product"}
           </span>
-
         </div>
       </div>
       {/* ✅ Breadcrumb End */}
 
       <section className="w-full bg-muted/30">
         <div className="max-w-6xl mx-auto px-4 py-10">
-
           {/* Top Product Section */}
           <div className="grid lg:grid-cols-2 gap-10">
             <ProductGallery images={product.images || []} />
             <ProductInfo product={product} />
-             
           </div>
-          <div className="w-full float-right">
-            <div data-di-terms={product.diTerms?.map((term: any) => term.value).join("|") || ""}></div>
-          </div>
+          <DitermsSelector diTerms={diTerms} />
 
           {/* Technical Data Sheet Section */}
           <div className="mt-10">
             <TechnicalDataSheet product={product} />
-           
-            <ProductDetailsTabs product={product} />
-            <RelatedProducts />
-          </div>
 
+            <ProductDetailsTabs product={product} />
+            <RelatedProducts categoryID={product.categoryId} />
+          </div>
         </div>
       </section>
 
       <Footer />
     </>
-  )
+  );
 }

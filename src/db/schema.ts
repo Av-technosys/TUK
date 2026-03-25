@@ -38,7 +38,9 @@ export const products = pgTable("products", {
   description: text("description"),
   bannerImageUrl:text("banner_image_url"),
   shortDescription: text("short_description"),
-  categoryId: uuid("category_id").references(() => categories.id),
+  categoryId: uuid("category_id")
+  .references(() => categories.id)
+  .notNull(),
   brand: varchar("brand", { length: 255 }),
   sku: varchar("sku", { length: 100 }),
   productCode: varchar("product_code", { length: 100 }),

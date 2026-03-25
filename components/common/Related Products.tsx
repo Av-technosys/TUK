@@ -1,101 +1,71 @@
-"use client"
+"use client";
 
-import Image from "next/image"
-import { IconHeart, IconArrowUpRight } from "@tabler/icons-react"
+import { useEffect, useState } from "react";
 
-const products = [
-  {
-    badge: "NEW",
-    title: "SPEEDY Cat6a Shielded",
-    desc: "High-performance shielded connector for data centers and EMI-heavy environments.",
-    image: "/image/arival1.png",
-  },
-  {
-    badge: "",
-    title: "Professional Kit Pro",
-    desc: "Complete toolset for field technicians, including crimpers, testers, and cutters.",
-    image: "/image/arival3.png",
-  },
-  {
-    badge: "POPULAR",
-    title: "24-Port Angled Panel",
-    desc: "High-density patch panel with 45-degree angle ports for optimized cable management.",
-    image: "/image/arival2.png",
-  },
-  {
-    badge: "",
-    title: "Professional Kit Pro",
-    desc: "Complete toolset for field technicians, including crimpers, testers, and cutters.",
-    image: "/image/arival3.png",
-  },
-]
+type Product = {
+  id: string;
+  name: string;
+  bannerImageUrl?: string | null;
+};
 
-const RelatedProducts = () => {
+export default function RelatedProducts({
+  categoryID,
+}: {
+  categoryID: string;
+}) {
+  const [related, setRelated] = useState<Product[]>([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const fetchRelated = async () => {
+      try {
+        const res = await fetch(`/api/products/${categoryID}/related`);
+        const data = await res.json();
+
+        // ✅ IMPORTANT FIX
+        if (Array.isArray(data)) {
+          setRelated(data);
+        } else {
+          setRelated([]); // fallback
+        }
+      } catch (err) {
+        console.error(err);
+        setRelated([]);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchRelated();
+  }, [categoryID]);
+
+  // console.log("RELATED DATA:", related);
   return (
-    <section className="w-full font-poppins bg-muted/30">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 xl:px-8 py-12 space-y-10">
+    <div className="mt-12">
+      <h2 className="text-2xl font-semibold mb-6">Related Products</h2>
 
-        {/* Heading */}
-        <div>
-          <h2 className="text-2xl xl:text-3xl font-semibold font-inter text-foreground">
-            Related Products
-          </h2>
-        </div>
+      {loading && <p>Loading...</p>}
 
-        {/* Grid */}
-       <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-6">
-          {products.map((item, index) => (
+      {!loading && related.length === 0 && <p>No related products found</p>}
+
+      <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
+        {Array.isArray(related) &&
+          related.map((item) => (
             <div
-              key={index}
-              className="bg-background border rounded-xl overflow-hidden hover:shadow-md transition"
+              key={item?.id}
+              className="border rounded-lg  hover:shadow-md transition"
             >
+              <img
+                src={item?.bannerImageUrl || "/placeholder.png"}
+                className="h-44 object-cover w-full rounded-t-lg"
+              />
 
-              {/* Image */}
-              <div className="relative w-full h-48">
-                {item.badge && (
-                  <span className="absolute top-3 left-3 bg-[#0300A7] text-white text-xs px-3 py-1 rounded-full z-10">
-                    {item.badge}
-                  </span>
-                )}
-
-                <Image
-                  src={item.image}
-                  alt={item.title}
-                  fill
-                  className="object-cover"
-                />
-              </div>
-
-              {/* Content */}
-              <div className="p-5 space-y-3">
-                <h3 className="text-base xl:text-lg font-semibold ">
-                  {item.title}
-                </h3>
-
-                <p className="text-muted-foreground text-sm leading-relaxed">
-                  {item.desc}
-                </p>
-
-                {/* Footer */}
-                <div className="flex items-center justify-between pt-2">
-                  <button className="flex items-center gap-1 text-[#0300A7] font-semibold text-sm hover:underline">
-                    View Specs
-                    <IconArrowUpRight size={16} />
-                  </button>
-
-                  <button className="border rounded-full p-2 hover:bg-muted transition text-[#0300A7]">
-                    <IconHeart size={18} />
-                  </button>
-                </div>
-              </div>
-
+              <h3 className="text-sm font-medium mt-3 text-center">
+                {item?.name}
+              </h3>
             </div>
           ))}
-        </div>
-
       </div>
-    </section>
-  )
+    </div>
+  );
 }
-
-export default RelatedProducts

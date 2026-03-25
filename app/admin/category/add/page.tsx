@@ -26,7 +26,7 @@ export default function EditCategoryPage() {
       const res = await fetch(`/api/category/${params.id}`);
       const data = await res.json();
 
-      console.log("EDIT DATA:", data); // debug
+      // console.log("EDIT DATA:", data); // debug
 
       setForm({
         name: data.name || "",

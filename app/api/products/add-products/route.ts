@@ -27,7 +27,6 @@ export async function POST(req: Request) {
       diTerms = [],
       bannerImageUrl = "",
       images = [], // ✅ ADD THIS (gallery images)
-      relatedProducts = [],
       content,
       pdfUrl,
     } = body;
@@ -118,15 +117,7 @@ export async function POST(req: Request) {
         );
       }
 
-      // 🔗 Related Products
-      if (Array.isArray(relatedProducts) && relatedProducts.length > 0) {
-        await tx.insert(relatedProductsTable).values(
-          relatedProducts.map((relId: string) => ({
-            productId,
-            relatedProductId: relId,
-          }))
-        );
-      }
+      
 
       return product;
     });

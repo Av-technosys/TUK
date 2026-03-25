@@ -1,219 +1,180 @@
-// components/dashboard-cards.tsx
-import { ShoppingCart, Package, Users, DollarSign } from "lucide-react"
-import { StatCard } from "./statCard"
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
-import { Badge } from "@/components/ui/badge"
+"use client";
 
-const recentProducts = [
-  {
-    id: "p_1001",
-    name: "Premium Wireless Headphones",
-    category: "Electronics",
-    price: "₹2,499",
-    stock: 18,
-    status: "Active" as const,
-    image:
-      "https://images.unsplash.com/photo-1518441902117-f0a949b1b190?auto=format&fit=crop&w=200&q=60",
-  },
-  {
-    id: "p_1002",
-    name: "Minimal Leather Wallet",
-    category: "Accessories",
-    price: "₹899",
-    stock: 42,
-    status: "Active" as const,
-    image:
-      "https://images.unsplash.com/photo-1620799139834-6b8f844fbe61?auto=format&fit=crop&w=200&q=60",
-  },
-  {
-    id: "p_1003",
-    name: "Cotton Oversized T‑Shirt",
-    category: "Fashion",
-    price: "₹699",
-    stock: 0,
-    status: "Out of stock" as const,
-    image:
-      "https://images.unsplash.com/photo-1520975958225-39f056b0ffc0?auto=format&fit=crop&w=200&q=60",
-  },
-  {
-    id: "p_1004",
-    name: "Stainless Steel Bottle (1L)",
-    category: "Home & Kitchen",
-    price: "₹499",
-    stock: 9,
-    status: "Low stock" as const,
-    image:
-      "https://images.unsplash.com/photo-1602143407151-7111542de6e8?auto=format&fit=crop&w=200&q=60",
-  },
-] as const
+import { ShoppingCart, Package, Truck, Boxes } from "lucide-react";
+import { StatCard } from "./statCard";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Badge } from "@/components/ui/badge";
+import { useEffect, useState } from "react";
 
-const recentCategories = [
-  {
-    id: "c_2001",
-    name: "Electronics",
-    items: 128,
-    featured: true,
-    image:
-      "https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=200&q=60",
-  },
-  {
-    id: "c_2002",
-    name: "Fashion",
-    items: 74,
-    featured: false,
-    image:
-      "https://images.unsplash.com/photo-1620799139834-6b8f844fbe61?auto=format&fit=crop&w=200&q=60",
-  },
-  {
-    id: "c_2003",
-    name: "Home & Kitchen",
-    items: 56,
-    featured: true,
-    image:
-      "https://images.unsplash.com/photo-1505691938895-1758d7feb511?auto=format&fit=crop&w=200&q=60",
-  },
-  {
-    id: "c_2004",
-    name: "Accessories",
-    items: 33,
-    featured: false,
-    image:
-      "https://images.unsplash.com/photo-1526170375885-4d8ecf77b99f?auto=format&fit=crop&w=200&q=60",
-  },
-] as const
+type RecentProduct = {
+  id: string;
+  name: string;
+  bannerImageUrl: string;
+  price: number;
+  categoryId: string;
+  stock: number;
+  sku: string;
+};
+
+type RecentCategory = {
+  id: string;
+  name: string;
+  image: string;
+  items: number;
+  featured: boolean;
+};
 
 export function DashboardCards() {
+  const [stats, setStats] = useState<any>(null);
+  const [data, setData] = useState<any>(null);
+
+  // ✅ Fetch both APIs together
+  useEffect(() => {
+    const fetchAll = async () => {
+      try {
+        const [statsRes, recentRes] = await Promise.all([
+          fetch("/api/dashboard"),
+          fetch("/api/dashboard/recent"),
+        ]);
+
+        const statsData = await statsRes.json();
+        const recentData = await recentRes.json();
+
+        setStats(statsData);
+        setData(recentData);
+      } catch (error) {
+        console.error("Error fetching dashboard:", error);
+      }
+    };
+
+    fetchAll();
+  }, []);
+
+  // ✅ Single loading state
+  if (!stats || !data) {
+    return <p className="text-center mt-10">Loading dashboard...</p>;
+  }
+
+ const recentProducts = data?.recentCategories?.flatMap((cat: any) => cat.products) || [];
+const recentCategories = data?.recentCategories || [];
+
+  // ✅ Format Data
+  const formattedProducts = recentProducts.map((p: RecentProduct) => ({
+    id: p.id,
+    name: p.name,
+     image: p.bannerImageUrl || "/no-image.png", // ✅ FIXED
+    price: `₹${p.price}`,
+    category: p.categoryId,
+    sku:p.sku,
+    stock: p.stock || 0,
+    status:
+      p.stock > 10 ? "Active" : p.stock > 0 ? "Low stock" : "Out of stock",
+  }));
+
+  const formattedCategories = recentCategories.map((c: any) => ({
+    id: c.id,
+    name: c.name,
+    image: c.image || "/no-image.png",
+    items: c.items || 0,
+    featured: c.featured || false,
+    products: c.products || [],
+  }));
+
   return (
     <div>
+      {/* 🔹 Stats Cards */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-      <StatCard
-        title="Total Categories" 
-        value="1,247" 
-        subtitle="+8.5% from last week ↑" 
-        subtitleVariant="positive"
-        icon={<ShoppingCart className="text-sky-500" size={24} />}
-        iconBg="bg-sky-100/50"
-      />
-      <StatCard 
-        title="Total Products" 
-        value="89" 
-        subtitle="78 Active Products" 
-        icon={<Package className="text-purple-500" size={24} />}
-        iconBg="bg-purple-100/50"
-      />
-      <StatCard 
-        title="Total Featured Products" 
-        value="89" 
-        subtitle="76 Active Products" 
-        icon={<Users className="text-yellow-500" size={24} />}
-        iconBg="bg-yellow-100/50"
-      />
-      <StatCard 
-        title="Total Featured Categories" 
-        value="$125" 
-        subtitle="76 Active Products" 
-        icon={<DollarSign className="text-emerald-500" size={24} />}
-        iconBg="bg-emerald-100/50"
-      />
-    </div>
-    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-6 mt-4">
-      <Card className="border shadow-sm hover:shadow-md transition-shadow">
-        <CardHeader className="pb-0">
-          <div className="flex items-center justify-between gap-3">
-            <CardTitle>Recent Products</CardTitle>
-            <Badge variant="secondary">{recentProducts.length} new</Badge>
-          </div>
-        </CardHeader>
-        <CardContent className="pt-0">
-          <div className="mt-3 divide-y rounded-lg border bg-background">
-            {recentProducts.map((p) => (
-              <div
-                key={p.id}
-                className="flex items-center gap-3 p-3 hover:bg-muted/40 transition-colors"
-              >
+        <StatCard
+          title="Total Categories"
+          value={stats.totalCategories}
+          subtitle="Live data"
+          icon={<ShoppingCart className="text-sky-500" size={24} />}
+          iconBg="bg-sky-100/50"
+        />
+
+        <StatCard
+          title="Total Products"
+          value={stats.totalProducts}
+          subtitle="Live data"
+          icon={<Package className="text-purple-500" size={24} />}
+          iconBg="bg-purple-100/50"
+        />
+
+        <StatCard
+          title="Total Related Products"
+          value={stats.totalRelatedProducts}
+          subtitle="Live data"
+          icon={<Boxes className="text-yellow-500" size={24} />}
+          iconBg="bg-yellow-100/50"
+        />
+
+        <StatCard
+          title="Total Distributors"
+          value={stats.totalDistributors}
+          subtitle="Live data"
+          icon={<Truck className="text-emerald-500" size={24} />}
+          iconBg="bg-emerald-100/50"
+        />
+      </div>
+
+      {/* 🔹 Recent Section */}
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-4">
+        {/* Products */}
+        <Card>
+          <CardHeader>
+            <div className="flex justify-between">
+              <CardTitle>Recent Products</CardTitle>
+              <Badge>{formattedProducts.length} new</Badge>
+            </div>
+          </CardHeader>
+
+          <CardContent>
+            {formattedProducts.map((p:any) => (
+              <div key={p.id} className="flex gap-3 p-3 border-b">
                 <img
-                  src={p.image}
+                  src={p.image || "/no-image.png"}
                   alt={p.name}
-                  className="h-12 w-12 rounded-lg object-cover ring-1 ring-foreground/10"
-                  loading="lazy"
+                  className="h-12 w-20 rounded-lg object-cover"
+                  onError={(e) => {
+                    ;(e.currentTarget as HTMLImageElement).src = "/no-image.png"
+                  }}
                 />
-
-                <div className="min-w-0 flex-1">
-                  <div className="flex items-center justify-between gap-3">
-                    <p className="truncate font-medium text-slate-900">
-                      {p.name}
-                    </p>
-                    <p className="shrink-0 text-sm font-semibold text-slate-900">
-                      {p.price}
-                    </p>
-                  </div>
-                  <div className="mt-0.5 flex flex-wrap items-center gap-2 text-xs text-muted-foreground">
-                    <span className="truncate">{p.category}</span>
-                    <span className="text-muted-foreground/60">•</span>
-                    <span>
-                      Stock:{" "}
-                      <span className="font-medium text-slate-700">
-                        {p.stock}
-                      </span>
-                    </span>
-                  </div>
+                <div className="flex-1">
+                  <p className="font-medium">{p.name}</p>
+                  <p className="text-sm text-gray-500">{p.sku}</p>
                 </div>
-
-                <Badge
-                  variant={
-                    p.status === "Active"
-                      ? "default"
-                      : p.status === "Low stock"
-                        ? "outline"
-                        : "destructive"
-                  }
-                >
-                  {p.status}
-                </Badge>
               </div>
             ))}
-          </div>
-        </CardContent>
-      </Card>
+          </CardContent>
+        </Card>
 
-      <Card className="border shadow-sm hover:shadow-md transition-shadow">
-        <CardHeader className="pb-0">
-          <div className="flex items-center justify-between gap-3">
-            <CardTitle>Recent Categories</CardTitle>
-            <Badge variant="secondary">{recentCategories.length} updated</Badge>
-          </div>
-        </CardHeader>
-        <CardContent className="pt-0">
-          <div className="mt-3 divide-y rounded-lg border bg-background">
-            {recentCategories.map((c) => (
-              <div
-                key={c.id}
-                className="flex items-center gap-3 p-3 hover:bg-muted/40 transition-colors"
-              >
-                <img
-                  src={c.image}
-                  alt={c.name}
-                  className="h-12 w-12 rounded-lg object-cover ring-1 ring-foreground/10"
-                  loading="lazy"
-                />
+        {/* Categories */}
+        <Card>
+          <CardHeader>
+            <div className="flex justify-between">
+              <CardTitle>Recent Categories</CardTitle>
+              <Badge>{formattedCategories.length} new</Badge>
+            </div>
+          </CardHeader>
 
-                <div className="min-w-0 flex-1">
-                  <p className="truncate font-medium text-slate-900">{c.name}</p>
-                  <p className="mt-0.5 text-xs text-muted-foreground">
-                    {c.items} items
-                  </p>
+          <CardContent>
+            {formattedCategories.map((c: any) => (
+              <div key={c.id} className="flex gap-3 p-3 border-b">
+                <img src={c.image} className="h-12 w-20 rounded" />
+                <div className="flex-1">
+                  <p className="font-medium">{c.name}</p>
+                 
+
+                  {/* 🔥 Associated Products */}
+                  <Badge variant="outline" className="mt-2">
+  {c.products?.length || 0} Products
+</Badge>
                 </div>
-
-                {c.featured ? (
-                  <Badge variant="default">Featured</Badge>
-                ) : (
-                  <Badge variant="outline">Standard</Badge>
-                )}
+                <Badge>{c.featured ? "Featured" : "Standard"}</Badge>
               </div>
             ))}
-          </div>
-        </CardContent>
-      </Card>
+          </CardContent>
+        </Card>
       </div>
     </div>
   );
