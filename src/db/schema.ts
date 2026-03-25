@@ -1,9 +1,12 @@
 import { relations } from 'drizzle-orm';
 import { pgTable, uuid, text, timestamp, varchar, json,integer, boolean } from 'drizzle-orm/pg-core'
+import { url } from 'inspector';
 
 export const users = pgTable('users', {
   id: uuid('id').defaultRandom().primaryKey(),
-  name: text('name'),
+  name: varchar("name", { length: 255 }).notNull(),
+  email: varchar("email", { length: 255 }).notNull().unique(),
+  passwordHash: varchar("password_hash", { length: 255 }).notNull(),
   createdAt: timestamp('created_at').defaultNow(),
 })
 
@@ -22,6 +25,7 @@ export const distributors = pgTable("distributors", {
   name: varchar("name", { length: 255 }).notNull(),
   slug: varchar("slug", { length: 255 }).notNull().unique(),
   description: text("description"),
+  visitUrl: varchar("url", { length: 500 }),
   image: varchar("image", { length: 500 }), 
   createdAt: timestamp("created_at").defaultNow().notNull(),
   updatedAt: timestamp("updated_at").defaultNow().notNull(),
@@ -90,6 +94,56 @@ export const productDiTerms = pgTable("product_di_terms", {
   createdAt: timestamp("created_at").defaultNow(),
 });
 
-export const productsRelations = relations(products, ({ many }) => ({
+export const productsRelations = relations(products, ({ many, one }) => ({
   images: many(productImages),
+  features: many(productFeatures),
+  specifications: many(productSpecifications),
+  relatedProductLinks: many(relatedProducts, { relationName: "product" }),
+  relatedAsRelated: many(relatedProducts, { relationName: "relatedProduct" }),
+  diTerms: many(productDiTerms),
+  category: one(categories, {
+    fields: [products.categoryId],
+    references: [categories.id],
+  }),
+}));
+
+export const productImagesRelations = relations(productImages, ({ one }) => ({
+  product: one(products, {
+    fields: [productImages.productId],
+    references: [products.id],
+  }),
+}));
+
+export const productFeaturesRelations = relations(productFeatures, ({ one }) => ({
+  product: one(products, {
+    fields: [productFeatures.productId],
+    references: [products.id],
+  }),
+}));
+
+export const productSpecificationsRelations = relations(productSpecifications, ({ one }) => ({
+  product: one(products, {
+    fields: [productSpecifications.productId],
+    references: [products.id],
+  }),
+}));
+
+export const relatedProductsRelations = relations(relatedProducts, ({ one }) => ({
+  product: one(products, {
+    fields: [relatedProducts.productId],
+    references: [products.id],
+    relationName: "product",
+  }),
+  relatedProduct: one(products, {
+    fields: [relatedProducts.relatedProductId],
+    references: [products.id],
+    relationName: "relatedProduct",
+  }),
+}));
+
+export const productDiTermsRelations = relations(productDiTerms, ({ one }) => ({
+  product: one(products, {
+    fields: [productDiTerms.productId],
+    references: [products.id],
+  }),
 }));

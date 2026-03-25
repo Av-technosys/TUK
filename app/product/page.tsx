@@ -1,16 +1,48 @@
 "use client"
 
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import Link from "next/link"
 import Header from "@/components/common/header"
 import Footer from "@/components/common/footer"
 import FilterSideBar from "@/components/common/product/FilterSidebar"
-import ProductDefine, { products } from "@/components/common/product/ProductDefine"
+import ProductDefine from "@/components/common/product/ProductDefine"
 
 export default function Page() {
 
   const [category, setCategory] = useState("All Categories")
   const [sort, setSort] = useState("latest")
+  const [products, setProducts] = useState<any[]>([])
+  const [loading, setLoading] = useState(true)
+
+  useEffect(() => {
+    const fetchProducts = async () => {
+      try {
+        const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || "http://localhost:3000"
+        const response = await fetch(`${baseUrl}/api/products`)
+        if (response.ok) {
+          const data = await response.json()
+          // Map API data to UI format
+          const mappedProducts = data.map((product: any) => ({
+            id: product.id,
+            title: product.name,
+            code: product.productCode,
+            category: product.brand || "Uncategorized",
+            image: product.bannerImageUrl || "/image/category.png",
+            new: false,
+            slug: product.slug,
+            description: product.shortDescription,
+          }))
+          setProducts(mappedProducts)
+        }
+      } catch (error) {
+        console.error("Error fetching products:", error)
+      } finally {
+        setLoading(false)
+      }
+    }
+
+    fetchProducts()
+  }, [])
 
   return (
     <>
@@ -98,12 +130,18 @@ export default function Page() {
             {/* PRODUCTS */}
 
             <div className="lg:w-3/4">
-
-              <ProductDefine
-                category={category}
-                sort={sort}
-                setSort={setSort}
-              />
+              {loading ? (
+                <div className="flex items-center justify-center py-12">
+                  <p className="text-gray-500">Loading products...</p>
+                </div>
+              ) : (
+                <ProductDefine
+                  category={category}
+                  sort={sort}
+                  setSort={setSort}
+                  products={products}
+                />
+              )}
 
             </div>
 

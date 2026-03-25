@@ -7,7 +7,17 @@ import {
   TabsContent,
 } from "@/components/ui/tabs"
 
-export default function ProductDetailsTabs() {
+interface ProductDetailsTabsProps {
+  product?: {
+    description?: string;
+    specifications?: Array<{ key: string; value: string }>;
+  };
+}
+
+export default function ProductDetailsTabs({ product }: ProductDetailsTabsProps) {
+  const description = product?.description || "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed euismod tempor incididunt ut labore et dolore magna aliqua."
+  const specifications = product?.specifications || []
+
   return (
     <div className="w-full mt-10 flex flex-col gap-8">
 
@@ -62,9 +72,7 @@ export default function ProductDetailsTabs() {
             </h3>
 
             <p className="text-muted-foreground leading-relaxed">
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed euismod tempor
-              incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-              quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+              {description}
             </p>
 
           </div>
@@ -139,50 +147,44 @@ export default function ProductDetailsTabs() {
 
         <div className="border rounded-xl overflow-hidden bg-white">
 
-          <div className="grid grid-cols-2 border-b p-4">
-            <span className="text-muted-foreground">Cable Type</span>
-            <span>Cat6 UTP</span>
-          </div>
+          {specifications.length > 0 ? (
+            specifications.map((spec, idx) => (
+              <div 
+                key={idx} 
+                className={`grid grid-cols-2 p-4 ${idx !== specifications.length - 1 ? 'border-b' : ''}`}
+              >
+                <span className="text-muted-foreground">{spec.key}</span>
+                <span>{spec.value}</span>
+              </div>
+            ))
+          ) : (
+            <>
+              <div className="grid grid-cols-2 border-b p-4">
+                <span className="text-muted-foreground">Cable Type</span>
+                <span>Cat6 UTP</span>
+              </div>
 
-          <div className="grid grid-cols-2 border-b p-4">
-            <span className="text-muted-foreground">Conductor</span>
-            <span>23AWG Solid Copper</span>
-          </div>
+              <div className="grid grid-cols-2 border-b p-4">
+                <span className="text-muted-foreground">Conductor</span>
+                <span>23AWG Solid Copper</span>
+              </div>
 
-          <div className="grid grid-cols-2 border-b p-4">
-            <span className="text-muted-foreground">Frequency</span>
-            <span>Up to 250MHz</span>
-          </div>
+              <div className="grid grid-cols-2 border-b p-4">
+                <span className="text-muted-foreground">Frequency</span>
+                <span>Up to 250MHz</span>
+              </div>
 
-          <div className="grid grid-cols-2 border-b p-4">
-            <span className="text-muted-foreground">Length</span>
-            <span>305m (1000ft)</span>
-          </div>
+              <div className="grid grid-cols-2 border-b p-4">
+                <span className="text-muted-foreground">Length</span>
+                <span>305m (1000ft)</span>
+              </div>
 
-          <div className="grid grid-cols-2 border-b p-4">
-            <span className="text-muted-foreground">Color</span>
-            <span>Blue</span>
-          </div>
-
-          <div className="grid grid-cols-2 border-b p-4">
-            <span className="text-muted-foreground">Jacket Material</span>
-            <span>PVC</span>
-          </div>
-
-          <div className="grid grid-cols-2 border-b p-4">
-            <span className="text-muted-foreground">Temperature Range</span>
-            <span>-20°C to +60°C</span>
-          </div>
-
-          <div className="grid grid-cols-2 border-b p-4">
-            <span className="text-muted-foreground">Standards</span>
-            <span>TIA/EIA-568-B.2</span>
-          </div>
-
-          <div className="grid grid-cols-2 p-4">
-            <span className="text-muted-foreground">Packaging</span>
-            <span>Pull Box</span>
-          </div>
+              <div className="grid grid-cols-2 p-4">
+                <span className="text-muted-foreground">Standards</span>
+                <span>TIA/EIA-568-B.2</span>
+              </div>
+            </>
+          )}
 
         </div>
 

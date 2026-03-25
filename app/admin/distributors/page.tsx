@@ -36,6 +36,7 @@ export default function DistributorList() {
       <table className="w-full border">
         <thead>
           <tr className="border-b">
+            <th>Image</th>
             <th>Name</th>
             <th>Slug</th>
             <th>Actions</th>
@@ -45,6 +46,7 @@ export default function DistributorList() {
         <tbody>
           {data.map((item: any) => (
             <tr key={item.id} className="border-b text-center">
+<td>{item.image && <img src={item.image} alt={item.name} className="h-16 w-16 object-contain -mr-14 ml-10 " />}</td>
               <td>{item.name}</td>
               <td>{item.slug}</td>
               <td className="space-x-2">

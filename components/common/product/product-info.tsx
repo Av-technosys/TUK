@@ -18,23 +18,43 @@ import {
   IconRosetteDiscountCheck
 } from "@tabler/icons-react"
 
-export default function ProductInfo() {
+interface ProductInfoProps {
+  product?: {
+    name?: string;
+    description?: string;
+    shortDescription?: string;
+    productCode?: string;
+    sku?: string;
+    brand?: string;
+    features?: Array<{ feature: string }>;
+    specifications?: Array<{ key: string; value: string }>;
+  };
+}
 
+export default function ProductInfo({ product }: ProductInfoProps) {
   const [qty, setQty] = useState(1)
+
+  // Fallback data
+  const productName = product?.name || "Cat6 UTP Cable – Blue 305m Box"
+  const productCode = product?.productCode || "PXSPDY6BL"
+  const sku = product?.sku || "PXSPDY6B / PXSPDY6BL"
+  const description = product?.description || "High-performance 23AWG solid copper conductor Cat6 UTP cable for reliable data transmission up to 250MHz. Suitable for Gigabit Ethernet installations. This premium quality cable meets all TIA/EIA standards and is ideal for commercial and industrial network installations."
+  const features = product?.features || []
+  const specs = product?.specifications || []
 
   return (
     <div className="flex flex-col gap-6">
 
       {/* Breadcrumb */}
       <div className="text-sm text-muted-foreground flex items-center gap-2">
-        <span className="text-primary font-medium">Network Cables</span>
+        <span className="text-primary font-medium">{product?.brand || "Network Cables"}</span>
         <span>|</span>
-        <span>SKU: PXSPDY6B / PXSPDY6BL</span>
+        <span>SKU: {sku}</span>
       </div>
 
       {/* Title */}
       <h1 className="text-3xl font-semibold">
-        Cat6 UTP Cable – Blue 305m Box
+        {productName}
       </h1>
 
       {/* Product Code */}
@@ -45,7 +65,7 @@ export default function ProductInfo() {
           </span>
 
           <span className="font-medium">
-            PXSPDY6BL
+            {productCode}
           </span>
 
           <IconCopy size={18} className="cursor-pointer text-muted-foreground" />
@@ -69,116 +89,45 @@ export default function ProductInfo() {
 
       {/* Description */}
       <p className="text-muted-foreground leading-relaxed">
-        High-performance 23AWG solid copper conductor Cat6 UTP cable for reliable
-        data transmission up to 250MHz. Suitable for Gigabit Ethernet installations.
-        This premium quality cable meets all TIA/EIA standards and is ideal for
-        commercial and industrial network installations.
+        {description}
       </p>
 
       {/* Key Features */}
-      <div className="flex flex-col gap-3">
-        <h3 className="font-semibold text-lg">
-          Key Features
-        </h3>
+      {features.length > 0 && (
+        <div className="flex flex-col gap-3">
+          <h3 className="font-semibold text-lg">
+            Key Features
+          </h3>
 
-        <ul className="flex flex-col gap-2">
-
-          <li className="flex items-start gap-2">
-            <IconCheck className="text-green-600 mt-1" size={18}/>
-            23AWG solid bare copper conductors for optimal performance
-          </li>
-
-          <li className="flex items-start gap-2">
-            <IconCheck className="text-green-600 mt-1" size={18}/>
-            Supports data rates up to 10 Gbps at limited distances
-          </li>
-
-          <li className="flex items-start gap-2">
-            <IconCheck className="text-green-600 mt-1" size={18}/>
-            Reduced crosstalk and improved signal-to-noise ratio
-          </li>
-
-          <li className="flex items-start gap-2">
-            <IconCheck className="text-green-600 mt-1" size={18}/>
-            Suitable for horizontal cabling in structured systems
-          </li>
-
-          <li className="flex items-start gap-2">
-            <IconCheck className="text-green-600 mt-1" size={18}/>
-            Easy pull box packaging for convenient installation
-          </li>
-
-          <li className="flex items-start gap-2">
-            <IconCheck className="text-green-600 mt-1" size={18}/>
-            Compliant with international cabling standards
-          </li>
-
-        </ul>
-      </div>
+          <ul className="flex flex-col gap-2">
+            {features.map((feature, idx) => (
+              <li key={idx} className="flex items-start gap-2">
+                <IconCheck className="text-green-600 mt-1" size={18}/>
+                {feature.feature}
+              </li>
+            ))}
+          </ul>
+        </div>
+      )}
 
       {/* Quick Specifications */}
-      <div className="bg-muted/40 rounded-xl border p-4">
-        <h4 className="font-semibold mb-3">
-          Quick Specifications
-        </h4>
+      {specs.length > 0 && (
+        <div className="bg-muted/40 rounded-xl border p-4">
+          <h4 className="font-semibold mb-3">
+            Quick Specifications
+          </h4>
 
-        <div className="grid grid-cols-2 gap-3 text-sm">
-
-          <div>
-            <p className="text-muted-foreground">Cable Type</p>
-            <p className="font-medium">Cat6 UTP</p>
+          <div className="grid grid-cols-2 gap-3 text-sm">
+            {specs.slice(0, 4).map((spec, idx) => (
+              <div key={idx}>
+                <p className="text-muted-foreground">{spec.key}</p>
+                <p className="font-medium">{spec.value}</p>
+              </div>
+            ))}
           </div>
-
-          <div>
-            <p className="text-muted-foreground">Conductor</p>
-            <p className="font-medium">23AWG Solid Copper</p>
-          </div>
-
-          <div>
-            <p className="text-muted-foreground">Frequency</p>
-            <p className="font-medium">Up to 250MHz</p>
-          </div>
-
-          <div>
-            <p className="text-muted-foreground">Length</p>
-            <p className="font-medium">305m (1000ft)</p>
-          </div>
-
         </div>
-      </div>
-
-      {/* Quantity (UPDATED) */}
-      <div className="flex items-center gap-3">
-
-        <span className="font-medium">
-          Quantity:
-        </span>
-
-        <div className="flex items-center border rounded-lg overflow-hidden">
-
-          <Button
-            variant="ghost"
-            className="px-3 rounded-none"
-            onClick={() => setQty((prev) => Math.max(1, prev - 1))}
-          >
-            -
-          </Button>
-
-          <div className="px-4 py-2 text-center min-w-[40px]">
-            {qty}
-          </div>
-
-          <Button
-            variant="ghost"
-            className="px-3 rounded-none"
-            onClick={() => setQty((prev) => prev + 1)}
-          >
-            +
-          </Button>
-
-        </div>
-
-      </div>
+      )}
+      
 <div className="flex flex-col sm:flex-row gap-4 w-full">
 
   {/* Request Quote */}

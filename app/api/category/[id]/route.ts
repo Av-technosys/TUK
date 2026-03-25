@@ -58,9 +58,14 @@ export async function DELETE(
 ) {
   try {
     const { id } = await params;
-    await db
+    const result = await db
       .delete(categories)
-      .where(eq(categories.id, id));
+      .where(eq(categories.id, id))
+      .returning();
+
+    if (!result.length) {
+      return NextResponse.json({ error: "Not found" }, { status: 404 });
+    }
 
     return NextResponse.json({ message: "Deleted successfully" });
   } catch (error) {

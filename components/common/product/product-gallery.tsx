@@ -10,14 +10,16 @@ import {
   IconMaximize,
 } from "@tabler/icons-react"
 
-const images = [
-  "/image/product.png",
-  "/image/product.png",
-  "/image/product.png",
-  "/image/product.png",
-]
+interface ProductGalleryProps {
+  images?: Array<{ imageUrl: string; isPrimary: boolean }>;
+}
 
-export default function ProductGallery() {
+export default function ProductGallery({ images: productImages = [] }: ProductGalleryProps) {
+  // Use product images if available, otherwise fall back to defaults
+  const images = productImages.length > 0 
+    ? productImages.map(img => img.imageUrl)
+    : ["/image/product.png", "/image/product.png", "/image/product.png", "/image/product.png"];
+    
   const [index, setIndex] = useState(0)
   const [zoomStyle, setZoomStyle] = useState({})
   const [zoom, setZoom] = useState(false)

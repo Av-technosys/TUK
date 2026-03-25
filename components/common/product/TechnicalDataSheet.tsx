@@ -1,7 +1,18 @@
+"use client"
+
 import { Button } from "@/components/ui/button"
 import { IconFileTypePdf, IconDownload } from "@tabler/icons-react"
 
-export default function TechnicalDataSheet() {
+interface TechnicalDataSheetProps {
+  product?: {
+    pdfUrl?: string;
+    name?: string;
+  };
+}
+
+export default function TechnicalDataSheet({ product }: TechnicalDataSheetProps) {
+  const pdfUrl = product?.pdfUrl
+
   return (
     <div className="w-full border rounded-xl bg-white flex items-center justify-between gap-6 p-6 flex-wrap">
 
@@ -30,7 +41,11 @@ export default function TechnicalDataSheet() {
 
       {/* Download Button */}
 
-      <Button className="rounded-full flex items-center gap-2">
+      <Button 
+        className="rounded-full flex items-center gap-2"
+        disabled={!pdfUrl}
+        onClick={() => pdfUrl && window.open(pdfUrl, "_blank")}
+      >
         <IconDownload size={18} />
         Download PDF
       </Button>

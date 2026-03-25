@@ -1,0 +1,1 @@
+ALTER TABLE "distributors" ADD COLUMN "url" varchar(500);

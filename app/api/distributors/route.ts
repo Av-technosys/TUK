@@ -17,6 +17,7 @@ export async function POST(req: Request) {
       slug: body.slug,
       description: body.description,
       image: body.image,
+      visitUrl: body.visitUrl,
     })
     .returning();
 

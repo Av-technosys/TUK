@@ -1,6 +1,7 @@
 "use client"
 
 import { useState } from "react"
+import Link from "next/link"
 import Image from "next/image"
 import { Button } from "@/components/ui/button"
 import { IconArrowRight } from "@tabler/icons-react"
@@ -22,7 +23,7 @@ import {
   PaginationPrevious,
 } from "@/components/ui/pagination"
 
-export const products = [
+const defaultProducts = [
   {
     id: 1,
     title: "Cat6 UTP Cable – Blue 305m Box",
@@ -153,15 +154,20 @@ export const products = [
   }
 ]
 
-const ProductDefine = ({ category, sort, setSort }: any) => {
+export const products = defaultProducts
+
+const ProductDefine = ({ category, sort, setSort, products: apiProducts = [] }: any) => {
 
   const [page, setPage] = useState(1)
   const productsPerPage = 12
+  
+  // Use API products if available, otherwise fall back to default products
+  const productsList = apiProducts.length > 0 ? apiProducts : defaultProducts
 
   let filtered =
     category === "All Categories"
-      ? [...products]
-      : products.filter((p: any) => p.category === category)
+      ? [...productsList]
+      : productsList.filter((p: any) => p.category === category)
 
   if (sort === "name") {
     filtered = filtered.sort((a: any, b: any) =>
@@ -235,15 +241,16 @@ const ProductDefine = ({ category, sort, setSort }: any) => {
 
         {visibleProducts.map((product: any) => (
 
-          <div
+          <Link 
             key={product.id}
-            className="bg-white border rounded-xl overflow-hidden hover:shadow-lg transition"
+            href={`/product/${product.slug || product.id}`}
+            className="bg-white border rounded-xl overflow-hidden hover:shadow-lg transition block"
           >
 
             <div className="relative">
 
               {product.new && (
-                <span className="absolute top-3 left-3 bg-[#FB923C] text-white text-xs px-3 py-1 rounded-full">
+                <span className="absolute top-3 left-3 bg-[#FB923C] text-white text-xs px-3 py-1 rounded-full z-10">
                   NEW
                 </span>
               )}
@@ -254,6 +261,9 @@ const ProductDefine = ({ category, sort, setSort }: any) => {
                 width={500}
                 height={400}
                 className="w-full h-32 sm:h-44 object-cover"
+                onError={(e) => {
+                  e.currentTarget.src = "/image/category.png"
+                }}
               />
 
             </div>
@@ -261,7 +271,7 @@ const ProductDefine = ({ category, sort, setSort }: any) => {
             <div className="p-4 space-y-2">
 
               <p className="text-xs font-semibold text-gray-400">
-                CABLING SOLUTIONS
+                {product.category || "CABLING SOLUTIONS"}
               </p>
 
               <h3 className="font-semibold text-sm sm:text-base leading-snug">
@@ -269,7 +279,7 @@ const ProductDefine = ({ category, sort, setSort }: any) => {
               </h3>
 
               <p className="text-gray-500 text-sm">
-                {product.desc}
+                {product.desc || product.description}
               </p>
 
               <Button
@@ -282,7 +292,7 @@ const ProductDefine = ({ category, sort, setSort }: any) => {
 
             </div>
 
-          </div>
+          </Link>
 
         ))}
 

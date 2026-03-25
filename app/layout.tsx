@@ -1,6 +1,8 @@
 import { Metadata } from "next";
 import "./globals.css";
 import { Inter, Poppins, Barlow } from "next/font/google";
+import { Toaster } from "sonner";
+
 
 const inter = Inter({
   subsets: ["latin"],
@@ -47,6 +49,7 @@ data-di-project="product"
         className={`${inter.variable} ${poppins.variable} ${barlow.variable}`}
       >
         {children}
+        <Toaster position="top-right" richColors />
       </body>
     </html>
   );

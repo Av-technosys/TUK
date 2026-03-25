@@ -15,6 +15,7 @@ export async function PUT(req: Request, { params }: { params: Promise<{ id: stri
       slug: body.slug,
       description: body.description,
       image: body.image,
+      visitUrl: body.visitUrl,
       updatedAt: new Date(),
     })
     .where(eq(distributors.id, id))
