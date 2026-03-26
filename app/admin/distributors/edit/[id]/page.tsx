@@ -104,22 +104,14 @@ export default function EditDistributor() {
     }
   };
 
-  // const handleUpdate = async () => {
-  //   setLoading(true);
-  //   await fetch(`/api/distributors/${id}`, {
-  //     method: "PUT",
-  //     body: JSON.stringify(form),
-  //   });
-
-  //   alert("Updated!");
-  //   setLoading(false);
-  // };
+  
 
   return (
-    <div className="p-6 space-y-4 max-w-md border rounded-2xl shadow-2xl my-2 justify-center mx-auto">
+    <div className="p-6 space-y-4 max-w-md ml-4 ">
       <h2 className="text-xl font-semibold">Edit Distributor</h2>
 
-      <div>
+      <div className="ml-10 space-y-4">
+        <div>
         <label className="block text-lg font-medium mb-2">Name</label>
         <Input
           placeholder="Name"
@@ -200,6 +192,7 @@ export default function EditDistributor() {
       <Button onClick={handleSubmit} disabled={loading} >
         {loading ? "Updating..." : "Update Distributor"}
       </Button>
+      </div>
     </div>
   );
 }

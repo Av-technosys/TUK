@@ -113,6 +113,20 @@
       "when": 1774431713474,
       "tag": "0015_married_dagger",
       "breakpoints": true
+    },
+    {
+      "idx": 16,
+      "version": "7",
+      "when": 1774445020762,
+      "tag": "0016_perfect_fenris",
+      "breakpoints": true
+    },
+    {
+      "idx": 17,
+      "version": "7",
+      "when": 1774499959065,
+      "tag": "0017_married_vulture",
+      "breakpoints": true
     }
   ]
 }

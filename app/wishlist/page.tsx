@@ -1,6 +1,6 @@
 "use client"
 
-import React from "react"
+import React, { useEffect, useState } from "react"
 import Header from "@/components/common/header"
 import Footer from "@/components/common/footer"
 
@@ -18,29 +18,23 @@ import {
   IconUsers,
   IconWorld
 } from "@tabler/icons-react"
+import { getWishlist, removeFromWishlist } from "@/src/lib/wishlist"
 
-const products = [
-  {
-    name: "Speedy RJ45 Cat 6 Plugs",
-    code: "TUK-SRJ6-50",
-    stock: "In Stock",
-    img: "/image/wishlist.png",
-  },
-  {
-    name: "1U 24 Port Toolless Patch Panel",
-    code: "TUK-PP-24U",
-    stock: "Available to Order",
-    img: "/image/wishlist.png",
-  },
-  {
-    name: "Cat 6A Keystone Jack - Shuttered",
-    code: "TUK-KJ6A-W",
-    stock: "In Stock",
-    img: "/image/wishlist.png",
-  },
-]
+      
+
 
 const Page = () => {
+  const [wishlist, setWishlist] = useState<any[]>([])
+
+  useEffect(() => {
+        setWishlist(getWishlist())
+      }, [])
+
+      const handleDelete = (id: string) => {
+  const updated = removeFromWishlist(id)
+  setWishlist(updated)
+}
+
   return (
     <>
       <Header />
@@ -57,9 +51,7 @@ const Page = () => {
               </h1>
             </div>
 
-            <p className="text-sm text-gray-500">
-              3 Items Saved
-            </p>
+           
           </div>
 
           <Card className="bg-white border rounded-xl">
@@ -73,7 +65,7 @@ const Page = () => {
               </div>
 
               {/* Rows */}
-              {products.map((item, index) => (
+              {wishlist.map((item, index) => (
                 <div
                   key={index}
                   className="grid grid-cols-1 md:grid-cols-12 items-start md:items-center border-b last:border-none px-4 md:px-6 py-6 gap-4"
@@ -84,7 +76,7 @@ const Page = () => {
                   {/* Product Image */}
 <div className="md:col-span-2 flex items-center">
   <Image
-    src={item.img}
+    src={item.bannerImageUrl || item.img}
     alt="product"
     width={80}
     height={80}
@@ -100,7 +92,7 @@ const Page = () => {
                     </h3>
 
                     <p className="text-sm text-gray-500">
-                      CODE: {item.code}
+                      CODE: {item.sku}
                     </p>
 
                     <p
@@ -121,7 +113,10 @@ const Page = () => {
                       ENQUIRE
                     </Button>
 
-                    <IconTrash className="text-gray-400 cursor-pointer hover:text-red-500" />
+                   <IconTrash
+  className="text-gray-400 cursor-pointer hover:text-red-500"
+  onClick={() => handleDelete(item.id)}
+/>
                   </div>
 
                 </div>

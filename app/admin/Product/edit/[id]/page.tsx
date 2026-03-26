@@ -19,6 +19,7 @@ import {
   TabsTrigger,
 } from "@/components/ui/tabs";
 import RichEditor from "@/components/common/RichEditor";
+import { toast } from "sonner";
 
 export default function EditProductPage() {
   const { id } = useParams();
@@ -68,15 +69,16 @@ export default function EditProductPage() {
       try {
         const res = await fetch(`/api/products/${id}`);
         const data = await res.json();
+        const product = data.product || data;
 
         setForm({
-          name: data.name || "",
-          slug: data.slug || "",
-          description: data.description || "",
-          shortDescription: data.shortDescription || "",
-          brand: data.brand || "",
-          sku: data.sku || "",
-          productCode: data.productCode || "",
+          name: product.name || "",
+          slug: product.slug || "",
+          description: product.description || "",
+          shortDescription: product.shortDescription || "",
+          brand: product.brand || "",
+          sku: product.sku || "",
+          productCode: product.productCode || "",
         });
 
         setCategoryId(data.categoryId || "");
@@ -134,69 +136,82 @@ export default function EditProductPage() {
 
   // 🖼️ Handle Banner Image Upload
   const handleUpload = async (e: any) => {
-    const file = e.target.files[0];
-    if (!file) return;
+  const file = e.target.files[0];
+  if (!file) return;
 
+  const toastId = toast.loading("Uploading banner image...");
+
+  try {
     setLoadingImg(true);
 
     const formData = new FormData();
     formData.append("file", file);
 
-    try {
-      const res = await fetch("/api/upload", {
-        method: "POST",
-        body: formData,
-      });
+    const res = await fetch("/api/upload", {
+      method: "POST",
+      body: formData,
+    });
 
-      const data = await res.json();
-      setBannerImageUrl(data.url);
-      setLoadingImg(false);
-    } catch (error) {
-      console.error("Error uploading banner:", error);
-      setLoadingImg(false);
-    }
-  };
+    const data = await res.json();
+
+    setBannerImageUrl(data.url);
+
+    toast.success("Banner uploaded ✅", { id: toastId });
+  } catch (error) {
+    console.error(error);
+    toast.error("Banner upload failed ❌", { id: toastId });
+  }
+
+  setLoadingImg(false);
+};
 
   // 📄 Handle PDF Upload
   const handlePdfUpload = async (e: any) => {
-    const file = e.target.files[0];
-    if (!file) return;
+  const file = e.target.files[0];
+  if (!file) return;
 
-    if (file.type !== "application/pdf") {
-      alert("Only PDF allowed");
-      return;
-    }
+  if (file.type !== "application/pdf") {
+    toast.error("Only PDF allowed ❌");
+    return;
+  }
 
+  const toastId = toast.loading("Uploading PDF...");
+
+  try {
     setPdfLoading(true);
 
     const formData = new FormData();
     formData.append("file", file);
 
-    try {
-      const res = await fetch("/api/upload", {
-        method: "POST",
-        body: formData,
-      });
+    const res = await fetch("/api/upload", {
+      method: "POST",
+      body: formData,
+    });
 
-      const data = await res.json();
-      setPdf(data.url);
-      setPdfLoading(false);
-    } catch (error) {
-      console.error("Error uploading PDF:", error);
-      setPdfLoading(false);
-    }
-  };
+    const data = await res.json();
+
+    setPdf(data.url);
+
+    toast.success("PDF uploaded ✅", { id: toastId });
+  } catch (error) {
+    console.error(error);
+    toast.error("PDF upload failed ❌", { id: toastId });
+  }
+
+  setPdfLoading(false);
+};
 
   // 🖼️ Handle Gallery Upload
   const handleGalleryUpload = async (e: any) => {
     const files = e.target.files;
     if (!files.length) return;
-
+     const toastId = toast.loading("Uploading gallery images...");
+ try {
     setGalleryLoading(true);
 
     const uploadedUrls: string[] = [];
 
-    try {
+   
       for (let i = 0; i < files.length; i++) {
         const formData = new FormData();
         formData.append("file", files[i]);
@@ -211,62 +226,79 @@ export default function EditProductPage() {
       }
 
       setGalleryImages((prev) => [...prev, ...uploadedUrls]);
-      setGalleryLoading(false);
+      toast.success("Gallery uploaded ✅", { id: toastId });
     } catch (error) {
       console.error("Error uploading gallery:", error);
-      setGalleryLoading(false);
+      toast.error("Gallery upload failed ❌", { id: toastId });
+     
     }
+     setGalleryLoading(false);
   };
 
   // 🔥 UPDATE API CALL
-  const handleUpdate = async () => {
-    if (!form.name || !form.slug || !categoryId) {
-      alert("Please fill in all required fields (Name, Slug, Category)");
-      return;
-    }
+ const handleUpdate = async () => {
+  if (!form.name || !form.slug || !categoryId) {
+    toast.error("Please fill required fields ❌");
+    return;
+  }
 
+  const toastId = toast.loading("Updating product...");
+
+  try {
     setUpdating(true);
 
-    try {
-      const relatedProductsArray = selectedRelated && selectedRelated.trim() ? [selectedRelated] : [];
-      
-      const res = await fetch(`/api/products/${id}`, {
-        method: "PUT",
-        body: JSON.stringify({
-          name: form.name,
-          slug: form.slug,
-          description: form.description,
-          shortDescription: form.shortDescription,
-          brand: form.brand,
-          sku: form.sku,
-          productCode: form.productCode,
-          categoryId,
-          features: features.filter((f) => f?.trim()),
-          specs: specs.filter((s) => s?.key && s?.value),
-          techspecs: techspecs.filter((s) => s?.key && s?.value),
-          diTerms: diTerms.split("|").filter((t) => t?.trim()),
-          bannerImageUrl,
-          images: galleryImages,
-          relatedProducts: relatedProductsArray,
-          content,
-          pdfUrl: pdf,
-        }),
+    const relatedProductsArray =
+      selectedRelated && selectedRelated.trim()
+        ? [selectedRelated]
+        : [];
+
+    const res = await fetch(`/api/products/${id}`, {
+      method: "PUT",
+      body: JSON.stringify({
+        name: form.name,
+        slug: form.slug,
+        description: form.description,
+        shortDescription: form.shortDescription,
+        brand: form.brand,
+        sku: form.sku,
+        productCode: form.productCode,
+        categoryId,
+        features: features.filter((f) => f?.trim()),
+        specs: specs.filter((s) => s?.key && s?.value),
+        techspecs: techspecs.filter((s) => s?.key && s?.value),
+        diTerms: diTerms.split("|").filter((t) => t?.trim()),
+        bannerImageUrl,
+        images: galleryImages,
+        relatedProducts: relatedProductsArray,
+        content,
+        pdfUrl: pdf,
+      }),
+    });
+
+    const data = await res.json();
+
+    if (data.success) {
+      toast.success("Product updated successfully 🎉", {
+        id: toastId,
       });
 
-      const data = await res.json();
-      if (data.success) {
-        alert("Product updated successfully!");
+      setTimeout(() => {
         router.push("/admin/Product");
-      } else {
-        alert("Error: " + (data.error || "Failed to update"));
-      }
-    } catch (error) {
-      console.error("Error updating product:", error);
-      alert("Error updating product: " + (error instanceof Error ? error.message : "Unknown error"));
-    } finally {
-      setUpdating(false);
+      }, 800);
+    } else {
+      toast.error(data.error || "Update failed ❌", {
+        id: toastId,
+      });
     }
-  };
+  } catch (error) {
+    console.error(error);
+    toast.error("Something went wrong ❌", {
+      id: toastId,
+    });
+  } finally {
+    setUpdating(false);
+  }
+};
 
   // 🗑️ Remove image
   const removeImage = (index: number) => {

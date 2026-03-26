@@ -18,7 +18,10 @@ export async function POST(req: Request) {
   image: body.image, // ✅ ADD THIS LINE
 }).returning();
 
-    return NextResponse.json(newCategory[0]);
+    return NextResponse.json({
+  success: true,
+  data: newCategory[0],
+});
   } catch (error) {
     return NextResponse.json({ error: "Failed to create category" }, { status: 500 });
   }

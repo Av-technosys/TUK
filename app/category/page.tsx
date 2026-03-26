@@ -1,16 +1,39 @@
 "use client"
 
-import { useState } from "react"
+import { Suspense } from "react"
+import { useEffect, useState } from "react"
 import Link from "next/link"
 import Header from "@/components/common/header"
 import Footer from "@/components/common/footer"
 import FilterSide from "@/components/common/category/FilterSide"
 import CategoryDefine from "@/components/common/category/CategoryDefine"
+import { products } from "@/components/common/product/ProductDefine"
+import { CategoryFilter } from "./CategoryFilter"
+
+export const dynamic = "force-dynamic"
 
 export default function Page() {
 
-  const [category, setCategory] = useState("All Categories")
   const [sort, setSort] = useState("latest")
+  const [category, setCategory] = useState("All Categories")
+  const [categories, setCategories] = useState<any[]>([])
+
+  const handleCategoryChange = (newCategory: string) => {
+    setCategory(newCategory)
+  }
+
+  const handleCategoriesLoad = (data: any[]) => {
+    setCategories(data)
+  }
+
+  const filteredProducts =
+    category === "All Categories"
+      ? products
+      : products.filter(
+          (p: any) =>
+            p.category === category ||
+            p.categoryName === category
+        )
 
   return (
     <>
@@ -39,9 +62,15 @@ export default function Page() {
         </div>
       </div>
 
+      <Suspense fallback={<div className="w-full h-96 bg-gray-100" />}>
+        <CategoryFilter
+          onCategoryChange={handleCategoryChange}
+          onCategoriesLoad={handleCategoriesLoad}
+        />
+      </Suspense>
+
 <section className="bg-gray-100 w-full py-1 lg:py-10">
 
-        {/* yaha change kiya */}
         <div className="max-w-6xl mx-auto px-4">
 
         {/* MOBILE FILTER BAR */}

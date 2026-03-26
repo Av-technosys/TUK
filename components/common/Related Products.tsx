@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import { useEffect, useState } from "react";
 
 type Product = {
@@ -51,7 +52,8 @@ export default function RelatedProducts({
       <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
         {Array.isArray(related) &&
           related.map((item) => (
-            <div
+            <Link
+              href={`/product/${item.id}`}
               key={item?.id}
               className="border rounded-lg  hover:shadow-md transition"
             >
@@ -63,7 +65,7 @@ export default function RelatedProducts({
               <h3 className="text-sm font-medium mt-3 text-center">
                 {item?.name}
               </h3>
-            </div>
+            </Link>
           ))}
       </div>
     </div>

@@ -51,10 +51,10 @@ export default function DistributorList() {
               <td>{item.slug}</td>
               <td className="space-x-2">
                 <Link href={`/admin/distributors/edit/${item.id}`}>
-                  <Button size="sm">Edit</Button>
+                  <Button className="rounded" >Edit</Button>
                 </Link>
                 <Button
-                  size="sm"
+                  className="rounded"
                   variant="destructive"
                   onClick={() => handleDelete(item.id)}
                 >

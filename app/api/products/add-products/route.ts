@@ -28,6 +28,7 @@ export async function POST(req: Request) {
       bannerImageUrl = "",
       images = [], // ✅ ADD THIS (gallery images)
       content,
+      isFeatured = false,
       pdfUrl,
     } = body;
 
@@ -55,6 +56,7 @@ export async function POST(req: Request) {
           categoryId,
           content,
           pdfUrl,
+          isFeatured: Boolean(isFeatured),
         })
         .returning();
 

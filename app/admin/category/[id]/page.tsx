@@ -8,6 +8,7 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Card, CardContent } from "@/components/ui/card";
 import { Label } from "@/components/ui/label";
+import { toast } from "sonner";
 
 export default function EditCategoryPage() {
   const [form, setForm] = useState({
@@ -43,26 +44,46 @@ export default function EditCategoryPage() {
   }, [params.id]);
 
   // ✅ Upload Image
-  const uploadImage = async () => {
-    if (!file) return form.image;
+const uploadImage = async () => {
+  if (!file) return form.image;
 
-    const data = new FormData();
-    data.append("file", file);
+  const data = new FormData();
+  data.append("file", file);
 
+  const toastId = toast.loading("Uploading image...");
+
+  try {
     const res = await fetch("/api/upload", {
       method: "POST",
       body: data,
     });
 
     const result = await res.json();
-    return result.url;
-  };
+
+    if (result.url) {
+      toast.success("Image uploaded successfully ✅", {
+        id: toastId,
+      });
+      return result.url;
+    } else {
+      toast.error("Upload failed ❌", { id: toastId });
+      return form.image;
+    }
+  } catch (err) {
+    console.error(err);
+    toast.error("Upload error ❌", { id: toastId });
+    return form.image;
+  }
+};
 
   // ✅ Update Category
-  const handleUpdate = async () => {
+ const handleUpdate = async () => {
+  const toastId = toast.loading("Updating category...");
+
+  try {
     const imageUrl = await uploadImage();
 
-    await fetch(`/api/category/${params.id}`, {
+    const res = await fetch(`/api/category/${params.id}`, {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",
@@ -73,14 +94,35 @@ export default function EditCategoryPage() {
       }),
     });
 
-    router.push("/admin/category");
-  };
+    const data = await res.json();
+
+    if (res.ok) {
+      toast.success("Category updated successfully 🎉", {
+        id: toastId,
+      });
+
+      setTimeout(() => {
+        router.push("/admin/category");
+      }, 800);
+    } else {
+      toast.error(data.error || "Update failed ❌", {
+        id: toastId,
+      });
+    }
+  } catch (err) {
+    console.error(err);
+    toast.error("Something went wrong ❌", {
+      id: toastId,
+    });
+  }
+};
 
   return (
-    <div className="p-6 max-w-xl mx-auto">
-      <Card>
+    <div className="p-6 max-w-xl  ">
+      <h1 className="ml-4 text-2xl font-semibold">Edit Category</h1>
+      <Card className="ml-10 mt-4">
         <CardContent className="p-6 space-y-5">
-          <h1 className="text-2xl font-semibold">Edit Category</h1>
+          
 
           {/* NAME */}
           <div className="space-y-2">

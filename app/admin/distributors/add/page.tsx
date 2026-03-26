@@ -99,10 +99,11 @@ export default function AddDistributor() {
   };
 
   return (
-    <div className="p-6 space-y-4 max-w-md justify-center mx-auto border rounded-2xl shadow-2xl my-2">
+    <div className="p-6 space-y-4 max-w-md ml-4 ">
       <h2 className="text-xl font-semibold">Add Distributor</h2>
 
-      <div>
+     <div className="space-y-4 ml-10">
+       <div className="">
         <label className="block text-lg font-medium mb-2">Name</label>
         <Input
           placeholder="Name"
@@ -186,6 +187,7 @@ export default function AddDistributor() {
       >
         {loading ? "Saving..." : "Save Distributor"}
       </Button>
+     </div>
     </div>
   );
 }

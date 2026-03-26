@@ -3,73 +3,80 @@
 import { signIn } from "next-auth/react";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
+import { toast } from "sonner";
 
-export default function LoginPage() {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState("");
+export default function Login() {
   const router = useRouter();
+  const [form, setForm] = useState({
+    email: "",
+    password: "",
+  });
 
-  const handleLogin = async () => {
-    setLoading(true);
-    setError("");
+const handleLogin = async () => {
+  if (!form.email || !form.password) {
+    toast.error("Please enter email & password ❌");
+    return;
+  }
 
+  const toastId = toast.loading("Logging in...");
+
+  try {
     const res = await signIn("credentials", {
-      email,
-      password,
+      email: form.email,
+      password: form.password,
       redirect: false,
     });
 
-    if (res?.ok) {
-      setTimeout(() => router.push("/admin"), 100);
+    if (res?.error) {
+      toast.error(res.error || "Invalid credentials ❌", {
+        id: toastId,
+      });
     } else {
-      setError("Invalid email or password");
-    }
+      toast.success("Login successful 🎉", {
+        id: toastId,
+      });
 
-    setLoading(false);
-  };
+      setTimeout(() => {
+        router.push("/admin");
+      }, 800);
+    }
+  } catch (error) {
+    console.error(error);
+    toast.error("Something went wrong ❌", {
+      id: toastId,
+    });
+  }
+};
 
   return (
-   <>
-      <div className="min-h-screen flex items-center justify-center bg-gray-100">
-        <div className="bg-white p-8 rounded shadow-md w-full max-w-md">
-          <h2 className="text-2xl font-bold mb-6 text-center">Admin Login</h2>
+    <div className="flex h-screen items-center justify-center">
+      <div className="w-[350px] space-y-4">
+        <h1 className="text-xl font-bold">Login</h1>
 
-          {error && (
-          <div className="mb-4 text-red-500 text-sm text-center bg-red-100 p-2 rounded">
-            {error}
-          </div>
-        )}
-          <div className="mb-4">
-            <label className="block text-gray-700 mb-2">Email</label>
-            <input
+        <input
+          placeholder="Email"
+          className="w-full border p-2"
+          onChange={(e) => setForm({ ...form, email: e.target.value })}
+        />
 
-              type="email"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              className="w-full px-3 py-2 border rounded"
-            />
-          </div>
-          <div className="mb-6">
-            <label className="block text-gray-700 mb-2">Password</label>
-            <input
+        <input
+          type="password"
+          placeholder="Password"
+          className="w-full border p-2"
+          onChange={(e) => setForm({ ...form, password: e.target.value })}
+        />
 
-              type="password"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              className="w-full px-3 py-2 border rounded"
-            />
-          </div>
-          <button
-            onClick={handleLogin}
-            disabled={loading}
-            className="w-full bg-blue-500 text-white py-2 rounded hover:bg-blue-600"
-          >
-             {loading ? "Logging in..." : "Login"}
-          </button>
-        </div>
+        <button onClick={handleLogin} className="w-full bg-black text-white p-2">
+          Login
+        </button>
+
+        <p
+          className="text-sm text-blue-500 cursor-pointer"
+          onClick={() => router.push("/forgot-password")}
+        >
+          Forgot Password?
+        </p>
       </div>
-   </>
+    </div>
   );
 }

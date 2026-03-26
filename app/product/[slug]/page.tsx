@@ -44,9 +44,7 @@ export default async function Page({ params }: ProductPageProps) {
     notFound();
   }
 
-  const diTerms =
-    product.diTerms?.map((term: any) => term.value).join("|") || "";
-
+  
   return (
     <>
       <Header />
@@ -84,9 +82,9 @@ export default async function Page({ params }: ProductPageProps) {
           {/* Top Product Section */}
           <div className="grid lg:grid-cols-2 gap-10">
             <ProductGallery images={product.images || []} />
-            <ProductInfo product={product} />
+            <ProductInfo product={product}  />
           </div>
-          <DitermsSelector diTerms={diTerms} />
+          
 
           {/* Technical Data Sheet Section */}
           <div className="mt-10">

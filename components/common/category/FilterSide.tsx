@@ -4,7 +4,7 @@ import {
   RadioGroup,
   RadioGroupItem,
 } from "@/components/ui/radio-group"
-
+import { useEffect, useState } from "react"
 import {
   Select,
   SelectContent,
@@ -12,24 +12,37 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select"
+import { useRouter } from "next/navigation"
 
-const categories = [
-  "All Categories",
-  "Voice & Data",
-  "Fiber Optic",
-  "Network Racks",
-  "Patch Panels",
-  "Keystone Jacks",
-  "Power Distribution",
-  "Cable Management",
-  "Testing Equipment",
-  "Copper Cables",
-  "Wall Outlets",
-  "Tools & Accessories",
-]
+
+
 
 const FilterSide = ({ category, setCategory, sort, setSort }: any) => {
 
+  const router = useRouter()
+  const [categories, setCategories] = useState<any[]>([])
+const [loading, setLoading] = useState(true)
+
+useEffect(() => {
+  const fetchCategories = async () => {
+    try {
+      const res = await fetch("/api/category")
+      const data = await res.json()
+
+      // 🔥 Add "All Categories" manually
+      setCategories([{ id: "all", name: "All Categories" }, ...data])
+    } catch (error) {
+      console.error("Error fetching categories:", error)
+    } finally {
+      setLoading(false)
+    }
+  }
+
+  fetchCategories()
+}, [])
+if (loading) {
+  return <p className="p-4 text-sm">Loading categories...</p>
+}
   return (
     <div className="hidden lg:block bg-white rounded-xl border p-6 space-y-8">
 
@@ -42,24 +55,31 @@ const FilterSide = ({ category, setCategory, sort, setSort }: any) => {
         </h3>
 
         <RadioGroup
-          value={category}
-          onValueChange={setCategory}
-          className="flex flex-col gap-4"
-        >
-          {categories.map((cat) => (
-            <div key={cat} className="flex items-center gap-3">
+  value={category}
+  onValueChange={(value) => {
+    setCategory(value)
 
-              <RadioGroupItem value={cat} id={cat} />
+    const selected = categories.find((c) => c.name === value)
 
-              <label
-                htmlFor={cat}
-                className="text-black cursor-pointer"
-              >
-                {cat}
-              </label>
+    if (selected) {
+      router.push(`/category?categoryId=${selected.id}`)
+    }
+  }}
+>
+          {categories.map((cat: any) => (
+  <div key={cat.id} className="flex items-center gap-3">
 
-            </div>
-          ))}
+    <RadioGroupItem value={cat.name} id={cat.name} />
+
+    <label
+      htmlFor={cat.name}
+      className="text-black cursor-pointer"
+    >
+      {cat.name}
+    </label>
+
+  </div>
+))}
         </RadioGroup>
 
       </div>

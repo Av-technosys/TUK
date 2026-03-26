@@ -6,6 +6,7 @@ import Header from "@/components/common/header"
 import Footer from "@/components/common/footer"
 import FilterSideBar from "@/components/common/product/FilterSidebar"
 import ProductDefine from "@/components/common/product/ProductDefine"
+import FilterSide from "@/components/common/category/FilterSide"
 
 export default function Page() {
 
@@ -117,7 +118,7 @@ export default function Page() {
 
             <div className="hidden lg:block lg:w-1/4 lg:sticky lg:top-24 h-fit">
 
-              <FilterSideBar
+              <FilterSide
                 category={category}
                 setCategory={setCategory}
                 sort={sort}

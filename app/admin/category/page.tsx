@@ -83,7 +83,8 @@ export default function CategoryPage() {
               <TableCell className="text-right space-x-2">
 
                 {/* EDIT */}
-                <Button
+                <Button 
+                className="bg-black text-white px-3 py-1 text-sm font-medium rounded"
                   variant="outline"
                   onClick={() =>
                     router.push(`/admin/category/${cat.id}`)
@@ -95,9 +96,9 @@ export default function CategoryPage() {
                 {/* 🔥 DELETE WITH DIALOG */}
                 <AlertDialog>
                   <AlertDialogTrigger>
-                    <button className="px-3 py-1 text-sm font-medium text-red-600 border border-red-600 rounded hover:bg-red-50">
+                    <Button variant="destructive" className="px-3 py-1 text-sm font-medium  rounded ">
                       Delete
-                    </button>
+                    </Button>
                   </AlertDialogTrigger>
 
                   <AlertDialogContent>

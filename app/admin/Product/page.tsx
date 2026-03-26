@@ -46,7 +46,7 @@ export default function ProductsPage() {
         {/* Header */}
         <div className="flex justify-between">
           <h2 className="text-2xl font-bold mb-6">All Products</h2>
-        <Button onClick={() => (window.location.href = "/admin/Product/add-product")} className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600">
+        <Button onClick={() => (window.location.href = "/admin/Product/add-product")} className="bg-black text-white px-4 py-2 rounded-lg ">
           Add Product
         </Button>
         </div>
@@ -66,7 +66,7 @@ export default function ProductsPage() {
               </tr>
             </thead>
 
-            <tbody>
+            <tbody className="items-center">
               {products.map((p) => (
                 <tr key={p.id} className="border-t">
                   <td className="p-3">
@@ -89,14 +89,14 @@ export default function ProductsPage() {
                   <td className="p-3">{p.brand}</td>
                   <td className="p-3">{p.sku}</td>
 
-                  <td className="p-3 flex gap-2">
-                    <button
+                  <td className="p-3 flex gap-2 mt-4">
+                    <Button
                       onClick={() => router.push(`/admin/Product/edit/${p.id}`)}
-                      className="text-blue-600"
+                      className=" rounded"
                     >
                       Edit
-                    </button>
-                    <Button variant="destructive" onClick={() => handleDelete(p.id)}>
+                    </Button>
+                    <Button variant="destructive" className="rounded" onClick={() => handleDelete(p.id)}>
                       Delete
                     </Button>
                   </td>

@@ -1,60 +1,46 @@
 import NextAuth from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
+import { db } from "@/src/db";
+import { users } from "@/src/db/schema";
+import bcrypt from "bcryptjs";
 
 const handler = NextAuth({
   providers: [
     CredentialsProvider({
-      name: "Credentials",
+      name: "credentials",
       credentials: {
         email: {},
         password: {},
       },
+   async authorize(credentials) {
+  if (!credentials?.email || !credentials?.password) {
+    throw new Error("Missing email or password");
+  }
 
-      async authorize(credentials) {
-        const { email, password } = credentials as {
-          email: string;
-          password: string;
-        };
+  const user = await db.query.users.findFirst({
+    where: (u, { eq }) => eq(u.email, credentials.email),
+  });
 
-        if (email === "admin@gmail.com" && password === "123456") {
-          return {
-            id: "1",
-            name: "Admin",
-            email: "admin@gmail.com",
-            role: "admin",
-          };
-        }
+  if (!user) throw new Error("User not found");
 
-        return null;
-      },
+  if (!user.password) {
+    throw new Error("Password not set");
+  }
+
+  const isValid = await bcrypt.compare(
+    credentials.password,
+    user.password
+  );
+
+  if (!isValid) throw new Error("Invalid password");
+
+  if (!user.isVerified) throw new Error("Verify email first");
+
+  return user;
+}
     }),
   ],
-
-  session: {
-    strategy: "jwt",
-  },
-
-  pages: {
-    signIn: "/login", // custom login page
-  },
-
-  callbacks: {
-    async jwt({ token, user }) {
-      if (user) {
-        token.role = (user as any).role;
-      }
-      return token;
-    },
-
-    async session({ session, token }) {
-      if (session.user) {
-        session.user.role = token.role;
-      }
-      return session;
-    },
-  },
-
-  secret: process.env.NEXTAUTH_SECRET,
+  session: { strategy: "jwt" },
 });
 
 export { handler as GET, handler as POST };

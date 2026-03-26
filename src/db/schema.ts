@@ -2,13 +2,15 @@ import { relations } from 'drizzle-orm';
 import { pgTable, uuid, text, timestamp, varchar, json,integer, boolean } from 'drizzle-orm/pg-core'
 import { url } from 'inspector';
 
-export const users = pgTable('users', {
-  id: uuid('id').defaultRandom().primaryKey(),
-  name: varchar("name", { length: 255 }).notNull(),
-  email: varchar("email", { length: 255 }).notNull().unique(),
-  passwordHash: varchar("password_hash", { length: 255 }).notNull(),
-  createdAt: timestamp('created_at').defaultNow(),
-})
+export const users = pgTable("users", {
+  id: uuid("id").defaultRandom().primaryKey(),
+  name: text("name"),
+  email: text("email").unique(),
+  password: text("password"),
+  isVerified: boolean("is_verified").default(false),
+  otp: text("otp"),
+  otpExpiry: timestamp("otp_expiry"),
+});
 
 export const categories = pgTable("categories", {
   id: uuid("id").defaultRandom().primaryKey(),
@@ -46,6 +48,7 @@ export const products = pgTable("products", {
   productCode: varchar("product_code", { length: 100 }),
   pdfUrl: text("pdf_url"),
   content: json("content"),
+  isFeatured: boolean("is_featured").default(false),
   isActive: boolean("is_active").default(true),
   createdAt: timestamp("created_at").defaultNow(),
 });

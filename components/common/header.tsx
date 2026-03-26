@@ -2,7 +2,7 @@
 
     import Link from "next/link"
     import Image from "next/image"
-
+import { useRouter } from "next/navigation";
     import { Button } from "@/components/ui/button"
     import { Input } from "@/components/ui/input"
 
@@ -16,6 +16,7 @@
     IconMenu2,
     IconSearch
     } from "@tabler/icons-react"
+import { useEffect, useState } from "react"
 
     const navLinks = [
     { name:"Home",href:"/" },
@@ -24,8 +25,43 @@
     { name:"Wishlist",href:"/wishlist" },
     { name:"Contact",href:"/contact" },
     ]
+type Product = {
+  id: string;
+  name: string;
+  image: string;
+  category: string;
+};
 
     export default function Header(){
+         const [query, setQuery] = useState("");
+  const [results, setResults] = useState<Product[]>([]);
+  const [loading, setLoading] = useState(false);
+ 
+
+ useEffect(() => {
+    const delay = setTimeout(() => {
+      if (query.trim()) {
+        fetchResults(query);
+      } else {
+        setResults([]);
+      }
+    }, 400);
+
+    return () => clearTimeout(delay);
+  }, [query]);
+
+  const fetchResults = async (search: string) => {
+    setLoading(true);
+    try {
+      const res = await fetch(`/api/search?q=${search}`);
+      const data = await res.json();
+      setResults(data);
+    } catch (err) {
+      console.error(err);
+    }
+    setLoading(false);
+  };
+  const router = useRouter();
     return(
         <header className="w-full border-b bg-white font-poppins ">
 
@@ -57,21 +93,55 @@
         {/* Desktop Right */}
     <div className="hidden lg:flex items-center gap-2">
 
-    <div className="flex items-center border rounded-full overflow-hidden">
+     <div className="flex items-center border rounded-full overflow-hidden">
+        <Input
+          placeholder="Search products..."
+          value={query}
+          onChange={(e) => setQuery(e.target.value)}
+          className="border-none focus-visible:ring-0 shadow-none"
+        />
 
-    <Input
-    placeholder="Search"
-    className="border-none focus-visible:ring-0 shadow-none font-inter"
-    />
+        <Button
+          size="icon"
+          className="bg-orange-500 hover:bg-orange-600 rounded-none"
+        >
+          <IconSearch size={18} />
+        </Button>
+      </div>
 
-    <Button
-    size="icon"
-    className="bg-orange-500 hover:bg-orange-600 rounded-none"
-    >
-    <IconSearch size={18}/>
-    </Button>
+      {/* Dropdown */}
+      {query && (
+        <div className="absolute top-22 w-56 bg-white border mt-2 rounded-lg shadow-lg z-50 max-h-80 overflow-y-auto">
+          {loading ? (
+            <p className="p-3 text-sm">Searching...</p>
+          ) : results.length > 0 ? (
+            results.map((item) => (
+              <div
+              onClick={() => router.push(`/product/${item.id}`)}
+                key={item.id}
+                className="flex items-center gap-3 p-3 hover:bg-gray-100 cursor-pointer"
+              >
+                <Image
+                  src={item.image}
+                  alt={item.name}
+                  width={40}
+                  height={40}
+                  className="rounded"
+                />
 
-    </div>
+                <div className="flex-1">
+                  <p className="text-sm font-medium">{item.name}</p>
+                  <p className="text-xs text-gray-500">
+                    {item.category} 
+                  </p>
+                </div>
+              </div>
+            ))
+          ) : (
+            <p className="p-3 text-sm text-gray-500">No results found</p>
+          )}
+        </div>
+      )}
 
     <Button className="rounded-full bg-[#1E3A8A] hover:bg-[#1E3A8A] text-xs px-6 h-8">
         Enquiries
