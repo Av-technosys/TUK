@@ -22,6 +22,7 @@ const navLinks = [
 type Product = {
   id: string;
   name: string;
+  slug: string;
   image: string;
   category: string;
 };
@@ -102,7 +103,7 @@ export default function Header() {
               ) : results.length > 0 ? (
                 results.map((item) => (
                   <div
-                    onClick={() => router.push(`/product/${item.id}`)}
+                    onClick={() => router.push(`/product/${item.slug}`)}
                     key={item.id}
                     className="flex items-center gap-3 p-3 hover:bg-gray-100 cursor-pointer"
                   >
@@ -169,9 +170,7 @@ export default function Header() {
                   </Button>
                 </div>
 
-                <Button className="bg-[#1E3A8A] hover:bg-blue-800 text-xs h-8">
-                  Enquiries
-                </Button>
+                <EnquiryModal />
               </div>
             </SheetContent>
           </Sheet>

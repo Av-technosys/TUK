@@ -18,6 +18,7 @@ export async function GET(req: Request) {
         name: products.name,
         image: products.bannerImageUrl,
         category: categories.name,
+        slug: products.slug
       })
       .from(products)
       .leftJoin(categories, sql`${products.categoryId} = ${categories.id}`)
