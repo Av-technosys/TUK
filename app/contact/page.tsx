@@ -17,9 +17,65 @@ import Footer from "@/components/common/footer"
 import Header from "@/components/common/header"
 import { Label } from "@/components/ui/label"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
+import { toast } from "sonner"
 
 const Page = () => {
-  const [isChecked, setIsChecked] = useState(false);
+   const [isChecked, setIsChecked] = useState(false);
+
+  const [form, setForm] = useState({
+    name: "",
+    company: "",
+    email: "",
+    phone: "",
+    inquiry: "",
+    message: "",
+  });
+
+  const handleChange = (e: any) => {
+    setForm({ ...form, [e.target.name]: e.target.value });
+  };
+
+  const handleSubmit = async () => {
+    if (!form.name || !form.email || !form.message) {
+      toast.error("Please fill required fields");
+      return;
+    }
+
+    if (!isChecked) {
+      toast.error("Please accept terms");
+      return;
+    }
+
+    try {
+      const res = await fetch("/api/contact", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(form),
+      });
+
+      const data = await res.json();
+
+      if (data.success) {
+        toast.success("Message sent successfully 🎉");
+
+        setForm({
+          name: "",
+          company: "",
+          email: "",
+          phone: "",
+          inquiry: "",
+          message: "",
+        });
+        setIsChecked(false);
+      } else {
+        toast.error(data.error);
+      }
+    } catch (err) {
+      toast.error("Something went wrong");
+    }
+  };
   return (<>
   <Header/>
     <section className="w-full bg-gray-100 font-poppins">
@@ -114,65 +170,72 @@ const Page = () => {
         </div>
 
         {/* RIGHT SIDE FORM */}
-<div className="bg-white p-8 rounded-xl shadow space-y-6 xl:col-span-6 h-fit">
+ <div className="bg-white p-8 rounded-xl shadow space-y-6 xl:col-span-6 h-fit">
 
-          <h2 className="text-xl font-semibold">
-            Send us a message
-          </h2>
+      <h2 className="text-xl font-semibold">Send us a message</h2>
 
-          <div className="grid md:grid-cols-2 gap-6">
-            <div>
-               {/* <Label htmlFor="name">Full Name</Label> */}
-            <input
-              type="text"
-              id="name"
-              placeholder="Full Name"
-              className="border rounded-lg px-4 py-3 text-sm w-full"
-            />
-            </div>
+      {/* Name + Company */}
+      <div className="grid md:grid-cols-2 gap-6">
+        <input
+          name="name"
+          value={form.name}
+          onChange={handleChange}
+          placeholder="Full Name"
+          className="border rounded-lg px-4 py-3 text-sm w-full"
+        />
 
-            <input
-              type="text"
-              placeholder="Company"
-              className="border rounded-lg px-4 py-3 text-sm w-full"
-            />
+        <input
+          name="company"
+          value={form.company}
+          onChange={handleChange}
+          placeholder="Company"
+          className="border rounded-lg px-4 py-3 text-sm w-full"
+        />
+      </div>
 
-          </div>
+      {/* Email + Phone */}
+      <div className="grid md:grid-cols-2 gap-6">
+        <input
+          name="email"
+          value={form.email}
+          onChange={handleChange}
+          placeholder="Email Address"
+          className="border rounded-lg px-4 py-3 text-sm w-full"
+        />
 
-          <div className="grid md:grid-cols-2 gap-6">
+        <input
+          name="phone"
+          value={form.phone}
+          onChange={handleChange}
+          placeholder="Phone Number"
+          className="border rounded-lg px-4 py-3 text-sm w-full"
+        />
+      </div>
 
-            <input
-              type="email"
-              placeholder="Email Address"
-              className="border rounded-lg px-4 py-3 text-sm w-full"
-            />
+      {/* Inquiry */}
+      <select
+        name="inquiry"
+        value={form.inquiry}
+        onChange={handleChange}
+        className="border rounded-lg px-4 py-3 text-sm w-full"
+      >
+        <option value="">Select Inquiry</option>
+        <option value="product">Product enquiry</option>
+        <option value="service">Service inquiry</option>
+        <option value="general">General inquiry</option>
+      </select>
 
-            <input
-              type="text"
-              placeholder="Phone Number"
-              className="border rounded-lg px-4 py-3 text-sm w-full"
-            />
+      {/* Message */}
+      <textarea
+        name="message"
+        value={form.message}
+        onChange={handleChange}
+        placeholder="Message"
+        className="border rounded-lg px-4 py-3 text-sm w-full h-32"
+      />
 
-          </div>
-
-          <Select onValueChange={(value) => console.log(value)}>
-      <SelectTrigger className="w-full">
-        <SelectValue placeholder="Select " />
-      </SelectTrigger>
-
-      <SelectContent>
-        <SelectItem value="product">Product enquiry</SelectItem>
-        <SelectItem value="service">Service inquiry</SelectItem>
-        <SelectItem value="general">General inquiry</SelectItem>
-      </SelectContent>
-    </Select>
-
-          <textarea
-            placeholder="Message"
-            className="border rounded-lg px-4 py-3 text-sm w-full h-32"
-          ></textarea>
-
-            <label className="flex items-start gap-2 cursor-pointer">
+      {/* Checkbox */}
+      <label className="flex items-start gap-2 cursor-pointer">
         <input
           type="checkbox"
           checked={isChecked}
@@ -181,17 +244,21 @@ const Page = () => {
         />
 
         <span className="text-sm">
-          I agree to the <span className="text-blue-600 underline"> Terms & Conditions </span> 
-          and <span className="text-blue-600 underline"> Privacy Policy </span>.
+          I agree to the{" "}
+          <span className="text-blue-600 underline">Terms & Conditions</span> and{" "}
+          <span className="text-blue-600 underline">Privacy Policy</span>.
         </span>
       </label>
 
-          <Button className="bg-[#0300A7] py-6 rounded-full   hover:bg-blue-900 w-full flex items-center justify-center gap-2">
-            <IconSend size={18} />
-            SEND MESSAGE
-          </Button>
-
-        </div>
+      {/* Submit */}
+      <Button
+        onClick={handleSubmit}
+        className="bg-[#0300A7] py-6 rounded-full hover:bg-blue-900 w-full flex items-center justify-center gap-2"
+      >
+        <IconSend size={18} />
+        SEND MESSAGE
+      </Button>
+    </div>
 
       </div>
 
