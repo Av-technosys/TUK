@@ -81,7 +81,7 @@ export function ResetPasswordClient() {
         <Button
           onClick={handleReset}
           disabled={loading}
-          className="w-full bg-black text-white p-2"
+          className="w-full bg-black cursor-pointer text-white p-2"
         >
           {loading ? "Resetting..." : "Reset Password"}
         </Button>

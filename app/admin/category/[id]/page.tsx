@@ -44,94 +44,90 @@ export default function EditCategoryPage() {
   }, [params.id]);
 
   // ✅ Upload Image
-const uploadImage = async () => {
-  if (!file) return form.image;
+  const uploadImage = async () => {
+    if (!file) return form.image;
 
-  const data = new FormData();
-  data.append("file", file);
+    const data = new FormData();
+    data.append("file", file);
 
-  const toastId = toast.loading("Uploading image...");
+    const toastId = toast.loading("Uploading image...");
 
-  try {
-    const res = await fetch("/api/upload", {
-      method: "POST",
-      body: data,
-    });
-
-    const result = await res.json();
-
-    if (result.url) {
-      toast.success("Image uploaded successfully ✅", {
-        id: toastId,
+    try {
+      const res = await fetch("/api/upload", {
+        method: "POST",
+        body: data,
       });
-      return result.url;
-    } else {
-      toast.error("Upload failed ❌", { id: toastId });
+
+      const result = await res.json();
+
+      if (result.url) {
+        toast.success("Image uploaded successfully ✅", {
+          id: toastId,
+        });
+        return result.url;
+      } else {
+        toast.error("Upload failed ❌", { id: toastId });
+        return form.image;
+      }
+    } catch (err) {
+      console.error(err);
+      toast.error("Upload error ❌", { id: toastId });
       return form.image;
     }
-  } catch (err) {
-    console.error(err);
-    toast.error("Upload error ❌", { id: toastId });
-    return form.image;
-  }
-};
+  };
 
   // ✅ Update Category
- const handleUpdate = async () => {
-  const toastId = toast.loading("Updating category...");
+  const handleUpdate = async () => {
+    const toastId = toast.loading("Updating category...");
 
-  try {
-    const imageUrl = await uploadImage();
+    try {
+      const imageUrl = await uploadImage();
 
-    const res = await fetch(`/api/category/${params.id}`, {
-      method: "PUT",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        ...form,
-        image: imageUrl,
-      }),
-    });
-
-    const data = await res.json();
-
-    if (res.ok) {
-      toast.success("Category updated successfully 🎉", {
-        id: toastId,
+      const res = await fetch(`/api/category/${params.id}`, {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          ...form,
+          image: imageUrl,
+        }),
       });
 
-      setTimeout(() => {
-        router.push("/admin/category");
-      }, 800);
-    } else {
-      toast.error(data.error || "Update failed ❌", {
+      const data = await res.json();
+
+      if (res.ok) {
+        toast.success("Category updated successfully 🎉", {
+          id: toastId,
+        });
+
+        setTimeout(() => {
+          router.push("/admin/category");
+        }, 800);
+      } else {
+        toast.error(data.error || "Update failed ❌", {
+          id: toastId,
+        });
+      }
+    } catch (err) {
+      console.error(err);
+      toast.error("Something went wrong ❌", {
         id: toastId,
       });
     }
-  } catch (err) {
-    console.error(err);
-    toast.error("Something went wrong ❌", {
-      id: toastId,
-    });
-  }
-};
+  };
 
   return (
     <div className="p-6 max-w-xl  ">
       <h1 className="ml-4 text-2xl font-semibold">Edit Category</h1>
       <Card className="ml-10 mt-4">
         <CardContent className="p-6 space-y-5">
-          
-
           {/* NAME */}
           <div className="space-y-2">
             <Label>Name</Label>
             <Input
               value={form.name}
-              onChange={(e) =>
-                setForm({ ...form, name: e.target.value })
-              }
+              onChange={(e) => setForm({ ...form, name: e.target.value })}
             />
           </div>
 
@@ -140,9 +136,7 @@ const uploadImage = async () => {
             <Label>Slug</Label>
             <Input
               value={form.slug}
-              onChange={(e) =>
-                setForm({ ...form, slug: e.target.value })
-              }
+              onChange={(e) => setForm({ ...form, slug: e.target.value })}
             />
           </div>
 
@@ -189,7 +183,7 @@ const uploadImage = async () => {
           </div>
 
           {/* BUTTON */}
-          <Button onClick={handleUpdate} className="w-full">
+          <Button onClick={handleUpdate} className="w-full cursor-pointer">
             Update Category
           </Button>
         </CardContent>

@@ -91,7 +91,7 @@ export default function Login() {
         {/* Login Button */}
         <button
           onClick={handleLogin}
-          className="w-full bg-black hover:bg-gray-800 text-white p-2.5 rounded-lg font-medium transition"
+          className="w-full cursor-pointer bg-black hover:bg-gray-800 text-white p-2.5 rounded-lg font-medium transition"
         >
           Login
         </button>

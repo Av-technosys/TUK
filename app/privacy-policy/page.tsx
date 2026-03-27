@@ -1,142 +1,157 @@
 "use client";
 
+import { useState } from "react";
+
+const sections = [
+  { id: "who", label: "Who We Are" },
+  { id: "data", label: "Data We Process" },
+  { id: "usage", label: "How We Use Data" },
+  { id: "access", label: "Access Rights" },
+  { id: "responsible", label: "Responsible Person" },
+  { id: "changes", label: "Updates" },
+];
+
 export default function PrivacyPolicyPage() {
+  const [active, setActive] = useState("");
+
   return (
-    <div className="max-w-5xl mx-auto px-6 py-10 text-gray-700">
-      <h1 className="text-3xl font-bold mb-6 text-black">Privacy Policy</h1>
+    <div className="bg-gray-50 min-h-screen">
+      {/* 🔵 HERO SECTION */}
+      <div className="bg-gradient-to-r  from-[#141D3D] to-[#364FA3] text-white py-14 px-6">
+        <div className="max-w-6xl mx-auto">
+          <h1 className="text-4xl text-center font-bold">Privacy Policy</h1>
+          <p className="mt-2 text-sm opacity-90 text-center">
+            Your data privacy and protection is important to us.
+          </p>
+        </div>
+      </div>
 
-      {/* WHO WE ARE */}
-      <section className="mb-6">
-        <h2 className="text-xl font-semibold mb-2 text-black">Who We Are</h2>
-        <p>
-          TUK Ltd produces and supplies cabling systems and connectivity. This
-          policy relates to all such activities including those of any group
-          companies.
-        </p>
-      </section>
+      <div className="max-w-6xl mx-auto px-6 py-10 grid grid-cols-1 lg:grid-cols-4 gap-8">
+        {/* 📌 SIDEBAR */}
+        <div className="hidden lg:block">
+          <div className="sticky top-24 bg-white rounded-xl shadow p-4">
+            <h3 className="font-semibold mb-3 text-gray-800">Contents</h3>
+            <ul className="space-y-2 text-sm">
+              {sections.map((item) => (
+                <li key={item.id}>
+                  <a
+                    href={`#${item.id}`}
+                    className="text-gray-600 hover:text-blue-700 transition"
+                  >
+                    {item.label}
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </div>
+        </div>
 
-      {/* TYPES OF DATA WE PROCESS */}
-      <section className="mb-6">
-        <h2 className="text-xl font-semibold mb-2 text-black">
-          Types of Data We Process
-        </h2>
+        {/* 📄 MAIN CONTENT */}
+        <div className="lg:col-span-3 space-y-6">
+          {/* CARD */}
+          <div
+            id="who"
+            className="bg-white p-6 rounded-xl shadow hover:shadow-md transition"
+          >
+            <h2 className="text-xl font-semibold mb-2 text-gray-900">
+              Who We Are
+            </h2>
+            <p>
+              TUK Ltd produces and supplies cabling systems and connectivity.
+              This policy relates to all such activities including those of any
+              group companies.
+            </p>
+          </div>
 
-        <h3 className="font-semibold mt-3">General</h3>
-        <p>
-          We hold data about our employees, our customers and suppliers. We hold
-          the minimum necessary information for the shortest reasonable time. We
-          do not pass such information onto 3rd parties unless we are obliged
-          to. Such information is held on the grounds of legal obligation under
-          contract or due to our legitimate interest in holding the data to
-          fulfil legal or contractual obligations as an employer, supplier or
-          customer.
-        </p>
+          <div
+            id="data"
+            className="bg-white p-6 rounded-xl shadow hover:shadow-md transition"
+          >
+            <h2 className="text-xl font-semibold mb-3 text-gray-900">
+              Types of Data We Process
+            </h2>
 
-        <h3 className="font-semibold mt-3">Cookies</h3>
-        <p>
-          Where possible we minimise the use of cookies on our websites. They
-          are used to facilitate use of the website but we do not use them for
-          marketing.
-        </p>
+            <h3 className="font-semibold mt-2">General</h3>
+            <p>
+              We hold data about employees, customers and suppliers. We store
+              only necessary information and do not share with third parties
+              unless required.
+            </p>
 
-        <h3 className="font-semibold mt-3">Website Analytics</h3>
-        <p>
-          We use website analytics in anonymised form to learn how to improve
-          the performance of our websites.
-        </p>
+            <h3 className="font-semibold mt-3">Cookies</h3>
+            <p>We minimise cookies and do not use them for marketing.</p>
 
-        <h3 className="font-semibold mt-3">Mailing Lists</h3>
-        <p>
-          We collect personal information about customers and prospective
-          customers who have shown an interest in our products or services. We
-          use that information to tell you about new and existing products and
-          services.
-        </p>
-        <p className="mt-2">
-          We don’t rent or trade email lists with other organisations and
-          businesses. Our email ‘shots’ are sent by us rather than by a third
-          party.
-        </p>
-        <p className="mt-2">
-          Anyone receiving an unwanted promotional email can be removed from our
-          mailing list, although we shall continue to hold necessary data if
-          they remain a customer.
-        </p>
+            <h3 className="font-semibold mt-3">Website Analytics</h3>
+            <p>We use anonymised analytics to improve performance.</p>
 
-        <h3 className="font-semibold mt-3">Publicly Available Information</h3>
-        <p>
-          If we hold personal information that is readily available in the
-          public domain, we exercise the right not to delete it unless or until
-          we are satisfied it is no longer useful, unless asked to do so by the
-          data subject.
-        </p>
-      </section>
+            <h3 className="font-semibold mt-3">Mailing Lists</h3>
+            <p>
+              We use collected data to inform customers about products. No data
+              selling.
+            </p>
 
-      {/* HOW WE USE DATA */}
-      <section className="mb-6">
-        <h2 className="text-xl font-semibold mb-2 text-black">
-          How We Use Data
-        </h2>
-        <p>
-          When you deal with TUK as a customer or supplier or employee, your
-          name, company (if applicable), address data, email and contact
-          telephone number will be stored by us, securely and for the minimum
-          amount of time.
-        </p>
+            <h3 className="font-semibold mt-3">Public Information</h3>
+            <p>
+              Public domain data may be retained unless requested otherwise.
+            </p>
+          </div>
 
-        <p className="mt-2">
-          TUK reviews our customer database on a regular basis and contacts
-          customers every 2 years to confirm that they are happy to continue
-          receiving emails relating to special offers and products.
-        </p>
+          <div
+            id="usage"
+            className="bg-white p-6 rounded-xl shadow hover:shadow-md transition"
+          >
+            <h2 className="text-xl font-semibold mb-3 text-gray-900">
+              How We Use Data
+            </h2>
 
-        <ul className="list-disc pl-6 mt-3 space-y-1">
-          <li>To provide goods and services</li>
-          <li>To provide relevant and useful information/promotions</li>
-          <li>To manage any registered account(s) held with us</li>
-          <li>To verify identity</li>
-          <li>
-            For crime and fraud prevention, detection and related purposes
-          </li>
-          <li>For market research purposes</li>
-          <li>To manage customer service interactions</li>
-          <li>
-            Where we have a legal right or duty to use or disclose your
-            information
-          </li>
-        </ul>
-      </section>
+            <ul className="list-disc pl-6 space-y-1">
+              <li>Provide goods and services</li>
+              <li>Promotions and updates</li>
+              <li>Manage accounts</li>
+              <li>Verify identity</li>
+              <li>Fraud prevention</li>
+              <li>Market research</li>
+              <li>Customer service</li>
+              <li>Legal compliance</li>
+            </ul>
+          </div>
 
-      {/* ACCESS */}
-      <section className="mb-6">
-        <h2 className="text-xl font-semibold mb-2 text-black">
-          Access to Your Personal Information
-        </h2>
-        <p>
-          Under GDPR, you are entitled to view, amend, and potentially delete
-          the personal information that we hold. An access request may be
-          subject to a fee of £10 to cover administrative costs.
-        </p>
-      </section>
+          <div
+            id="access"
+            className="bg-white p-6 rounded-xl shadow hover:shadow-md transition"
+          >
+            <h2 className="text-xl font-semibold mb-2 text-gray-900">
+              Access to Your Personal Information
+            </h2>
+            <p>
+              You can request access, modification or deletion of your data
+              under GDPR.
+            </p>
+          </div>
 
-      {/* RESPONSIBLE PERSON */}
-      <section className="mb-6">
-        <h2 className="text-xl font-semibold mb-2 text-black">
-          The Person Responsible for Data Handling
-        </h2>
-        <p>
-          Our Managing Director Stephen Mercer takes responsibility for data
-          handling. He can be contacted at our head office.
-        </p>
-      </section>
+          <div
+            id="responsible"
+            className="bg-white p-6 rounded-xl shadow hover:shadow-md transition"
+          >
+            <h2 className="text-xl font-semibold mb-2 text-gray-900">
+              Responsible Person
+            </h2>
+            <p>
+              Managing Director Stephen Mercer is responsible for data handling.
+            </p>
+          </div>
 
-      {/* CHANGES */}
-      <section>
-        <h2 className="text-xl font-semibold mb-2 text-black">
-          Changes to This Privacy Notice
-        </h2>
-        <p>This policy was last updated on 24th May 2018.</p>
-      </section>
+          <div
+            id="changes"
+            className="bg-white p-6 rounded-xl shadow hover:shadow-md transition"
+          >
+            <h2 className="text-xl font-semibold mb-2 text-gray-900">
+              Policy Updates
+            </h2>
+            <p className="text-sm text-gray-500">Last updated: 24 May 2018</p>
+          </div>
+        </div>
+      </div>
     </div>
   );
 }

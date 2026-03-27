@@ -20,41 +20,46 @@ export default function ProductsPage() {
   }, []);
 
   const handleDelete = async (id: string) => {
-  const confirmDelete = confirm("Are you sure you want to delete this product?");
-  if (!confirmDelete) return;
+    const confirmDelete = confirm(
+      "Are you sure you want to delete this product?",
+    );
+    if (!confirmDelete) return;
 
-  const res = await fetch(`/api/products/${id}`, {
-    method: "DELETE",
-  });
+    const res = await fetch(`/api/products/${id}`, {
+      method: "DELETE",
+    });
 
-  const data = await res.json();
+    const data = await res.json();
 
-  if (data.success) {
-    alert("Product deleted");
+    if (data.success) {
+      alert("Product deleted");
 
-    // 🔥 remove from UI instantly
-    setProducts((prev) => prev.filter((p) => p.id !== id));
-  } else {
-    alert("Delete failed");
-  }
-};
+      // 🔥 remove from UI instantly
+      setProducts((prev) => prev.filter((p) => p.id !== id));
+    } else {
+      alert("Delete failed");
+    }
+  };
 
   return (
     <div className="p-6 bg-gray-50 min-h-screen">
       <div className="max-w-6xl mx-auto">
-
         {/* Header */}
         <div className="flex justify-between">
           <h2 className="text-2xl font-bold mb-6">All Products</h2>
-        <Button onClick={() => (window.location.href = "/admin/Product/add-product")} className="bg-black text-white px-4 py-2 rounded-lg ">
-          Add Product
-        </Button>
+          <Button
+            onClick={() =>
+              (window.location.href = "/admin/Product/add-product")
+            }
+            className="bg-black cursor-pointer text-white px-4 py-2 rounded-lg "
+          >
+            Add Product
+          </Button>
         </div>
 
         {/* Table */}
         <div className="bg-white rounded-xl shadow overflow-x-auto">
           <table className="w-full text-sm">
-
             <thead className="bg-gray-100 text-left">
               <tr>
                 <th className="p-3">Image</th>
@@ -72,7 +77,6 @@ export default function ProductsPage() {
                   <td className="p-3">
                     {p.bannerImageUrl ? (
                       <img
-
                         src={p.bannerImageUrl}
                         alt={p.name}
                         className="w-16 h-16 object-cover rounded"
@@ -92,21 +96,23 @@ export default function ProductsPage() {
                   <td className="p-3 flex gap-2 mt-4">
                     <Button
                       onClick={() => router.push(`/admin/Product/edit/${p.id}`)}
-                      className=" rounded"
+                      className="cursor-pointer rounded"
                     >
                       Edit
                     </Button>
-                    <Button variant="destructive" className="rounded" onClick={() => handleDelete(p.id)}>
+                    <Button
+                      variant="destructive"
+                      className=" cursor-pointer rounded"
+                      onClick={() => handleDelete(p.id)}
+                    >
                       Delete
                     </Button>
                   </td>
                 </tr>
               ))}
             </tbody>
-
           </table>
         </div>
-
       </div>
     </div>
   );

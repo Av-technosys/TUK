@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
@@ -18,12 +18,18 @@ import {
   IconRosetteDiscountCheck,
 } from "@tabler/icons-react";
 import DitermsSelector from "@/app/product/[slug]/DitermsSelector";
+import Link from "next/link";
+import { toast } from "sonner";
+const getWishlist = () => {
+  return JSON.parse(localStorage.getItem("wishlist") || "[]");
+};
 
 interface ProductInfoProps {
   product?: {
     name?: string;
     description?: string;
     shortDescription?: string;
+    id?: string;
     productCode?: string;
     sku?: string;
     brand?: string;
@@ -35,9 +41,11 @@ interface ProductInfoProps {
 
 export default function ProductInfo({ product }: ProductInfoProps) {
   const [qty, setQty] = useState(1);
+  const [wishlistIds, setWishlistIds] = useState<string[]>([]);
+  const isWishlisted = wishlistIds.includes(product?.id as string);
 
   // Fallback data
-  const productName = product?.name || "Cat6 UTP Cable – Blue 305m Box";
+  const productName = product?.name;
   const productCode = product?.productCode || "PXSPDY6BL";
   const sku = product?.sku || "PXSPDY6B / PXSPDY6BL";
   const description =
@@ -49,6 +57,35 @@ export default function ProductInfo({ product }: ProductInfoProps) {
   const diTerms =
     product?.diTerms?.map((term: any) => term.value).join("|") || "";
 
+  useEffect(() => {
+    const items = getWishlist();
+    setWishlistIds(items.map((i: any) => i.id));
+  }, []);
+  const handleWishlist = (product: any) => {
+    let wishlist = getWishlist();
+
+    const exists = wishlist.find((i: any) => i.id === product.id);
+
+    if (exists) {
+      wishlist = wishlist.filter((i: any) => i.id !== product.id);
+      localStorage.setItem("wishlist", JSON.stringify(wishlist));
+      setWishlistIds(wishlist.map((i: any) => i.id));
+
+      toast("Removed from wishlist ❌");
+    } else {
+      wishlist.push({
+        id: product.id,
+        name: product.name,
+        bannerImageUrl: product.bannerImageUrl,
+        sku: product.sku,
+      });
+
+      localStorage.setItem("wishlist", JSON.stringify(wishlist));
+      setWishlistIds(wishlist.map((i: any) => i.id));
+
+      toast.success("Added to wishlist ❤️");
+    }
+  };
   return (
     <div className="flex flex-col gap-6">
       {/* Breadcrumb */}
@@ -129,23 +166,34 @@ export default function ProductInfo({ product }: ProductInfoProps) {
 
       <div className="flex flex-col sm:flex-row gap-4 w-full">
         {/* Request Quote */}
-        <Button className="w-full sm:flex-1 h-14 sm:h-12 rounded-full bg-[#0b0bbf] hover:bg-[#0b0bbf] text-white text-base sm:text-sm font-medium flex items-center justify-center gap-2 px-6">
-          <IconFileText size={20} />
-          Request Quote
-        </Button>
+        <Link href="/request-quote">
+          <Button className="w-full sm:flex-1 h-14 sm:h-12 rounded-full bg-[#0b0bbf] hover:bg-[#0b0bbf] text-white text-base sm:text-sm font-medium flex items-center justify-center gap-2 px-6">
+            <IconFileText size={20} />
+            Request Quote
+          </Button>
+        </Link>
 
         {/* Wishlist */}
         <Button
+          onClick={(e) => {
+            e.preventDefault();
+            handleWishlist(product);
+          }}
           variant="outline"
-          className="w-full sm:flex-1 h-14 sm:h-12 rounded-full border-[#0b0bbf] text-[#0b0bbf] hover:bg-transparent text-base sm:text-sm font-medium flex items-center justify-center gap-2 px-6"
+          className={`w-full ${
+            wishlistIds ? "text-red-500" : "text-gray-400"
+          } sm:flex-1 h-14 sm:h-12 rounded-full border-[#0b0bbf] text-[#0b0bbf] hover:bg-transparent text-base sm:text-sm font-medium flex items-center justify-center gap-2 px-6`}
         >
-          <IconHeart size={20} />
-          Add to Wishlist
+          <IconHeart
+            size={20}
+            className={`transition-all ${
+              isWishlisted ? "fill-red-500 text-red-500" : "text-[#0b0bbf]"
+            }`}
+          />
+          {isWishlisted ? "Wishlisted" : "Add to Wishlist"}
         </Button>
-
-        
       </div>
-<DitermsSelector diTerms={diTerms} />
+      <DitermsSelector diTerms={diTerms} />
       {/* B2B Pricing Box */}
       <div className="flex items-start gap-4 bg-gray-100 border rounded-xl p-4">
         {/* Icon Box */}

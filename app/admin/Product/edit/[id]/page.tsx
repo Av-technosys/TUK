@@ -12,12 +12,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import {
-  Tabs,
-  TabsContent,
-  TabsList,
-  TabsTrigger,
-} from "@/components/ui/tabs";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import RichEditor from "@/components/common/RichEditor";
 import { toast } from "sonner";
 
@@ -94,7 +89,9 @@ export default function EditProductPage() {
           value: s.value,
         })) || [{ key: "", value: "" }];
         setSpecs(specsData.length > 0 ? specsData : [{ key: "", value: "" }]);
-        setTechspecs(specsData.length > 0 ? specsData : [{ key: "", value: "" }]);
+        setTechspecs(
+          specsData.length > 0 ? specsData : [{ key: "", value: "" }],
+        );
 
         // Images
         const imgUrls = data.images?.map((img: any) => img.imageUrl) || [];
@@ -136,82 +133,81 @@ export default function EditProductPage() {
 
   // 🖼️ Handle Banner Image Upload
   const handleUpload = async (e: any) => {
-  const file = e.target.files[0];
-  if (!file) return;
+    const file = e.target.files[0];
+    if (!file) return;
 
-  const toastId = toast.loading("Uploading banner image...");
+    const toastId = toast.loading("Uploading banner image...");
 
-  try {
-    setLoadingImg(true);
+    try {
+      setLoadingImg(true);
 
-    const formData = new FormData();
-    formData.append("file", file);
+      const formData = new FormData();
+      formData.append("file", file);
 
-    const res = await fetch("/api/upload", {
-      method: "POST",
-      body: formData,
-    });
+      const res = await fetch("/api/upload", {
+        method: "POST",
+        body: formData,
+      });
 
-    const data = await res.json();
+      const data = await res.json();
 
-    setBannerImageUrl(data.url);
+      setBannerImageUrl(data.url);
 
-    toast.success("Banner uploaded ✅", { id: toastId });
-  } catch (error) {
-    console.error(error);
-    toast.error("Banner upload failed ❌", { id: toastId });
-  }
+      toast.success("Banner uploaded ✅", { id: toastId });
+    } catch (error) {
+      console.error(error);
+      toast.error("Banner upload failed ❌", { id: toastId });
+    }
 
-  setLoadingImg(false);
-};
+    setLoadingImg(false);
+  };
 
   // 📄 Handle PDF Upload
   const handlePdfUpload = async (e: any) => {
-  const file = e.target.files[0];
-  if (!file) return;
+    const file = e.target.files[0];
+    if (!file) return;
 
-  if (file.type !== "application/pdf") {
-    toast.error("Only PDF allowed ❌");
-    return;
-  }
+    if (file.type !== "application/pdf") {
+      toast.error("Only PDF allowed ❌");
+      return;
+    }
 
-  const toastId = toast.loading("Uploading PDF...");
+    const toastId = toast.loading("Uploading PDF...");
 
-  try {
-    setPdfLoading(true);
+    try {
+      setPdfLoading(true);
 
-    const formData = new FormData();
-    formData.append("file", file);
+      const formData = new FormData();
+      formData.append("file", file);
 
-    const res = await fetch("/api/upload", {
-      method: "POST",
-      body: formData,
-    });
+      const res = await fetch("/api/upload", {
+        method: "POST",
+        body: formData,
+      });
 
-    const data = await res.json();
+      const data = await res.json();
 
-    setPdf(data.url);
+      setPdf(data.url);
 
-    toast.success("PDF uploaded ✅", { id: toastId });
-  } catch (error) {
-    console.error(error);
-    toast.error("PDF upload failed ❌", { id: toastId });
-  }
+      toast.success("PDF uploaded ✅", { id: toastId });
+    } catch (error) {
+      console.error(error);
+      toast.error("PDF upload failed ❌", { id: toastId });
+    }
 
-  setPdfLoading(false);
-};
+    setPdfLoading(false);
+  };
 
   // 🖼️ Handle Gallery Upload
   const handleGalleryUpload = async (e: any) => {
     const files = e.target.files;
     if (!files.length) return;
-     const toastId = toast.loading("Uploading gallery images...");
- try {
-    setGalleryLoading(true);
+    const toastId = toast.loading("Uploading gallery images...");
+    try {
+      setGalleryLoading(true);
 
-    const uploadedUrls: string[] = [];
+      const uploadedUrls: string[] = [];
 
-   
       for (let i = 0; i < files.length; i++) {
         const formData = new FormData();
         formData.append("file", files[i]);
@@ -230,75 +226,72 @@ export default function EditProductPage() {
     } catch (error) {
       console.error("Error uploading gallery:", error);
       toast.error("Gallery upload failed ❌", { id: toastId });
-     
     }
-     setGalleryLoading(false);
+    setGalleryLoading(false);
   };
 
   // 🔥 UPDATE API CALL
- const handleUpdate = async () => {
-  if (!form.name || !form.slug || !categoryId) {
-    toast.error("Please fill required fields ❌");
-    return;
-  }
-
-  const toastId = toast.loading("Updating product...");
-
-  try {
-    setUpdating(true);
-
-    const relatedProductsArray =
-      selectedRelated && selectedRelated.trim()
-        ? [selectedRelated]
-        : [];
-
-    const res = await fetch(`/api/products/${id}`, {
-      method: "PUT",
-      body: JSON.stringify({
-        name: form.name,
-        slug: form.slug,
-        description: form.description,
-        shortDescription: form.shortDescription,
-        brand: form.brand,
-        sku: form.sku,
-        productCode: form.productCode,
-        categoryId,
-        features: features.filter((f) => f?.trim()),
-        specs: specs.filter((s) => s?.key && s?.value),
-        techspecs: techspecs.filter((s) => s?.key && s?.value),
-        diTerms: diTerms.split("|").filter((t) => t?.trim()),
-        bannerImageUrl,
-        images: galleryImages,
-        relatedProducts: relatedProductsArray,
-        content,
-        pdfUrl: pdf,
-      }),
-    });
-
-    const data = await res.json();
-
-    if (data.success) {
-      toast.success("Product updated successfully 🎉", {
-        id: toastId,
-      });
-
-      setTimeout(() => {
-        router.push("/admin/Product");
-      }, 800);
-    } else {
-      toast.error(data.error || "Update failed ❌", {
-        id: toastId,
-      });
+  const handleUpdate = async () => {
+    if (!form.name || !form.slug || !categoryId) {
+      toast.error("Please fill required fields ❌");
+      return;
     }
-  } catch (error) {
-    console.error(error);
-    toast.error("Something went wrong ❌", {
-      id: toastId,
-    });
-  } finally {
-    setUpdating(false);
-  }
-};
+
+    const toastId = toast.loading("Updating product...");
+
+    try {
+      setUpdating(true);
+
+      const relatedProductsArray =
+        selectedRelated && selectedRelated.trim() ? [selectedRelated] : [];
+
+      const res = await fetch(`/api/products/${id}`, {
+        method: "PUT",
+        body: JSON.stringify({
+          name: form.name,
+          slug: form.slug,
+          description: form.description,
+          shortDescription: form.shortDescription,
+          brand: form.brand,
+          sku: form.sku,
+          productCode: form.productCode,
+          categoryId,
+          features: features.filter((f) => f?.trim()),
+          specs: specs.filter((s) => s?.key && s?.value),
+          techspecs: techspecs.filter((s) => s?.key && s?.value),
+          diTerms: diTerms.split("|").filter((t) => t?.trim()),
+          bannerImageUrl,
+          images: galleryImages,
+          relatedProducts: relatedProductsArray,
+          content,
+          pdfUrl: pdf,
+        }),
+      });
+
+      const data = await res.json();
+
+      if (data.success) {
+        toast.success("Product updated successfully 🎉", {
+          id: toastId,
+        });
+
+        setTimeout(() => {
+          router.push("/admin/Product");
+        }, 800);
+      } else {
+        toast.error(data.error || "Update failed ❌", {
+          id: toastId,
+        });
+      }
+    } catch (error) {
+      console.error(error);
+      toast.error("Something went wrong ❌", {
+        id: toastId,
+      });
+    } finally {
+      setUpdating(false);
+    }
+  };
 
   // 🗑️ Remove image
   const removeImage = (index: number) => {
@@ -319,7 +312,11 @@ export default function EditProductPage() {
         {/* Header */}
         <div className="flex justify-between items-center">
           <h2 className="text-2xl font-bold">Edit Product</h2>
-          <Button onClick={handleUpdate} disabled={updating}>
+          <Button
+            className="cursor-pointer"
+            onClick={handleUpdate}
+            disabled={updating}
+          >
             {updating ? "Updating..." : "Update Product"}
           </Button>
         </div>
@@ -365,7 +362,9 @@ export default function EditProductPage() {
               <label className="text-sm font-medium">Product Code</label>
               <Input
                 value={form.productCode}
-                onChange={(e) => setForm({ ...form, productCode: e.target.value })}
+                onChange={(e) =>
+                  setForm({ ...form, productCode: e.target.value })
+                }
               />
             </div>
           </div>
@@ -374,7 +373,9 @@ export default function EditProductPage() {
             <label className="text-sm font-medium">Short Description</label>
             <Textarea
               value={form.shortDescription}
-              onChange={(e) => setForm({ ...form, shortDescription: e.target.value })}
+              onChange={(e) =>
+                setForm({ ...form, shortDescription: e.target.value })
+              }
             />
           </div>
 
@@ -382,7 +383,9 @@ export default function EditProductPage() {
             <label className="text-sm font-medium">Description</label>
             <Textarea
               value={form.description}
-              onChange={(e) => setForm({ ...form, description: e.target.value })}
+              onChange={(e) =>
+                setForm({ ...form, description: e.target.value })
+              }
             />
           </div>
         </div>
@@ -392,7 +395,10 @@ export default function EditProductPage() {
           <div className="bg-white p-6 rounded-xl shadow space-y-4 w-full md:w-1/2">
             <h3 className="text-lg font-semibold">Category</h3>
 
-            <Select value={categoryId} onValueChange={(val) => setCategoryId(val || "")}>
+            <Select
+              value={categoryId}
+              onValueChange={(val) => setCategoryId(val || "")}
+            >
               <SelectTrigger>
                 <SelectValue placeholder="Select Category" />
               </SelectTrigger>
@@ -410,7 +416,10 @@ export default function EditProductPage() {
           <div className="bg-white p-6 rounded-xl shadow space-y-4 w-full md:w-1/2">
             <h3 className="text-lg font-semibold">Related Products</h3>
 
-            <Select value={selectedRelated} onValueChange={(val) => setselectedRelated(val || "")}>
+            <Select
+              value={selectedRelated}
+              onValueChange={(val) => setselectedRelated(val || "")}
+            >
               <SelectTrigger>
                 <SelectValue placeholder="Select Related Product" />
               </SelectTrigger>
@@ -444,7 +453,10 @@ export default function EditProductPage() {
             </div>
           ))}
 
-          <Button onClick={() => setFeatures([...features, ""])}>
+          <Button
+            className="cursor-pointer"
+            onClick={() => setFeatures([...features, ""])}
+          >
             + Add Feature
           </Button>
         </div>
@@ -481,7 +493,10 @@ export default function EditProductPage() {
             </div>
           ))}
 
-          <Button onClick={() => setSpecs([...specs, { key: "", value: "" }])}>
+          <Button
+            className="cursor-pointer"
+            onClick={() => setSpecs([...specs, { key: "", value: "" }])}
+          >
             + Add Spec
           </Button>
         </div>
@@ -516,12 +531,21 @@ export default function EditProductPage() {
         <div className="bg-white p-6 rounded-xl shadow space-y-4">
           <h3 className="text-lg font-semibold">Technical Data Sheet</h3>
 
-          <Input type="file" accept="application/pdf" onChange={handlePdfUpload} />
+          <Input
+            type="file"
+            accept="application/pdf"
+            onChange={handlePdfUpload}
+          />
 
           {pdfLoading && <p className="text-sm">Uploading...</p>}
 
           {pdf && (
-            <a href={pdf} target="_blank" rel="noopener noreferrer" className="text-blue-600 underline text-sm">
+            <a
+              href={pdf}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-blue-600 underline text-sm"
+            >
               View PDF
             </a>
           )}
@@ -531,7 +555,12 @@ export default function EditProductPage() {
         <div className="bg-white p-6 rounded-xl shadow space-y-4">
           <h3 className="text-lg font-semibold">Gallery Images (Multiple)</h3>
 
-          <Input type="file" multiple onChange={handleGalleryUpload} accept="image/*" />
+          <Input
+            type="file"
+            multiple
+            onChange={handleGalleryUpload}
+            accept="image/*"
+          />
 
           {galleryLoading && <p className="text-sm">Uploading...</p>}
 
@@ -545,7 +574,7 @@ export default function EditProductPage() {
                 />
                 <button
                   onClick={() => removeImage(i)}
-                  className="absolute -top-2 -right-2 bg-red-500 text-white rounded-full w-6 h-6 flex items-center justify-center text-xs"
+                  className="absolute cursor-pointer -top-2 -right-2 bg-red-500 text-white rounded-full w-6 h-6 flex items-center justify-center text-xs"
                 >
                   ✕
                 </button>
@@ -581,7 +610,10 @@ export default function EditProductPage() {
             </div>
           ))}
 
-          <Button onClick={() => setTechspecs([...techspecs, { key: "", value: "" }])}>
+          <Button
+            className="cursor-pointer"
+            onClick={() => setTechspecs([...techspecs, { key: "", value: "" }])}
+          >
             + Add Tech Spec
           </Button>
         </div>

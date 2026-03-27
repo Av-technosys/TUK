@@ -100,7 +100,7 @@ export default function Register() {
         <Button
           onClick={handleSubmit}
           disabled={loading}
-          className="w-full bg-black hover:bg-gray-800 text-white p-2.5 rounded-lg font-medium transition"
+          className="w-full bg-black cursor-pointer hover:bg-gray-800 text-white p-2.5 rounded-lg font-medium transition"
         >
           {loading ? "Registering..." : "Register"}
         </Button>

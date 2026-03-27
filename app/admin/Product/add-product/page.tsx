@@ -51,85 +51,22 @@ export default function AddProductPage() {
   const [galleryImages, setGalleryImages] = useState<string[]>([]);
   const [galleryLoading, setGalleryLoading] = useState(false);
 
- const handlePdfUpload = async (e: any) => {
-  const file = e.target.files[0];
-  if (!file) return;
+  const handlePdfUpload = async (e: any) => {
+    const file = e.target.files[0];
+    if (!file) return;
 
-  if (file.type !== "application/pdf") {
-    toast.error("Only PDF allowed ❌");
-    return;
-  }
+    if (file.type !== "application/pdf") {
+      toast.error("Only PDF allowed ❌");
+      return;
+    }
 
-  const toastId = toast.loading("Uploading PDF...");
+    const toastId = toast.loading("Uploading PDF...");
 
-  try {
-    setPdfLoading(true);
+    try {
+      setPdfLoading(true);
 
-    const formData = new FormData();
-    formData.append("file", file);
-
-    const res = await fetch("/api/upload", {
-      method: "POST",
-      body: formData,
-    });
-
-    const data = await res.json();
-
-    setPdf(data.url);
-
-    toast.success("PDF uploaded ✅", { id: toastId });
-  } catch (err) {
-    console.error(err);
-    toast.error("PDF upload failed ❌", { id: toastId });
-  }
-
-  setPdfLoading(false);
-};
-  // ✅ Image Upload Handler (merged)
- const handleUpload = async (e: any) => {
-  const file = e.target.files[0];
-  if (!file) return;
-
-  const toastId = toast.loading("Uploading image...");
-
-  try {
-    setLoading(true);
-
-    const formData = new FormData();
-    formData.append("file", file);
-
-    const res = await fetch("/api/upload", {
-      method: "POST",
-      body: formData,
-    });
-
-    const data = await res.json();
-
-    setImages((prev) => [...prev, data.url]);
-
-    toast.success("Image uploaded ✅", { id: toastId });
-  } catch (err) {
-    console.error(err);
-    toast.error("Image upload failed ❌", { id: toastId });
-  }
-
-  setLoading(false);
-};
-
-  const handleGalleryUpload = async (e: any) => {
-  const files = e.target.files;
-  if (!files.length) return;
-
-  const toastId = toast.loading("Uploading gallery images...");
-
-  try {
-    setGalleryLoading(true);
-
-    const uploadedUrls: string[] = [];
-
-    for (let i = 0; i < files.length; i++) {
       const formData = new FormData();
-      formData.append("file", files[i]);
+      formData.append("file", file);
 
       const res = await fetch("/api/upload", {
         method: "POST",
@@ -137,19 +74,82 @@ export default function AddProductPage() {
       });
 
       const data = await res.json();
-      uploadedUrls.push(data.url);
+
+      setPdf(data.url);
+
+      toast.success("PDF uploaded ✅", { id: toastId });
+    } catch (err) {
+      console.error(err);
+      toast.error("PDF upload failed ❌", { id: toastId });
     }
 
-    setGalleryImages((prev) => [...prev, ...uploadedUrls]);
+    setPdfLoading(false);
+  };
+  // ✅ Image Upload Handler (merged)
+  const handleUpload = async (e: any) => {
+    const file = e.target.files[0];
+    if (!file) return;
 
-    toast.success("Gallery uploaded ✅", { id: toastId });
-  } catch (err) {
-    console.error(err);
-    toast.error("Gallery upload failed ❌", { id: toastId });
-  }
+    const toastId = toast.loading("Uploading image...");
 
-  setGalleryLoading(false);
-};
+    try {
+      setLoading(true);
+
+      const formData = new FormData();
+      formData.append("file", file);
+
+      const res = await fetch("/api/upload", {
+        method: "POST",
+        body: formData,
+      });
+
+      const data = await res.json();
+
+      setImages((prev) => [...prev, data.url]);
+
+      toast.success("Image uploaded ✅", { id: toastId });
+    } catch (err) {
+      console.error(err);
+      toast.error("Image upload failed ❌", { id: toastId });
+    }
+
+    setLoading(false);
+  };
+
+  const handleGalleryUpload = async (e: any) => {
+    const files = e.target.files;
+    if (!files.length) return;
+
+    const toastId = toast.loading("Uploading gallery images...");
+
+    try {
+      setGalleryLoading(true);
+
+      const uploadedUrls: string[] = [];
+
+      for (let i = 0; i < files.length; i++) {
+        const formData = new FormData();
+        formData.append("file", files[i]);
+
+        const res = await fetch("/api/upload", {
+          method: "POST",
+          body: formData,
+        });
+
+        const data = await res.json();
+        uploadedUrls.push(data.url);
+      }
+
+      setGalleryImages((prev) => [...prev, ...uploadedUrls]);
+
+      toast.success("Gallery uploaded ✅", { id: toastId });
+    } catch (err) {
+      console.error(err);
+      toast.error("Gallery upload failed ❌", { id: toastId });
+    }
+
+    setGalleryLoading(false);
+  };
   useEffect(() => {
     const fetchCategories = async () => {
       const res = await fetch("/api/category");
@@ -162,55 +162,55 @@ export default function AddProductPage() {
   }, []);
 
   // 🧠 Handle Submit
- const handleSubmit = async () => {
-  const toastId = toast.loading("Creating product...");
+  const handleSubmit = async () => {
+    const toastId = toast.loading("Creating product...");
 
-  try {
-    const res = await fetch("/api/products/add-products", {
-      method: "POST",
-      body: JSON.stringify({
-        name: form.name,
-        slug: form.slug,
-        description: form.description,
-        shortDescription: form.shortDescription,
-        brand: form.brand,
-        sku: form.sku,
-        productCode: form.productCode,
-        categoryId,
-        relatedProducts: selectedRelated,
-        isFeatured: form.isFeatured,
-        features,
-        specs,
-        techspecs,
-        diTerms: diTerms.split("|"),
-        bannerImageUrl: images[0] || "",
-        images: galleryImages,
-        content,
-        pdfUrl: pdf,
-      }),
-    });
-
-    const data = await res.json();
-
-    if (res.ok) {
-      toast.success("Product created successfully 🎉", {
-        id: toastId,
+    try {
+      const res = await fetch("/api/products/add-products", {
+        method: "POST",
+        body: JSON.stringify({
+          name: form.name,
+          slug: form.slug,
+          description: form.description,
+          shortDescription: form.shortDescription,
+          brand: form.brand,
+          sku: form.sku,
+          productCode: form.productCode,
+          categoryId,
+          relatedProducts: selectedRelated,
+          isFeatured: form.isFeatured,
+          features,
+          specs,
+          techspecs,
+          diTerms: diTerms.split("|"),
+          bannerImageUrl: images[0] || "",
+          images: galleryImages,
+          content,
+          pdfUrl: pdf,
+        }),
       });
 
-      // optional redirect
-      // router.push("/admin/Product");
-    } else {
-      toast.error(data.error || "Failed to create product ❌", {
+      const data = await res.json();
+
+      if (res.ok) {
+        toast.success("Product created successfully 🎉", {
+          id: toastId,
+        });
+
+        // optional redirect
+        // router.push("/admin/Product");
+      } else {
+        toast.error(data.error || "Failed to create product ❌", {
+          id: toastId,
+        });
+      }
+    } catch (err) {
+      console.error(err);
+      toast.error("Something went wrong ❌", {
         id: toastId,
       });
     }
-  } catch (err) {
-    console.error(err);
-    toast.error("Something went wrong ❌", {
-      id: toastId,
-    });
-  }
-};
+  };
 
   return (
     <div className="p-4 md:p-8 bg-gray-50 min-h-screen">
@@ -218,7 +218,9 @@ export default function AddProductPage() {
         {/* Header */}
         <div className="flex justify-between items-center">
           <h2 className="text-2xl font-bold">Add Product</h2>
-          <Button onClick={handleSubmit}>Save Product</Button>
+          <Button className="cursor-pointer" onClick={handleSubmit}>
+            Save Product
+          </Button>
         </div>
 
         {/* 🔹 Basic Info */}
@@ -332,7 +334,10 @@ export default function AddProductPage() {
             </div>
           ))}
 
-          <Button onClick={() => setFeatures([...features, ""])}>
+          <Button
+            className="cursor-pointer"
+            onClick={() => setFeatures([...features, ""])}
+          >
             + Add Feature
           </Button>
         </div>
@@ -369,7 +374,10 @@ export default function AddProductPage() {
             </div>
           ))}
 
-          <Button onClick={() => setSpecs([...specs, { key: "", value: "" }])}>
+          <Button
+            className="cursor-pointer"
+            onClick={() => setSpecs([...specs, { key: "", value: "" }])}
+          >
             + Add Spec
           </Button>
         </div>
@@ -472,6 +480,7 @@ export default function AddProductPage() {
           ))}
 
           <Button
+            className="cursor-pointer"
             onClick={() => setTechspecs([...techspecs, { key: "", value: "" }])}
           >
             + Add Spec
@@ -507,23 +516,26 @@ export default function AddProductPage() {
         </div>
 
         <div className="flex items-center gap-3 mt-4">
-  <input
-    type="checkbox"
-    id="isFeatured"
-    checked={form.isFeatured}
-    onChange={(e) =>
-      setForm((prev) => ({
-        ...prev,
-        isFeatured: e.target.checked,
-      }))
-    }
-    className="h-4 w-4 accent-blue-600 cursor-pointer"
-  />
+          <input
+            type="checkbox"
+            id="isFeatured"
+            checked={form.isFeatured}
+            onChange={(e) =>
+              setForm((prev) => ({
+                ...prev,
+                isFeatured: e.target.checked,
+              }))
+            }
+            className="h-4 w-4 accent-blue-600 cursor-pointer"
+          />
 
-  <label htmlFor="isFeatured" className="text-sm font-medium cursor-pointer">
-    Mark as Featured Product
-  </label>
-</div>
+          <label
+            htmlFor="isFeatured"
+            className="text-sm font-medium cursor-pointer"
+          >
+            Mark as Featured Product
+          </label>
+        </div>
       </div>
     </div>
   );

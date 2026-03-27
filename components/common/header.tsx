@@ -19,6 +19,7 @@ const navLinks = [
   { name: "Wishlist", href: "/wishlist" },
   { name: "Contact", href: "/contact" },
 ];
+
 type Product = {
   id: string;
   name: string;
@@ -89,7 +90,7 @@ export default function Header() {
 
             <Button
               size="icon"
-              className="bg-orange-500 hover:bg-orange-600 rounded-none"
+              className="bg-orange-500 cursor-pointer hover:bg-orange-600 rounded-none"
             >
               <IconSearch size={18} />
             </Button>
@@ -164,7 +165,7 @@ export default function Header() {
 
                   <Button
                     size="icon"
-                    className="bg-orange-500 hover:bg-orange-600 rounded-none h-8 w-8"
+                    className="bg-orange-500 cursor-pointer hover:bg-orange-600 rounded-none h-8 w-8"
                   >
                     <IconSearch size={16} />
                   </Button>

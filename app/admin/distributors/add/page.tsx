@@ -102,92 +102,85 @@ export default function AddDistributor() {
     <div className="p-6 space-y-4 max-w-md ml-4 ">
       <h2 className="text-xl font-semibold">Add Distributor</h2>
 
-     <div className="space-y-4 ml-10">
-       <div className="">
-        <label className="block text-lg font-medium mb-2">Name</label>
-        <Input
-          placeholder="Name"
-          value={form.name}
-          onChange={(e) =>
-            setForm({ ...form, name: e.target.value })
-          }
-        />
+      <div className="space-y-4 ml-10">
+        <div className="">
+          <label className="block text-lg font-medium mb-2">Name</label>
+          <Input
+            placeholder="Name"
+            value={form.name}
+            onChange={(e) => setForm({ ...form, name: e.target.value })}
+          />
+        </div>
+
+        <div>
+          <label className="block text-lg font-medium mb-2">Slug</label>
+          <Input
+            placeholder="Slug"
+            value={form.slug}
+            onChange={(e) => setForm({ ...form, slug: e.target.value })}
+          />
+        </div>
+
+        <div>
+          <label className="block text-lg font-medium mb-2">Description</label>
+          <Input
+            placeholder="Description"
+            value={form.description}
+            onChange={(e) => setForm({ ...form, description: e.target.value })}
+          />
+        </div>
+
+        {/* File Upload */}
+        <div>
+          <label className="block text-lg font-medium mb-2">Logo Image</label>
+          <input
+            type="file"
+            onChange={(e) => {
+              const selected = e.target.files?.[0];
+              if (selected) {
+                setFile(selected);
+                setPreview(URL.createObjectURL(selected));
+              }
+            }}
+          />
+        </div>
+
+        {/* Preview */}
+        {preview && (
+          <img
+            src={preview}
+            alt="preview"
+            className="w-24 h-24 object-cover rounded"
+          />
+        )}
+
+        <Button
+          className="cursor-pointer"
+          type="button"
+          onClick={handleUpload}
+          disabled={uploading}
+        >
+          {uploading ? "Uploading..." : "Upload Logo"}
+        </Button>
+
+        <div>
+          <label className="block text-lg font-medium mb-2">Visit URL</label>
+          <Input
+            placeholder="Visit URL"
+            value={form.visitUrl}
+            onChange={(e) => setForm({ ...form, visitUrl: e.target.value })}
+          />
+        </div>
+
+        {/* Save Button */}
+        <Button
+          onClick={handleSubmit}
+          disabled={loading}
+          className=" cursor-pointer w-full"
+        >
+          {loading ? "Saving..." : "Save Distributor"}
+        </Button>
       </div>
-
-      <div>
-        <label className="block text-lg font-medium mb-2">Slug</label>
-        <Input
-          placeholder="Slug"
-          value={form.slug}
-          onChange={(e) =>
-            setForm({ ...form, slug: e.target.value })
-          }
-        />
-      </div>
-
-      <div>
-              <label className="block text-lg font-medium mb-2">Description</label>
-        <Input
-          placeholder="Description"
-          value={form.description}
-          onChange={(e) =>
-            setForm({ ...form, description: e.target.value })
-          }
-        />
-      </div>
-
-      {/* File Upload */}
-      <div>
-        <label className="block text-lg font-medium mb-2">Logo Image</label>
-        <input
-          type="file"
-          onChange={(e) => {
-            const selected = e.target.files?.[0];
-            if (selected) {
-              setFile(selected);
-              setPreview(URL.createObjectURL(selected));
-            }
-          }}
-        />
-      </div>
-
-      {/* Preview */}
-      {preview && (
-        <img
-          src={preview}
-          alt="preview"
-          className="w-24 h-24 object-cover rounded"
-        />
-      )}
-
-      <Button
-        type="button"
-        onClick={handleUpload}
-        disabled={uploading}
-      >
-        {uploading ? "Uploading..." : "Upload Logo"}
-      </Button>
-
-      <div>
-        <label className="block text-lg font-medium mb-2">Visit URL</label>
-        <Input
-          placeholder="Visit URL"
-          value={form.visitUrl}
-          onChange={(e) =>
-            setForm({ ...form, visitUrl: e.target.value })
-          }
-        />
-      </div>
-
-      {/* Save Button */}
-      <Button
-        onClick={handleSubmit}
-        disabled={loading}
-        className="w-full"
-      >
-        {loading ? "Saving..." : "Save Distributor"}
-      </Button>
-     </div>
     </div>
   );
 }

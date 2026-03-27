@@ -1,153 +1,148 @@
 "use client";
 
+const sections = [
+  { id: "uk", label: "UK Sales" },
+  { id: "overseas", label: "Overseas Sales" },
+  { id: "credit", label: "Credit Accounts" },
+  { id: "general", label: "General Terms" },
+];
+
 export default function TermsConditionsPage() {
   return (
-    <div className="max-w-5xl mx-auto px-6 py-10 text-gray-700">
-      <h1 className="text-3xl font-bold mb-6 text-black">
-        Terms and Conditions
-      </h1>
+    <div className="bg-gray-50 min-h-screen">
+      {/* 🔵 HERO */}
+      <div className="bg-gradient-to-r from-[#141D3D] to-[#364FA3] text-white py-14 px-6">
+        <div className="max-w-6xl mx-auto">
+          <h1 className="text-4xl font-bold text-center">Terms & Conditions</h1>
+          <p className="mt-2 text-sm opacity-90 text-center">
+            Please read these terms carefully before using our services.
+          </p>
+        </div>
+      </div>
 
-      {/* UK SALES */}
-      <section className="mb-8">
-        <h2 className="text-xl font-semibold mb-3 text-black">
-          Sales to UK Customers
-        </h2>
+      <div className="max-w-6xl mx-auto px-6 py-10 grid grid-cols-1 lg:grid-cols-4 gap-8">
+        {/* 📌 SIDEBAR */}
+        <div className="hidden lg:block">
+          <div className="sticky top-24 bg-white rounded-xl shadow p-4">
+            <h3 className="font-semibold mb-3 text-gray-800">Contents</h3>
+            <ul className="space-y-2 text-sm">
+              {sections.map((item) => (
+                <li key={item.id}>
+                  <a
+                    href={`#${item.id}`}
+                    className="text-gray-600 hover:text-blue-700 transition"
+                  >
+                    {item.label}
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </div>
+        </div>
 
-        <p>
-          Free three day delivery on UK mainland. Additional charges apply for
-          highlands, islands, offshore UK and export. Next working day delivery
-          upgrade attracts a £7.00 charge.
-        </p>
+        {/* 📄 CONTENT */}
+        <div className="lg:col-span-3 space-y-6">
+          {/* UK SALES */}
+          <div
+            id="uk"
+            className="bg-white p-6 rounded-xl shadow hover:shadow-md transition"
+          >
+            <h2 className="text-xl font-semibold mb-3 text-gray-900">
+              Sales to UK Customers
+            </h2>
 
-        <p className="mt-2">
-          Orders received by 2:45 pm are generally processed the same day unless
-          delayed dispatch is requested.
-        </p>
+            <p>
+              Free three day delivery on UK mainland. Additional charges apply
+              for highlands, islands and export. Next working day delivery
+              upgrade costs £7.
+            </p>
 
-        <h3 className="font-semibold mt-4">Small Orders</h3>
-        <ul className="list-disc pl-6 mt-2 space-y-1">
-          <li>£10 charge for orders below £50</li>
-          <li>
-            £13 handling charge for consignments under £250 (excluding VAT)
-          </li>
-        </ul>
+            <p className="mt-2">
+              Orders before 2:45 pm are processed same day unless delayed
+              dispatch requested.
+            </p>
 
-        <ul className="list-disc pl-6 mt-4 space-y-1">
-          <li>All products are subject to availability</li>
-          <li>
-            Delivery discrepancies must be reported within 5 working days or 48
-            hours after delivery
-          </li>
-          <li>
-            Products carry a 12-month guarantee (repair, replace or refund)
-          </li>
-          <li>
-            Liability is limited to the value of goods supplied. No liability
-            for consequential loss
-          </li>
-          <li>Prices exclude VAT and may change without notice</li>
-          <li>Goods remain property of TUK Ltd until fully paid</li>
-          <li>
-            Instalment deliveries may be invoiced separately and must be paid
-            individually
-          </li>
-        </ul>
+            <h3 className="font-semibold mt-4">Small Orders</h3>
+            <ul className="list-disc pl-6 mt-2 space-y-1">
+              <li>£10 charge for orders under £50</li>
+              <li>£13 handling charge under £250 (excluding VAT)</li>
+            </ul>
 
-        <h3 className="font-semibold mt-4">Payment Methods</h3>
-        <ul className="list-disc pl-6 mt-2 space-y-1">
-          <li>Cheque (cleared/guaranteed)</li>
-          <li>Cash (up to £100)</li>
-          <li>Debit card (up to £1000 + VAT)</li>
-          <li>Bank transfer</li>
-        </ul>
+            <ul className="list-disc pl-6 mt-4 space-y-1">
+              <li>Products subject to availability</li>
+              <li>Report delivery issues within 5 days / 48 hours</li>
+              <li>12-month warranty (repair / replace / refund)</li>
+              <li>No liability beyond product value</li>
+              <li>Prices exclude VAT</li>
+              <li>Ownership retained until payment</li>
+            </ul>
+          </div>
 
-        <p className="mt-3">
-          Environmental policy: Goods may be delivered in recycled packaging.
-        </p>
+          {/* OVERSEAS */}
+          <div
+            id="overseas"
+            className="bg-white p-6 rounded-xl shadow hover:shadow-md transition"
+          >
+            <h2 className="text-xl font-semibold mb-3 text-gray-900">
+              Sales to Overseas Customers
+            </h2>
 
-        <p className="mt-2">
-          All sales are subject to English law and disputes are resolved in
-          London courts.
-        </p>
-      </section>
+            <ul className="list-disc pl-6 space-y-1">
+              <li>Prices EXW (Incoterms 2010)</li>
+              <li>Netherlands & Ireland: DDP</li>
+              <li>Minimum order £100</li>
+              <li>Prepayment required</li>
+              <li>Delivery issues within 7 days / 48 hours</li>
+              <li>12-month warranty</li>
+              <li>Prices valid 30 days</li>
+            </ul>
 
-      {/* OVERSEAS SALES */}
-      <section className="mb-8">
-        <h2 className="text-xl font-semibold mb-3 text-black">
-          Sales to Overseas Customers
-        </h2>
+            <p className="mt-3">
+              Orders dispatched after confirmation and payment setup.
+            </p>
+          </div>
 
-        <ul className="list-disc pl-6 space-y-1">
-          <li>Prices quoted are EXW (Incoterms 2010)</li>
-          <li>Netherlands & Ireland: DDP (Incoterms 2020)</li>
-          <li>Minimum order value: £100</li>
-          <li>All goods subject to availability</li>
-          <li>Payment required before dispatch unless account exists</li>
-          <li>
-            Delivery discrepancies must be reported within 7 working days or 48
-            hours after delivery
-          </li>
-          <li>12-month product guarantee</li>
-          <li>Prices valid for 30 days</li>
-          <li>Goods remain property until fully paid</li>
-        </ul>
+          {/* CREDIT */}
+          <div
+            id="credit"
+            className="bg-white p-6 rounded-xl shadow hover:shadow-md transition"
+          >
+            <h2 className="text-xl font-semibold mb-3 text-gray-900">
+              Credit Accounts
+            </h2>
 
-        <p className="mt-3">
-          Orders are processed after written confirmation and payment
-          arrangements.
-        </p>
+            <ul className="list-disc pl-6 space-y-1">
+              <li>2 trade references required</li>
+              <li>Strict 30-day payment terms</li>
+              <li>Late payments may suspend account</li>
+              <li>Deliveries may stop if overdue</li>
+              <li>1.5% monthly interest on overdue</li>
+              <li>Outstanding balances may be offset</li>
+            </ul>
+          </div>
 
-        <p className="mt-2">
-          Customers must comply with legal requirements in their own country.
-        </p>
-      </section>
+          {/* GENERAL */}
+          <div
+            id="general"
+            className="bg-white p-6 rounded-xl shadow hover:shadow-md transition"
+          >
+            <h2 className="text-xl font-semibold mb-3 text-gray-900">
+              General Terms
+            </h2>
 
-      {/* CREDIT ACCOUNTS */}
-      <section className="mb-8">
-        <h2 className="text-xl font-semibold mb-3 text-black">
-          Terms for Credit Accounts
-        </h2>
+            <ul className="list-disc pl-6 space-y-1">
+              <li>Product descriptions may vary</li>
+              <li>IP rights protected</li>
+              <li>Customer data retained (min 2 years)</li>
+              <li>Terms updated periodically</li>
+            </ul>
 
-        <ul className="list-disc pl-6 space-y-1">
-          <li>
-            Applicants must provide business details and 2 trade references
-          </li>
-          <li>Payment terms are strictly 30 days</li>
-          <li>Late payments may result in account suspension without notice</li>
-          <li>Deliveries may be delayed if payments are overdue</li>
-          <li>Interest of 1.5% per month may be charged on overdue amounts</li>
-          <li>
-            TUK Ltd may offset any owed amounts against outstanding balances
-          </li>
-        </ul>
-      </section>
-
-      {/* GENERAL */}
-      <section>
-        <h2 className="text-xl font-semibold mb-3 text-black">General Terms</h2>
-
-        <ul className="list-disc pl-6 space-y-1">
-          <li>
-            Product descriptions are approximate and may change without notice
-          </li>
-          <li>
-            Intellectual property rights are protected; copying requires written
-            consent
-          </li>
-          <li>
-            TUK Ltd may retain customer information for at least 2 years after
-            last interaction
-          </li>
-          <li>
-            Terms are updated periodically. Latest version available on official
-            website
-          </li>
-        </ul>
-
-        <p className="mt-4 text-sm text-gray-500">
-          Last updated: November 2025
-        </p>
-      </section>
+            <p className="mt-4 text-sm text-gray-500">
+              Last updated: November 2025
+            </p>
+          </div>
+        </div>
+      </div>
     </div>
   );
 }

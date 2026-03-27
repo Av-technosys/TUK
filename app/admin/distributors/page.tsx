@@ -29,7 +29,7 @@ export default function DistributorList() {
       <div className="flex justify-between mb-4">
         <h2 className="text-xl font-semibold">Distributors</h2>
         <Link href="/admin/distributors/add">
-          <Button>Add Distributor</Button>
+          <Button className="cursor-pointer">Add Distributor</Button>
         </Link>
       </div>
 
@@ -46,15 +46,23 @@ export default function DistributorList() {
         <tbody>
           {data.map((item: any) => (
             <tr key={item.id} className="border-b text-center">
-<td>{item.image && <img src={item.image} alt={item.name} className="h-16 w-16 object-contain -mr-14 ml-10 " />}</td>
+              <td>
+                {item.image && (
+                  <img
+                    src={item.image}
+                    alt={item.name}
+                    className="h-16 w-16 object-contain -mr-14 ml-10 "
+                  />
+                )}
+              </td>
               <td>{item.name}</td>
               <td>{item.slug}</td>
               <td className="space-x-2">
                 <Link href={`/admin/distributors/edit/${item.id}`}>
-                  <Button className="rounded" >Edit</Button>
+                  <Button className="rounded cursor-pointer">Edit</Button>
                 </Link>
                 <Button
-                  className="rounded"
+                  className="rounded cursor-pointer"
                   variant="destructive"
                   onClick={() => handleDelete(item.id)}
                 >

@@ -1,19 +1,19 @@
-"use client"
+"use client";
 
-import Image from "next/image"
-import Header from "@/components/common/header"
-import Footer from "@/components/common/footer"
+import Image from "next/image";
+import Header from "@/components/common/header";
+import Footer from "@/components/common/footer";
 
-import { Card, CardContent } from "@/components/ui/card"
-import { Button } from "@/components/ui/button"
+import { Card, CardContent } from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
 
 import {
   IconExternalLink,
   IconMapPin,
   IconShieldCheck,
-  IconChevronDown
-} from "@tabler/icons-react"
-import { useState, useEffect } from "react"
+  IconChevronDown,
+} from "@tabler/icons-react";
+import { useState, useEffect } from "react";
 
 // const distributors = [
 //   {
@@ -66,42 +66,40 @@ type Distributor = {
   image: string;
   visitUrl: string;
 };
-    
 
 const page = () => {
-  const [distributors, setDistributors] = useState<Distributor[]>([])
-  const [loading, setLoading] = useState(true)
-  const [error, setError] = useState(null)
+  const [distributors, setDistributors] = useState<Distributor[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
 
   useEffect(() => {
     const fetchDistributors = async () => {
       try {
-        setLoading(true)
-        const res = await fetch("/api/distributors")
-        const data = await res.json()
-        setDistributors(data)
-        setError(null)
+        setLoading(true);
+        const res = await fetch("/api/distributors");
+        const data = await res.json();
+        setDistributors(data);
+        setError(null);
       } catch (error) {
-        console.error("Failed to fetch distributors:", error)
+        console.error("Failed to fetch distributors:", error);
       } finally {
-        setLoading(false)
+        setLoading(false);
       }
-    }
-    fetchDistributors()
-  }, [])
+    };
+    fetchDistributors();
+  }, []);
   return (
     <>
       <Header />
 
       {/* Hero Section */}
-     <section
-  className="text-white"
-  style={{
-    background: "linear-gradient(to right, #141D3D, #364FA3)"
-  }}
->
+      <section
+        className="text-white"
+        style={{
+          background: "linear-gradient(to right, #141D3D, #364FA3)",
+        }}
+      >
         <div className="max-w-7xl mx-auto px-4 py-16 text-center">
-
           <h1 className="text-3xl md:text-4xl xl:text-5xl font-semibold">
             Authorised Distributors
           </h1>
@@ -112,7 +110,6 @@ const page = () => {
           </p>
 
           <div className="flex flex-wrap justify-center gap-3 mt-6">
-
             <div className="flex items-center gap-2 bg-white/10 border border-white/20 rounded-full px-4 py-2 text-sm">
               <IconShieldCheck size={18} />
               ISO 9001:2015 Certified
@@ -122,102 +119,91 @@ const page = () => {
               <IconMapPin size={18} />
               Based in London, UK
             </div>
-
           </div>
-
         </div>
       </section>
-
 
       {/* Sort Section */}
       <section className="">
         <div className="max-w-7xl mx-auto px-4 py-6 flex justify-end">
-
           <div className="flex items-center gap-3 text-sm">
             <span className="text-muted-foreground">Sort by:</span>
 
             <Button
               variant="outline"
-              className="flex items-center gap-2"
+              className="flex cursor-pointer items-center gap-2"
             >
               Most Recent
               <IconChevronDown size={16} />
             </Button>
-
           </div>
-
         </div>
       </section>
 
+      {/* Cards */}
+      <section className=" pb-16">
+        <div className="max-w-7xl mx-auto px-4">
+          {loading && (
+            <p className="text-center py-10 text-gray-600">
+              Loading distributors...
+            </p>
+          )}
 
-     
-     {/* Cards */}
-<section className=" pb-16">
-  <div className="max-w-7xl mx-auto px-4">
+          {error && <p className="text-center py-10 text-red-600">{error}</p>}
 
-    {loading && <p className="text-center py-10 text-gray-600">Loading distributors...</p>}
-    
-    {error && <p className="text-center py-10 text-red-600">{error}</p>}
+          {!loading && !error && distributors.length === 0 && (
+            <p className="text-center py-10 text-gray-600">
+              No distributors found
+            </p>
+          )}
 
-    {!loading && !error && distributors.length === 0 && (
-      <p className="text-center py-10 text-gray-600">No distributors found</p>
-    )}
+          {!loading && !error && (
+            <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-6">
+              {distributors.map((item, index) => (
+                <Card
+                  key={index}
+                  className="relative bg-white border rounded-xl hover:shadow-md transition"
+                >
+                  <CardContent className="flex flex-col items-center text-center gap-4 py-10 px-6 relative ">
+                    {/* Logo */}
+                    <div className="flex items-center h-20 justify-center">
+                      <Image
+                        src={item.image}
+                        alt={item.name}
+                        width={140}
+                        height={80}
+                        className="object-contain"
+                      />
+                    </div>
 
-    {!loading && !error && (
-      <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-6">
+                    {/* Title */}
+                    <h3 className="text-lg font-semibold text-gray-900">
+                      {item.name}
+                    </h3>
 
-        {distributors.map((item, index) => (
-          <Card
-            key={index}
-            className="relative bg-white border rounded-xl hover:shadow-md transition"
-          >
-            <CardContent className="flex flex-col items-center text-center gap-4 py-10 px-6 relative ">
+                    {/* Description */}
+                    <p className="text-sm text-gray-500">{item.description}</p>
 
-             
-
-              {/* Logo */}
-              <div className="flex items-center h-20 justify-center">
-                <Image
-                  src={item.image}
-                  alt={item.name}
-                  width={140}
-                  height={80}
-                  className="object-contain"
-                />
-              </div>
-
-              {/* Title */}
-              <h3 className="text-lg font-semibold text-gray-900">
-                {item.name}
-              </h3>
-
-              {/* Description */}
-              <p className="text-sm text-gray-500">
-                {item.description}
-              </p>
-
-              {/* Button */}
-              <Button onClick={() => window.open(item.visitUrl, "_blank")}
-                variant="secondary"
-                className=" -mb-4 w-full     flex items-center justify-center gap-2 bg-gray-100 hover:bg-gray-200"
-              >
-                Visit Store 
-                <IconExternalLink size={16} />
-              </Button>
-
-            </CardContent>
-          </Card>
-        ))}
-
-      </div>
-    )}
-
-  </div>
-</section>
+                    {/* Button */}
+                    <Button
+                      onClick={() => window.open(item.visitUrl, "_blank")}
+                      variant="secondary"
+                      className=" -mb-4 w-full cursor-pointer    flex items-center justify-center gap-2 bg-gray-100 hover:bg-gray-200"
+                    >
+                      Visit Store
+                      <IconExternalLink size={16} />
+                    </Button>
+                  </CardContent>
+                </Card>
+              ))}
+            </div>
+          )}
+        </div>
+      </section>
 
       <Footer />
     </>
-  )
-}
+  );
+};
 
-export default page
+export default page;

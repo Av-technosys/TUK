@@ -301,7 +301,7 @@ export default function Page() {
 
               <Button
                 onClick={handleSubmit}
-                className="flex items-center p-6 rounded-full shadow shadow-blue-900 bg-[#135BEC] gap-2"
+                className="flex items-center cursor-pointer p-6 rounded-full shadow shadow-blue-900 bg-[#135BEC] gap-2"
               >
                 Submit Enquiry
                 <IconSend size={18} />

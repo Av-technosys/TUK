@@ -11,6 +11,11 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Button } from "@/components/ui/button";
 import { toast } from "sonner";
+import {
+  validateEmail,
+  validatePhone,
+  validateRequired,
+} from "@/src/lib/validation";
 
 export default function EnquiryModal() {
   const [form, setForm] = useState({
@@ -24,12 +29,46 @@ export default function EnquiryModal() {
   });
 
   const handleChange = (e: any) => {
-    setForm({ ...form, [e.target.name]: e.target.value });
+    const { name, value } = e.target;
+
+    if (name === "phone") {
+      const numericValue = value.replace(/\D/g, "");
+      setForm({ ...form, phone: numericValue });
+      return;
+    }
+
+    setForm({ ...form, [name]: value });
   };
 
   const handleSubmit = async () => {
-    if (!form.name || !form.email) {
-      toast.error("Please fill required fields");
+    // ✅ Required validations
+    if (!validateRequired(form.name)) {
+      toast.error("Full Name is required");
+      return;
+    }
+
+    if (!validateRequired(form.email)) {
+      toast.error("Email is required");
+      return;
+    }
+
+    if (!validateEmail(form.email)) {
+      toast.error("Invalid email address");
+      return;
+    }
+
+    if (!validateRequired(form.phone)) {
+      toast.error("Phone number is required");
+      return;
+    }
+
+    if (!validatePhone(form.phone)) {
+      toast.error("Enter valid 10 digit phone number");
+      return;
+    }
+
+    if (!validateRequired(form.message)) {
+      toast.error("Message is required");
       return;
     }
 
@@ -67,7 +106,7 @@ export default function EnquiryModal() {
   return (
     <Dialog>
       <DialogTrigger>
-        <Button className="rounded-full bg-[#1E3A8A] hover:bg-[#1E3A8A] text-xs px-6 h-8">
+        <Button className="rounded-full cursor-pointer bg-[#0300A7] hover:bg-[#1E3A8A] text-xs px-6 h-8">
           Enquiries
         </Button>
       </DialogTrigger>
@@ -79,7 +118,7 @@ export default function EnquiryModal() {
           {/* Row 1 */}
           <div className="grid grid-cols-2 gap-3">
             <div>
-              <label htmlFor="">Full Name</label>
+              <label htmlFor="">Full Name*</label>
               <Input
                 name="name"
                 value={form.name}
@@ -88,7 +127,7 @@ export default function EnquiryModal() {
               />
             </div>
             <div>
-              <label htmlFor="">Company Name</label>
+              <label htmlFor="">Company Name*</label>
               <Input
                 name="company"
                 value={form.company}
@@ -101,7 +140,7 @@ export default function EnquiryModal() {
           {/* Row 2 */}
           <div className="grid grid-cols-2 gap-3">
             <div>
-              <label htmlFor="">Email</label>
+              <label htmlFor="">Email*</label>
               <Input
                 name="email"
                 value={form.email}
@@ -110,12 +149,14 @@ export default function EnquiryModal() {
               />
             </div>
             <div>
-              <label htmlFor="">Phone</label>
+              <label htmlFor="">Phone*</label>
               <Input
                 name="phone"
                 value={form.phone}
                 onChange={handleChange}
                 placeholder="Enter Phone no."
+                maxLength={10}
+                inputMode="numeric"
               />
             </div>
           </div>
@@ -153,7 +194,7 @@ export default function EnquiryModal() {
           {/* Button */}
           <Button
             onClick={handleSubmit}
-            className="w-full bg-[#1E3A8A] rounded-full"
+            className="w-full cursor-pointer bg-[#1E3A8A] rounded-full"
           >
             SEND
           </Button>

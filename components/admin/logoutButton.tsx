@@ -9,10 +9,13 @@ export function LogoutButton() {
   };
 
   return (
-   <Button onClick={handleLogout} className="border border-black px-6 py-1 rounded-lg bg-black text-white">
-    logout
-   </Button>
+    <Button
+      onClick={handleLogout}
+      className="border cursor-pointer border-black px-6 py-1 rounded-lg bg-black text-white"
+    >
+      logout
+    </Button>
   );
 }
 
-//  
+//

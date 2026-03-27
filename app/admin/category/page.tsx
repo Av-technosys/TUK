@@ -52,7 +52,10 @@ export default function CategoryPage() {
       <div className="flex justify-between mb-6">
         <h1 className="text-2xl font-semibold">Categories</h1>
 
-        <Button onClick={() => router.push("/admin/category/add")}>
+        <Button
+          className="cursor-pointer"
+          onClick={() => router.push("/admin/category/add")}
+        >
           + Add Category
         </Button>
       </div>
@@ -81,14 +84,11 @@ export default function CategoryPage() {
               <TableCell>{cat.description}</TableCell>
 
               <TableCell className="text-right space-x-2">
-
                 {/* EDIT */}
-                <Button 
-                className="bg-black text-white px-3 py-1 text-sm font-medium rounded"
+                <Button
+                  className="bg-black cursor-pointer text-white px-3 py-1 text-sm font-medium rounded"
                   variant="outline"
-                  onClick={() =>
-                    router.push(`/admin/category/${cat.id}`)
-                  }
+                  onClick={() => router.push(`/admin/category/${cat.id}`)}
                 >
                   Edit
                 </Button>
@@ -96,7 +96,10 @@ export default function CategoryPage() {
                 {/* 🔥 DELETE WITH DIALOG */}
                 <AlertDialog>
                   <AlertDialogTrigger>
-                    <Button variant="destructive" className="px-3 py-1 text-sm font-medium  rounded ">
+                    <Button
+                      variant="destructive"
+                      className="px-3 py-1 cursor-pointer text-sm font-medium  rounded "
+                    >
                       Delete
                     </Button>
                   </AlertDialogTrigger>
@@ -108,24 +111,20 @@ export default function CategoryPage() {
                       </AlertDialogTitle>
 
                       <AlertDialogDescription>
-                        This action cannot be undone. This will permanently delete the category.
+                        This action cannot be undone. This will permanently
+                        delete the category.
                       </AlertDialogDescription>
                     </AlertDialogHeader>
 
                     <AlertDialogFooter>
-                      <AlertDialogCancel>
-                        Cancel
-                      </AlertDialogCancel>
+                      <AlertDialogCancel>Cancel</AlertDialogCancel>
 
-                      <AlertDialogAction
-                        onClick={() => handleDelete(cat.id)}
-                      >
+                      <AlertDialogAction onClick={() => handleDelete(cat.id)}>
                         Yes, Delete
                       </AlertDialogAction>
                     </AlertDialogFooter>
                   </AlertDialogContent>
                 </AlertDialog>
-
               </TableCell>
             </TableRow>
           ))}

@@ -1,23 +1,19 @@
 // components/admin/mobile-sidebar.tsx
-"use client"
+"use client";
 
-import { Menu } from "lucide-react"
-import { Sidebar } from "@/components/admin/sidebar"
-import { Button } from "@/components/ui/button"
-import {
-  Sheet,
-  SheetContent,
-  SheetTrigger,
-} from "@/components/ui/sheet"
+import { Menu } from "lucide-react";
+import { Sidebar } from "@/components/admin/sidebar";
+import { Button } from "@/components/ui/button";
+import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 
 export function MobileSidebar() {
   return (
     <Sheet>
-      <SheetTrigger >
+      <SheetTrigger>
         <Button
           variant="ghost"
           size="icon"
-          className="lg:hidden"
+          className="lg:hidden cursor-pointer"
         >
           <Menu className="h-5 w-5" />
         </Button>
@@ -27,5 +23,5 @@ export function MobileSidebar() {
         <Sidebar />
       </SheetContent>
     </Sheet>
-  )
+  );
 }

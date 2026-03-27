@@ -58,7 +58,11 @@ export function VerifyOTPClient() {
           onChange={(e) => setOtp(e.target.value)}
         />
 
-        <button onClick={handleVerify} disabled={loading} className="w-full bg-black text-white p-2">
+        <button
+          onClick={handleVerify}
+          disabled={loading}
+          className=" cursor-pointer w-full bg-black text-white p-2"
+        >
           {loading ? "Verifying..." : "Verify"}
         </button>
       </div>

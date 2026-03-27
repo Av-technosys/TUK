@@ -1,0 +1,18 @@
+import Footer from "@/components/common/footer";
+import Header from "@/components/common/header";
+import Topbar from "@/components/common/topbar";
+
+export default function AdminLayout({
+  children,
+}: {
+  children: React.ReactNode;
+}) {
+  return (
+    <>
+      <Topbar />
+      <Header />
+      {children}
+      <Footer />
+    </>
+  );
+}

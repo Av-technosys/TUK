@@ -115,7 +115,6 @@
 //   );
 // }
 
-
 "use client";
 
 import { useState } from "react";
@@ -150,88 +149,87 @@ export default function AddCategoryPage() {
 
   // 🖼️ IMAGE UPLOAD
 
+  const handleUpload = async (e: any) => {
+    const file = e.target.files[0];
+    if (!file) return;
 
-const handleUpload = async (e: any) => {
-  const file = e.target.files[0];
-  if (!file) return;
+    setUploading(true);
 
-  setUploading(true);
+    const formData = new FormData();
+    formData.append("file", file);
 
-  const formData = new FormData();
-  formData.append("file", file);
+    // 🔥 Show loading toast
+    const toastId = toast.loading("Uploading image...");
 
-  // 🔥 Show loading toast
-  const toastId = toast.loading("Uploading image...");
-
-  try {
-    const res = await fetch("/api/upload", {
-      method: "POST",
-      body: formData,
-    });
-
-    const data = await res.json();
-
-    if (data.url) {
-      setForm((prev) => ({ ...prev, image: data.url }));
-
-      // ✅ Success toast
-      toast.success("Image uploaded successfully ✅", {
-        id: toastId,
+    try {
+      const res = await fetch("/api/upload", {
+        method: "POST",
+        body: formData,
       });
-    } else {
-      toast.error("Upload failed ❌", {
+
+      const data = await res.json();
+
+      if (data.url) {
+        setForm((prev) => ({ ...prev, image: data.url }));
+
+        // ✅ Success toast
+        toast.success("Image uploaded successfully ✅", {
+          id: toastId,
+        });
+      } else {
+        toast.error("Upload failed ❌", {
+          id: toastId,
+        });
+      }
+    } catch (err) {
+      console.error(err);
+
+      // ❌ Error toast
+      toast.error("Something went wrong during upload", {
         id: toastId,
       });
     }
-  } catch (err) {
-    console.error(err);
 
-    // ❌ Error toast
-    toast.error("Something went wrong during upload", {
-      id: toastId,
-    });
-  }
-
-  setUploading(false);
-};
+    setUploading(false);
+  };
 
   // ✅ SUBMIT
-const handleSubmit = async () => {
-  if (!form.name || !form.slug) {
-    toast.error("Name & Slug required");
-    return;
-  }
-
-  setLoading(true);
-
-  try {
-    const res = await fetch("/api/category", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(form),
-    });
-
-    const data = await res.json();
-
-    if (data.success) {
-      toast.success("Category added successfully 🎉");
-
-      // small delay for better UX
-      setTimeout(() => {
-        router.push("/admin/category");
-      }, 800);
-    } else {
-      toast.error(data.error || "Failed to add category");
+  const handleSubmit = async () => {
+    if (!form.name || !form.slug) {
+      toast.error("Name & Slug required");
+      return;
     }
-  } catch (err) {
-    console.error(err);
-    toast.error("Something went wrong");
-  }
 
-  setLoading(false);
-};
+    setLoading(true);
+
+    try {
+      const res = await fetch("/api/category", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(form),
+      });
+
+      const data = await res.json();
+
+      if (data.success) {
+        toast.success("Category added successfully 🎉");
+
+        // small delay for better UX
+        setTimeout(() => {
+          router.push("/admin/category");
+        }, 800);
+      } else {
+        toast.error(data.error || "Failed to add category");
+      }
+    } catch (err) {
+      console.error(err);
+      toast.error("Something went wrong");
+    }
+
+    setLoading(false);
+  };
 
   return (
     <div className="p-6 max-w-xl mx-auto">
@@ -252,9 +250,7 @@ const handleSubmit = async () => {
           <label>Slug</label>
           <Input
             value={form.slug}
-            onChange={(e) =>
-              setForm({ ...form, slug: e.target.value })
-            }
+            onChange={(e) => setForm({ ...form, slug: e.target.value })}
           />
         </div>
 
@@ -279,16 +275,14 @@ const handleSubmit = async () => {
           <label>Description</label>
           <Textarea
             value={form.description}
-            onChange={(e) =>
-              setForm({ ...form, description: e.target.value })
-            }
+            onChange={(e) => setForm({ ...form, description: e.target.value })}
           />
         </div>
 
         {/* BUTTON */}
         <Button
           onClick={handleSubmit}
-          className="w-full"
+          className="w-full cursor-pointer"
           disabled={loading}
         >
           {loading ? "Adding..." : "Add Category"}

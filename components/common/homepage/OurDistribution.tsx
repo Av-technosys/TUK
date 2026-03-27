@@ -1,33 +1,33 @@
-"use client"
+"use client";
 
-import { useEffect, useState } from "react"
-import { IconChevronRight } from "@tabler/icons-react"
-import Image from "next/image"
+import { useEffect, useState } from "react";
+import { IconChevronRight } from "@tabler/icons-react";
+import Image from "next/image";
+import Link from "next/link";
 
 const OurDistribution = () => {
-  const [distributors, setDistributors] = useState<any[]>([])
-  const [loading, setLoading] = useState(true)
+  const [distributors, setDistributors] = useState<any[]>([]);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const fetchDistributors = async () => {
       try {
-        const res = await fetch("/api/distributors")
-        const data = await res.json()
-        setDistributors(data)
+        const res = await fetch("/api/distributors");
+        const data = await res.json();
+        setDistributors(data);
       } catch (error) {
-        console.error("Error fetching distributors:", error)
+        console.error("Error fetching distributors:", error);
       } finally {
-        setLoading(false)
+        setLoading(false);
       }
-    }
+    };
 
-    fetchDistributors()
-  }, [])
+    fetchDistributors();
+  }, []);
 
   return (
     <section className="w-full bg-white font-poppins">
       <div className="max-w-6xl mx-auto px-4 sm:px-6 xl:px-8 py-8">
-
         {/* Heading */}
         <div className="flex items-center justify-center gap-4">
           <div className="flex-1 border-t-2 border-[#FB923C] max-w-20" />
@@ -45,12 +45,15 @@ const OurDistribution = () => {
         </h2>
 
         <p className="text-center text-gray-500 mt-2">
-          TUK products are available through our network of authorised trade distributors
+          TUK products are available through our network of authorised trade
+          distributors
         </p>
 
         {/* Loading */}
         {loading && (
-          <p className="text-center mt-6 text-gray-500">Loading distributors...</p>
+          <p className="text-center mt-6 text-gray-500">
+            Loading distributors...
+          </p>
         )}
 
         {/* Grid */}
@@ -74,15 +77,17 @@ const OurDistribution = () => {
 
         {/* CTA */}
         <div className="text-center mt-10">
-          <a className="text-[#1E3A8A] font-semibold inline-flex items-center gap-2 cursor-pointer">
+          <Link
+            href="/contact"
+            className="text-[#1E3A8A] font-semibold inline-flex items-center gap-2 cursor-pointer"
+          >
             Become an Authorised Distributor
             <IconChevronRight className="w-4 h-4" />
-          </a>
+          </Link>
         </div>
-
       </div>
     </section>
-  )
-}
+  );
+};
 
-export default OurDistribution
+export default OurDistribution;
