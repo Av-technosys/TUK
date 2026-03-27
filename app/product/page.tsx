@@ -1,27 +1,25 @@
-"use client"
+"use client";
 
-import { useState, useEffect } from "react"
-import Link from "next/link"
-import Header from "@/components/common/header"
-import Footer from "@/components/common/footer"
-import FilterSideBar from "@/components/common/product/FilterSidebar"
-import ProductDefine from "@/components/common/product/ProductDefine"
-import FilterSide from "@/components/common/category/FilterSide"
+import { useState, useEffect } from "react";
+import Link from "next/link";
+import Header from "@/components/common/header";
+import Footer from "@/components/common/footer";
+import ProductDefine from "@/components/common/product/ProductDefine";
+import FilterSide from "@/components/common/category/FilterSide";
 
 export default function Page() {
-
-  const [category, setCategory] = useState("All Categories")
-  const [sort, setSort] = useState("latest")
-  const [products, setProducts] = useState<any[]>([])
-  const [loading, setLoading] = useState(true)
+  const [category, setCategory] = useState("All Categories");
+  const [sort, setSort] = useState("latest");
+  const [products, setProducts] = useState<any[]>([]);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const fetchProducts = async () => {
       try {
-        const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || "http://localhost:3000"
-        const response = await fetch(`${baseUrl}/api/products`)
+        const baseUrl = process.env.NEXT_PUBLIC_BASE_URL;
+        const response = await fetch(`${baseUrl}/api/products`);
         if (response.ok) {
-          const data = await response.json()
+          const data = await response.json();
           // Map API data to UI format
           const mappedProducts = data.map((product: any) => ({
             id: product.id,
@@ -32,18 +30,18 @@ export default function Page() {
             new: false,
             slug: product.slug,
             description: product.shortDescription,
-          }))
-          setProducts(mappedProducts)
+          }));
+          setProducts(mappedProducts);
         }
       } catch (error) {
-        console.error("Error fetching products:", error)
+        console.error("Error fetching products:", error);
       } finally {
-        setLoading(false)
+        setLoading(false);
       }
-    }
+    };
 
-    fetchProducts()
-  }, [])
+    fetchProducts();
+  }, []);
 
   return (
     <>
@@ -51,7 +49,6 @@ export default function Page() {
 
       <div className="w-full bg-gray-100 ">
         <div className="max-w-6xl mx-auto px-4 py-3 text-sm text-gray-600 flex items-center gap-2">
-
           <Link href="/" className="hover:text-black">
             Home
           </Link>
@@ -64,21 +61,15 @@ export default function Page() {
 
           <span>›</span>
 
-          <span className="text-black font-medium">
-            {category}
-          </span>
-
+          <span className="text-black font-medium">{category}</span>
         </div>
       </div>
 
       <section className="bg-gray-100 w-full py-1 lg:py-10">
-
         <div className="max-w-6xl mx-auto px-4">
-
           {/* MOBILE FILTER BAR */}
 
           <div className="lg:hidden flex items-center gap-3 mb-6">
-
             {/* CATEGORY SELECT */}
             <select
               value={category}
@@ -109,15 +100,12 @@ export default function Page() {
               <option value="name">Name</option>
               <option value="popular">Popular</option>
             </select>
-
           </div>
 
           <div className="flex flex-col lg:flex-row gap-8">
-
             {/* SIDEBAR */}
 
             <div className="hidden lg:block lg:w-1/4 lg:sticky lg:top-24 h-fit">
-
               <FilterSide
                 category={category}
                 setCategory={setCategory}
@@ -125,7 +113,6 @@ export default function Page() {
                 setSort={setSort}
                 products={products}
               />
-
             </div>
 
             {/* PRODUCTS */}
@@ -143,16 +130,12 @@ export default function Page() {
                   products={products}
                 />
               )}
-
             </div>
-
           </div>
-
         </div>
-
       </section>
 
       <Footer />
     </>
-  )
+  );
 }
