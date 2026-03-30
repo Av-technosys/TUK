@@ -93,6 +93,7 @@ export default function ProductDetailsTabs({
 
         <TabsContent value="usage">
           <div className="border rounded-xl p-6 bg-white">
+            <h3 className="font-semibold mb-4">Usage</h3>
             <p className="text-muted-foreground"> {stripHtml(usage)}</p>
           </div>
         </TabsContent>
@@ -101,6 +102,7 @@ export default function ProductDetailsTabs({
 
         <TabsContent value="benefits">
           <div className="border rounded-xl p-6 bg-white">
+            <h3 className="font-semibold mb-4">Benefits</h3>
             <p className="text-muted-foreground">{stripHtml(benefits)}</p>
           </div>
         </TabsContent>
@@ -109,6 +111,7 @@ export default function ProductDetailsTabs({
 
         <TabsContent value="connectivity">
           <div className="border rounded-xl p-6 bg-white">
+            <h3 className="font-semibold mb-4">Connectivity</h3>
             <p className="text-muted-foreground">{stripHtml(connectivity)}</p>
           </div>
         </TabsContent>
@@ -117,6 +120,7 @@ export default function ProductDetailsTabs({
 
         <TabsContent value="safety">
           <div className="border rounded-xl p-6 bg-white">
+            <h3 className="font-semibold mb-4">Safety</h3>
             <p className="text-muted-foreground">{stripHtml(safety)}</p>
           </div>
         </TabsContent>

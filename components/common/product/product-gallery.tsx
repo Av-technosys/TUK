@@ -1,74 +1,80 @@
-"use client"
+"use client";
 
-import { useState } from "react"
-import Image from "next/image"
-import { Card } from "@/components/ui/card"
-import { Button } from "@/components/ui/button"
+import { useState } from "react";
+import Image from "next/image";
+import { Card } from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
 import {
   IconChevronLeft,
   IconChevronRight,
   IconMaximize,
-} from "@tabler/icons-react"
+} from "@tabler/icons-react";
 
 interface ProductGalleryProps {
   images?: Array<{ imageUrl: string; isPrimary: boolean }>;
 }
 
-export default function ProductGallery({ images: productImages = [] }: ProductGalleryProps) {
+export default function ProductGallery({
+  images: productImages = [],
+}: ProductGalleryProps) {
   // Use product images if available, otherwise fall back to defaults
-  const images = productImages.length > 0 
-    ? productImages.map(img => img.imageUrl)
-    : ["/image/product.png", "/image/product.png", "/image/product.png", "/image/product.png"];
-    
-  const [index, setIndex] = useState(0)
-  const [zoomStyle, setZoomStyle] = useState({})
-  const [zoom, setZoom] = useState(false)
+  const images =
+    productImages.length > 0
+      ? productImages.map((img) => img.imageUrl)
+      : [
+          "/image/product.png",
+          "/image/product.png",
+          "/image/product.png",
+          "/image/product.png",
+        ];
+
+  const [index, setIndex] = useState(0);
+  const [zoomStyle, setZoomStyle] = useState({});
+  const [zoom, setZoom] = useState(false);
 
   const prev = () => {
-    setIndex((prev) => (prev === 0 ? images.length - 1 : prev - 1))
-  }
+    setIndex((prev) => (prev === 0 ? images.length - 1 : prev - 1));
+  };
 
   const next = () => {
-    setIndex((prev) => (prev === images.length - 1 ? 0 : prev + 1))
-  }
+    setIndex((prev) => (prev === images.length - 1 ? 0 : prev + 1));
+  };
 
   const handleMove = (e: React.MouseEvent<HTMLDivElement>) => {
     const { left, top, width, height } =
-      e.currentTarget.getBoundingClientRect()
+      e.currentTarget.getBoundingClientRect();
 
-    const x = ((e.clientX - left) / width) * 100
-    const y = ((e.clientY - top) / height) * 100
+    const x = ((e.clientX - left) / width) * 100;
+    const y = ((e.clientY - top) / height) * 100;
 
     setZoomStyle({
       transformOrigin: `${x}% ${y}%`,
       transform: "scale(2)",
-    })
-  }
+    });
+  };
 
   return (
     <div className="flex flex-col gap-4">
-
       {/* MAIN IMAGE WRAPPER */}
       <div className="relative px-6 md:px-10">
-
         {/* IMAGE BOX */}
         <div
           className="relative overflow-hidden rounded-2xl"
           onMouseMove={handleMove}
           onMouseEnter={() => setZoom(true)}
           onMouseLeave={() => {
-            setZoom(false)
-            setZoomStyle({ transform: "scale(1)" })
+            setZoom(false);
+            setZoomStyle({ transform: "scale(1)" });
           }}
         >
-        <Image
-  src={images[index]}
-  alt="product"
-  width={800}
-  height={600}
-  className="w-full h-auto object-cover rounded-2xl transition duration-300 cursor-pointer"
-  style={zoom ? zoomStyle : {}}
-/>
+          <Image
+            src={images[index]}
+            alt="product"
+            width={800}
+            height={600}
+            className="w-full h-auto object-cover rounded-2xl transition duration-300 cursor-pointer"
+            style={zoom ? zoomStyle : {}}
+          />
 
           {/* Hover label */}
           <div className="absolute top-4 right-4 bg-black/60 text-white text-sm px-3 py-1 rounded-lg flex items-center gap-2">
@@ -110,7 +116,6 @@ export default function ProductGallery({ images: productImages = [] }: ProductGa
         >
           <IconChevronRight size={18} />
         </Button>
-
       </div>
 
       {/* THUMBNAILS */}
@@ -119,19 +124,19 @@ export default function ProductGallery({ images: productImages = [] }: ProductGa
           <Card
             key={i}
             onClick={() => setIndex(i)}
-            className={`cursor-pointer overflow-hidden rounded-xl 
-            ${i === index ? "ring-2 " : ""}`}
+            className={`cursor-pointer overflow rounded-xl 
+            ${i === index ? "ring-1 " : ""}`}
           >
             <Image
               src={img}
               alt="thumb"
               width={120}
               height={80}
-              className="w-full h-auto object-cover"
+              className="w-full h-full object-cover"
             />
           </Card>
         ))}
       </div>
     </div>
-  )
+  );
 }

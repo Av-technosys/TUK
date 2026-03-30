@@ -82,13 +82,15 @@ export default function RelatedProducts({
                 {/* Description */}
                 {item?.sku && (
                   <p className="text-xs text-gray-500 line-clamp-2">
-                    {item.sku}
+                    {item?.sku}
                   </p>
                 )}
 
                 {/* Price */}
                 {item?.description && (
-                  <p className="text-sm  text-black pt-1">{item.description}</p>
+                  <p className="text-sm  text-black pt-1 line-clamp-3">
+                    {item?.description}
+                  </p>
                 )}
               </div>
             </Link>
