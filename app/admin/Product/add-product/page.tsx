@@ -88,6 +88,15 @@ export default function AddProductPage() {
 
     setPdfLoading(false);
   };
+
+  // AUTO SLUG GENERATE
+  const handleNameChange = (value: string) => {
+    setForm({
+      ...form,
+      name: value,
+      slug: value.toLowerCase().replace(/\s+/g, "-"),
+    });
+  };
   // ✅ Image Upload Handler (merged)
   const handleUpload = async (e: any) => {
     const file = e.target.files[0];
@@ -237,14 +246,13 @@ export default function AddProductPage() {
           <div className="grid md:grid-cols-2 gap-4">
             <div>
               <label className="text-sm font-medium">Product Name</label>
-              <Input
-                onChange={(e) => setForm({ ...form, name: e.target.value })}
-              />
+              <Input onChange={(e) => handleNameChange(e.target.value)} />
             </div>
 
             <div>
               <label className="text-sm font-medium">Slug</label>
               <Input
+                value={form.slug}
                 onChange={(e) => setForm({ ...form, slug: e.target.value })}
               />
             </div>

@@ -51,15 +51,20 @@ const Footer = () => {
             </p>
 
             <div className="flex gap-3 pt-2">
-              <Button
-                variant="ghost"
-                size="icon"
-                className=" hover:bg-[#2e4472] rounded-md cursor-pointer"
+              <Link
+                href="https://www.linkedin.com/company/tuk-ltd/?originalSubdomain=uk"
+                target="_blank"
               >
-                <div className="bg-[#2e4ea1] text-[#D1D5DB]  p-2 rounded-sm flex items-center justify-center">
-                  <IconBrandLinkedin size={16} className="" />
-                </div>
-              </Button>
+                <Button
+                  variant="ghost"
+                  size="icon"
+                  className=" hover:bg-[#2e4472] rounded-md cursor-pointer"
+                >
+                  <div className="bg-[#2e4ea1] text-[#D1D5DB]  p-2 rounded-sm flex items-center justify-center">
+                    <IconBrandLinkedin size={16} className="" />
+                  </div>
+                </Button>
+              </Link>
             </div>
           </div>
 
@@ -68,13 +73,27 @@ const Footer = () => {
             <h3 className="font-semibold text-lg">Product Categories</h3>
 
             <div className="flex flex-col space-y-2 text-[#9CA3AF] text-sm">
-              <Link href="#">RJ45 Connectors</Link>
-              <Link href="#">Patch Panels</Link>
-              <Link href="#">Data Cable</Link>
-              <Link href="#">Voice Cable</Link>
-              <Link href="#">Keystone Jacks</Link>
-              <Link href="#">Patch Leads</Link>
-              <Link href="#">Cable Management</Link>
+              <Link href="/category?categoryId=41b19390-5260-43e8-8d0c-08312ee4e041">
+                RJ45 Connectors
+              </Link>
+              <Link href="/category?categoryId=0d908864-f7de-4e86-8aa3-3f012e528785">
+                Multimedia Connectors
+              </Link>
+              <Link href="/category?categoryId=5abc4a47-5cc5-439f-8df4-d02a193f142f">
+                Mini Media
+              </Link>
+              <Link href="/category?categoryId=3bb2c7a9-3f3e-4b9d-be7f-428caafab3d3">
+                Voice Cable
+              </Link>
+              <Link href="/category?categoryId=796cce52-c1ab-4af6-b6f1-2e8c974f522a">
+                PCB Mounts
+              </Link>
+              <Link href="/category?categoryId=8993553c-c381-4df1-86ea-b277f6c30a09">
+                Modular Plugs
+              </Link>
+              <Link href="/category?categoryId=44aa2caf-8e5c-476f-96fa-3c14926f81c4">
+                Cable Management
+              </Link>
             </div>
           </div>
 
@@ -115,13 +134,13 @@ const Footer = () => {
 
         {/* bottom bar */}
 
-        <div className="border-t  border-[#1E3A8A] mt-10 pt-6 flex flex-col md:flex-row items-center justify-between gap-4 text-sm text-gray-400">
+        <div className=" w-full border-t  border-[#1E3A8A] mt-10 pt-6 flex flex-col md:flex-row items-center justify-between gap-4 text-sm text-gray-400">
           <p>
             © 2026 TUK Ltd. All rights reserved. Registered in England & Wales.
             B2B Trade Only
           </p>
 
-          <div className="flex items-center gap-6">
+          <div className="flex lg:w-96 w-full justify-between lg:justify-end  lg:items-center  lg:gap-6">
             <Link href="/privacy-policy">Privacy Policy</Link>
             <Link href="/terms-conditions">Terms & Conditions</Link>
           </div>

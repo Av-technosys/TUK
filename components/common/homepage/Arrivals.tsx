@@ -5,6 +5,7 @@ import Image from "next/image";
 import { IconHeart, IconArrowUpRight } from "@tabler/icons-react";
 import Link from "next/link";
 import { toast } from "sonner";
+import { Slice } from "lucide-react";
 
 // ✅ wishlist helpers
 const getWishlist = () => {
@@ -75,7 +76,7 @@ const Arrivals = () => {
         </div>
 
         <div className="grid sm:grid-cols-2 xl:grid-cols-3 gap-8">
-          {products.map((item: any) => (
+          {products.slice(0, 3).map((item: any) => (
             <div
               key={item.id}
               className="bg-background border rounded-xl overflow-hidden hover:shadow-lg transition"
@@ -121,7 +122,7 @@ const Arrivals = () => {
                       size={18}
                       className={
                         wishlistIds.includes(item.id)
-                          ? "text-red-500"
+                          ? "fill-red-500 text-red-500"
                           : "text-gray-400"
                       }
                     />

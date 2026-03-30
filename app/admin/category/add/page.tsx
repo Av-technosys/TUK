@@ -21,7 +21,7 @@ export default function AddCategoryPage() {
   const [loading, setLoading] = useState(false);
   const [uploading, setUploading] = useState(false);
 
-  // 🔥 AUTO SLUG GENERATE
+  // AUTO SLUG GENERATE
   const handleNameChange = (value: string) => {
     setForm({
       ...form,

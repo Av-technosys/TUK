@@ -78,7 +78,7 @@ const OurDistribution = () => {
         {/* CTA */}
         <div className="text-center mt-10">
           <Link
-            href="/contact"
+            href="/distributor-enquiry"
             className="text-[#1E3A8A] font-semibold inline-flex items-center gap-2 cursor-pointer"
           >
             Become an Authorised Distributor
