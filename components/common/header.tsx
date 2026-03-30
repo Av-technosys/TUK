@@ -17,6 +17,7 @@ const navLinks = [
   { name: "Products", href: "/product" },
   { name: "About", href: "/about" },
   { name: "Wishlist", href: "/wishlist" },
+  { name: "Distributor", href: "/distributor" },
   { name: "Contact", href: "/contact" },
 ];
 

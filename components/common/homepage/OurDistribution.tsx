@@ -58,7 +58,7 @@ const OurDistribution = () => {
 
         {/* Grid */}
         <div className="grid grid-cols-2 sm:grid-cols-3 xl:grid-cols-6 gap-6 mt-8">
-          {distributors.map((item: any) => (
+          {distributors.slice(0, 6).map((item: any) => (
             <div
               key={item.id}
               className="bg-[#F9FAFB] rounded-xl p-4 flex items-center justify-center hover:shadow-md transition"
