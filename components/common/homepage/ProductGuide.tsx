@@ -54,7 +54,7 @@ const ProductGuide = () => {
 
       // 👉 Direct download
       const link = document.createElement("a");
-      link.href = "/library_user_management_system_SOW.pdf"; // put pdf in public/pdf/
+      link.href = "/TUK-Product-Guide-2019.pdf"; // put pdf in public/pdf/
       link.download = "Product-Guide.pdf";
       link.click();
     } catch (error) {
