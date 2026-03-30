@@ -14,8 +14,11 @@ import {
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import RichEditor from "@/components/common/RichEditor";
 import { toast } from "sonner";
+import { useRouter } from "next/navigation";
 
 export default function AddProductPage() {
+  const router = useRouter();
+
   const [form, setForm] = useState({
     name: "",
     slug: "",
@@ -199,6 +202,10 @@ export default function AddProductPage() {
 
         // optional redirect
         // router.push("/admin/Product");
+
+        setTimeout(() => {
+          router.push("/admin/Product");
+        }, 800);
       } else {
         toast.error(data.error || "Failed to create product ❌", {
           id: toastId,
