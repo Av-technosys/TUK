@@ -1,8 +1,20 @@
 "use client";
 
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+  AlertDialogTrigger,
+} from "@/components/ui/alert-dialog";
 import { Button } from "@/components/ui/button";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
+import { toast } from "sonner";
 
 export default function ProductsPage() {
   const [products, setProducts] = useState<any[]>([]);
@@ -20,10 +32,10 @@ export default function ProductsPage() {
   }, []);
 
   const handleDelete = async (id: string) => {
-    const confirmDelete = confirm(
-      "Are you sure you want to delete this product?",
-    );
-    if (!confirmDelete) return;
+    // const confirmDelete = confirm(
+    //   "Are you sure you want to delete this product?",
+    // );
+    // if (!confirmDelete) return;
 
     const res = await fetch(`/api/products/${id}`, {
       method: "DELETE",
@@ -32,12 +44,12 @@ export default function ProductsPage() {
     const data = await res.json();
 
     if (data.success) {
-      alert("Product deleted");
+      toast("Product deleted");
 
       // 🔥 remove from UI instantly
       setProducts((prev) => prev.filter((p) => p.id !== id));
     } else {
-      alert("Delete failed");
+      toast("Delete failed");
     }
   };
 
@@ -100,13 +112,38 @@ export default function ProductsPage() {
                     >
                       Edit
                     </Button>
-                    <Button
-                      variant="destructive"
-                      className=" cursor-pointer rounded"
-                      onClick={() => handleDelete(p.id)}
-                    >
-                      Delete
-                    </Button>
+
+                    <AlertDialog>
+                      <AlertDialogTrigger>
+                        <Button
+                          variant="destructive"
+                          className="px-3 py-1 cursor-pointer text-sm font-medium  rounded "
+                        >
+                          Delete
+                        </Button>
+                      </AlertDialogTrigger>
+
+                      <AlertDialogContent>
+                        <AlertDialogHeader>
+                          <AlertDialogTitle>
+                            Are you absolutely sure?
+                          </AlertDialogTitle>
+
+                          <AlertDialogDescription>
+                            This action cannot be undone. This will permanently
+                            delete the category.
+                          </AlertDialogDescription>
+                        </AlertDialogHeader>
+
+                        <AlertDialogFooter>
+                          <AlertDialogCancel>Cancel</AlertDialogCancel>
+
+                          <AlertDialogAction onClick={() => handleDelete(p.id)}>
+                            Yes, Delete
+                          </AlertDialogAction>
+                        </AlertDialogFooter>
+                      </AlertDialogContent>
+                    </AlertDialog>
                   </td>
                 </tr>
               ))}

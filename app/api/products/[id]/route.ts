@@ -117,3 +117,40 @@ export async function PUT(
     );
   }
 }
+
+
+export async function DELETE(
+  req: Request,
+  { params }: { params: Promise<{ id: string }> }
+) {
+  try {
+    const { id } = await params;
+
+    if (!id) {
+      return NextResponse.json(
+        { error: "ID is missing" },
+        { status: 400 }
+      );
+    }
+
+    // 🔥 Delete related data first
+    await db.delete(productFeatures).where(eq(productFeatures.productId, id));
+    await db.delete(productSpecifications).where(eq(productSpecifications.productId, id));
+    await db.delete(productImages).where(eq(productImages.productId, id));
+    await db.delete(productDiTerms).where(eq(productDiTerms.productId, id));
+
+    // 🔥 Delete main product
+    await db.delete(products).where(eq(products.id, id));
+
+    return NextResponse.json({
+      success: true,
+      message: "Product deleted successfully",
+    });
+  } catch (error) {
+    console.error("DELETE ERROR:", error);
+    return NextResponse.json(
+      { error: "Failed to delete product" },
+      { status: 500 }
+    );
+  }
+}

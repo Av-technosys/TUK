@@ -9,25 +9,7 @@ export async function GET(
   const { id } = await ctx.params;
   const categoryId = id;
   console.log("Fetching related products for ID:", categoryId); // ✅ debug  
-  // try {
-  //   const productId = params.id;
 
-  //   console.log("Product ID:", productId); // ✅ debug
-
-  //   const current = await db.query.products.findFirst({
-  //     where: eq(products.id, productId),
-  //   });
-
-    // console.log("Current product:", current); // ✅ debug
-
-    // if (!current) {
-    //   return Response.json([]);
-    // }
-
-    // if (!current.categoryId) {
-    //   console.log("Category is null ❌");
-    //   return Response.json([]);
-    // }
 try{
     const related = await db
       .select()
