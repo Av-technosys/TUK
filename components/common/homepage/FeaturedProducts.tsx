@@ -119,7 +119,7 @@ const FeaturedProducts = () => {
                       size={18}
                       className={
                         wishlistIds.includes(item.id)
-                          ? "text-red-500"
+                          ? "fill-red-500 text-red-500"
                           : "text-gray-400"
                       }
                     />

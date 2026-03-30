@@ -177,7 +177,7 @@ const CategoryDefine = ({ category, sort, setSort }: any) => {
                   <IconHeart
                     className={`cursor-pointer ${
                       wishlistIds.includes(item.id)
-                        ? "text-red-500"
+                        ? "fill-red-500 text-red-500"
                         : "text-gray-400"
                     }`}
                     onClick={(e) => {
