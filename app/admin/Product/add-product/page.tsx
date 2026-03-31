@@ -36,7 +36,7 @@ export default function AddProductPage() {
     Material: "",
     Specification: "",
     Packaging: "",
-    AdditionalInformation: "",
+    Additional: "",
   });
 
   const [features, setFeatures] = useState<string[]>([""]);
