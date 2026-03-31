@@ -119,7 +119,7 @@ export default function ProductGallery({
       </div>
 
       {/* THUMBNAILS */}
-      <div className="flex gap-4 overflow-x-auto">
+      <div className="ml-6 flex gap-4 overflow-x-auto">
         {images.map((img, i) => (
           <Card
             key={i}
@@ -132,7 +132,7 @@ export default function ProductGallery({
               alt="thumb"
               width={120}
               height={80}
-              className="w-full h-full object-cover"
+              className="lg:w-full lg:h-full object-cover"
             />
           </Card>
         ))}

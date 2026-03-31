@@ -164,10 +164,10 @@ export default function ProductInfo({ product }: ProductInfoProps) {
         </div>
       )}
 
-      <div className="flex flex-col sm:flex-row gap-4 w-full">
+      <div className="lg:flex grid grid-cols-2 lg:flex-col  gap-4 w-full">
         {/* Request Quote */}
         <Link href="/request-quote">
-          <Button className="w-full sm:flex-1 h-14 sm:h-12 rounded-full bg-[#0b0bbf] hover:bg-[#0b0bbf] text-white text-base sm:text-sm font-medium flex items-center justify-center gap-2 px-6">
+          <Button className="lg:w-60 sm:flex-1 h-14 sm:h-12 rounded-full bg-[#0b0bbf] hover:bg-[#0b0bbf] text-white text-base sm:text-sm font-medium flex items-center justify-center gap-2 px-6">
             <IconFileText size={20} />
             Request Quote
           </Button>
@@ -180,9 +180,9 @@ export default function ProductInfo({ product }: ProductInfoProps) {
             handleWishlist(product);
           }}
           variant="outline"
-          className={`w-full ${
+          className={`lg:w-60 ${
             wishlistIds ? "text-red-500" : "text-gray-400"
-          } sm:flex-1 h-14 sm:h-12 rounded-full border-[#0b0bbf] text-[#0b0bbf] hover:bg-transparent text-base sm:text-sm font-medium flex items-center justify-center gap-2 px-6`}
+          } sm:flex-1 h-14 sm:h-12 rounded-full border-[#0b0bbf] text-[#0b0bbf] hover:bg-transparent text-base sm:text-sm font-medium flex items-center justify-center gap-2`}
         >
           <IconHeart
             size={20}

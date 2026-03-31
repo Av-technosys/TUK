@@ -35,7 +35,7 @@ export default function ProductDetailsTabs({
       {/* Tabs */}
 
       <Tabs defaultValue="description" className="w-full">
-        <TabsList className="flex flex-wrap gap-3 bg-transparent justify-center">
+        <TabsList className="lg:flex grid grid-cols-5 flex-wrap lg:gap-3 bg-transparent justify-center mb-1 ">
           <TabsTrigger
             value="description"
             className="
