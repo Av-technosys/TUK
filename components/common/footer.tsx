@@ -103,7 +103,7 @@ const Footer = () => {
 
             <div className="flex flex-col space-y-2 text-[#9CA3AF] text-sm">
               <Link href="/about">About TUK</Link>
-              <Link href="/contact">Become a Distributor</Link>
+              <Link href="/distributor-enquiry">Become a Distributor</Link>
               <Link href="/distributor">Distributor</Link>
               <Link href="/contact">Contact Us</Link>
             </div>
