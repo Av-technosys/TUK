@@ -237,14 +237,6 @@ const page = () => {
                 Electronic Equipment) compliance, ensuring our products are
                 disposed of responsibly at the end of their lifecycle.
               </p>
-
-              <a
-                href="#"
-                className="flex items-center gap-2 mt-4 text-cyan-400 text-sm font-medium"
-              >
-                Download Policy Document
-                <IconDownload size={18} />
-              </a>
             </div>
 
             {/* CARD 1 */}

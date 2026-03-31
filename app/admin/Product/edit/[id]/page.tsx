@@ -35,10 +35,10 @@ export default function EditProductPage() {
 
   const [content, setContent] = useState({
     description: "",
-    usage: "",
-    benefits: "",
-    connectivity: "",
-    safety: "",
+    Material: "",
+    Specification: "",
+    Packaging: "",
+    Additional: "",
   });
 
   const [categoryId, setCategoryId] = useState("");
@@ -625,10 +625,10 @@ export default function EditProductPage() {
           <Tabs defaultValue="description" className="space-y-4">
             <TabsList className="flex gap-2 border-b">
               <TabsTrigger value="description">Description</TabsTrigger>
-              <TabsTrigger value="usage">Usage</TabsTrigger>
-              <TabsTrigger value="benefits">Benefits</TabsTrigger>
-              <TabsTrigger value="connectivity">Connectivity</TabsTrigger>
-              <TabsTrigger value="safety">Safety</TabsTrigger>
+              <TabsTrigger value="Material">Material</TabsTrigger>
+              <TabsTrigger value="Specification">Specification</TabsTrigger>
+              <TabsTrigger value="Packaging">Packaging</TabsTrigger>
+              <TabsTrigger value="Additional">Additional</TabsTrigger>
             </TabsList>
 
             {Object.keys(content).map((key) => (

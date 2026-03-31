@@ -5,10 +5,10 @@ import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
 interface ProductDetailsTabsProps {
   product?: {
     description?: string;
-    usage?: string;
-    benefits?: string;
-    connectivity?: string;
-    safety?: string;
+    Material?: string;
+    Specification?: string;
+    Packaging?: string;
+    Additional?: string;
     content: any;
     specifications?: Array<{ key: string; value: string }>;
   };
@@ -18,10 +18,10 @@ export default function ProductDetailsTabs({
   product,
 }: ProductDetailsTabsProps) {
   const description = product?.content?.description;
-  const usage = product?.content?.usage;
-  const benefits = product?.content?.benefits;
-  const connectivity = product?.content?.connectivity;
-  const safety = product?.content?.safety;
+  const Material = product?.content?.Material;
+  const Specification = product?.content?.Specification;
+  const Packaging = product?.content?.Packaging;
+  const Additional = product?.content?.Additional;
   const specifications = product?.specifications || [];
 
   const stripHtml = (html: string) => {
@@ -49,31 +49,31 @@ export default function ProductDetailsTabs({
           </TabsTrigger>
 
           <TabsTrigger
-            value="usage"
+            value="Material"
             className="  group-data-[variant=default]/tabs-list:data-active:bg-[#0300A7] group-data-[variant=default]/tabs-list:data-active:text-white group-data-[variant=default]/tabs-list:data-active:border-[#0300A7] rounded-full"
           >
-            Usage
+            Material
           </TabsTrigger>
 
           <TabsTrigger
-            value="benefits"
+            value="Specification"
             className="  group-data-[variant=default]/tabs-list:data-active:bg-[#0300A7] group-data-[variant=default]/tabs-list:data-active:text-white group-data-[variant=default]/tabs-list:data-active:border-[#0300A7] rounded-full"
           >
-            Benefits
+            Specification
           </TabsTrigger>
 
           <TabsTrigger
-            value="connectivity"
+            value="Packaging"
             className="  group-data-[variant=default]/tabs-list:data-active:bg-[#0300A7] group-data-[variant=default]/tabs-list:data-active:text-white group-data-[variant=default]/tabs-list:data-active:border-[#0300A7] rounded-full"
           >
-            Connectivity
+            Packaging
           </TabsTrigger>
 
           <TabsTrigger
-            value="safety"
+            value="Additional"
             className="  group-data-[variant=default]/tabs-list:data-active:bg-[#0300A7] group-data-[variant=default]/tabs-list:data-active:text-white group-data-[variant=default]/tabs-list:data-active:border-[#0300A7] rounded-full"
           >
-            Safety
+            Additional
           </TabsTrigger>
         </TabsList>
 
@@ -91,37 +91,37 @@ export default function ProductDetailsTabs({
 
         {/* Usage */}
 
-        <TabsContent value="usage">
+        <TabsContent value="Material">
           <div className="border rounded-xl p-6 bg-white">
-            <h3 className="font-semibold mb-4">Usage</h3>
-            <p className="text-muted-foreground"> {stripHtml(usage)}</p>
+            <h3 className="font-semibold mb-4">Material</h3>
+            <p className="text-muted-foreground"> {stripHtml(Material)}</p>
           </div>
         </TabsContent>
 
         {/* Benefits */}
 
-        <TabsContent value="benefits">
+        <TabsContent value="Specification">
           <div className="border rounded-xl p-6 bg-white">
-            <h3 className="font-semibold mb-4">Benefits</h3>
-            <p className="text-muted-foreground">{stripHtml(benefits)}</p>
+            <h3 className="font-semibold mb-4">Specification</h3>
+            <p className="text-muted-foreground">{stripHtml(Specification)}</p>
           </div>
         </TabsContent>
 
         {/* Connectivity */}
 
-        <TabsContent value="connectivity">
+        <TabsContent value="Packaging">
           <div className="border rounded-xl p-6 bg-white">
-            <h3 className="font-semibold mb-4">Connectivity</h3>
-            <p className="text-muted-foreground">{stripHtml(connectivity)}</p>
+            <h3 className="font-semibold mb-4">Packaging</h3>
+            <p className="text-muted-foreground">{stripHtml(Packaging)}</p>
           </div>
         </TabsContent>
 
         {/* Safety */}
 
-        <TabsContent value="safety">
+        <TabsContent value="Additional">
           <div className="border rounded-xl p-6 bg-white">
-            <h3 className="font-semibold mb-4">Safety</h3>
-            <p className="text-muted-foreground">{stripHtml(safety)}</p>
+            <h3 className="font-semibold mb-4">Additional</h3>
+            <p className="text-muted-foreground">{stripHtml(Additional)}</p>
           </div>
         </TabsContent>
       </Tabs>

@@ -47,7 +47,7 @@ const Footer = () => {
 
             <p className="text-[#9CA3AF] text-sm leading-relaxed">
               Britain's leading B2B manufacturer and supplier of voice and data
-              copper cabling solutions. ISO 9001 certified. Trade only.
+              copper cabling suppliers. ISO 9001 certified. Trade only.
             </p>
 
             <div className="flex gap-3 pt-2">

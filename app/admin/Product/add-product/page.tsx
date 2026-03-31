@@ -33,10 +33,10 @@ export default function AddProductPage() {
   });
   const [content, setContent] = useState({
     description: "",
-    usage: "",
-    benefits: "",
-    connectivity: "",
-    safety: "",
+    Material: "",
+    Specification: "",
+    Packaging: "",
+    AdditionalInformation: "",
   });
 
   const [features, setFeatures] = useState<string[]>([""]);
@@ -511,10 +511,10 @@ export default function AddProductPage() {
           <Tabs defaultValue="description">
             <TabsList className="flex flex-wrap gap-2">
               <TabsTrigger value="description">Description</TabsTrigger>
-              <TabsTrigger value="usage">Usage</TabsTrigger>
-              <TabsTrigger value="benefits">Benefits</TabsTrigger>
-              <TabsTrigger value="connectivity">Connectivity</TabsTrigger>
-              <TabsTrigger value="safety">Safety</TabsTrigger>
+              <TabsTrigger value="Material">Material</TabsTrigger>
+              <TabsTrigger value="Specification">Specification</TabsTrigger>
+              <TabsTrigger value="Packaging">Packaging</TabsTrigger>
+              <TabsTrigger value="Additional">Additional</TabsTrigger>
             </TabsList>
 
             {Object.keys(content).map((key) => (
