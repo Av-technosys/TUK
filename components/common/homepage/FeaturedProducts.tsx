@@ -76,57 +76,61 @@ const FeaturedProducts = () => {
 
         <div className="grid sm:grid-cols-2 xl:grid-cols-3 gap-8">
           {products.slice(0, 3).map((item: any) => (
-            <div
-              key={item.id}
-              className="border rounded-xl overflow-hidden hover:shadow-lg transition"
-            >
-              <div className="relative w-full h-56">
-                <span className="absolute top-4 left-4 bg-[#0300A7] text-white text-xs px-3 py-1 rounded-full z-10">
-                  FEATURED
-                </span>
+            <Link href={`/product/${item.slug}`}>
+              <div
+                key={item.id}
+                className="border rounded-xl overflow-hidden hover:shadow-lg transition"
+              >
+                <div className="relative w-full h-56">
+                  <span className="absolute top-4 left-4 bg-[#0300A7] text-white text-xs px-3 py-1 rounded-full z-10">
+                    FEATURED
+                  </span>
 
-                <Image
-                  src={item.bannerImageUrl || "/image/arival1.png"}
-                  alt={item.name}
-                  fill
-                  className="object-cover"
-                />
-              </div>
+                  <Image
+                    src={item.bannerImageUrl || "/image/arival1.png"}
+                    alt={item.name}
+                    fill
+                    className="object-cover"
+                  />
+                </div>
 
-              <div className="p-6 space-y-4">
-                <h3 className="text-lg font-semibold">{item.name}</h3>
+                <div className="p-6 space-y-4">
+                  <h3 className="text-lg font-semibold">{item.name}</h3>
 
-                <p className="text-sm text-gray-500">{item.shortDescription}</p>
+                  <p className="text-sm text-gray-500">
+                    {item.shortDescription}
+                  </p>
 
-                <div className="flex justify-between">
-                  <Link
-                    href={`/product/${item.slug}`}
-                    className="flex items-center gap-1 text-[#0300A7] font-semibold text-sm"
-                  >
-                    View Specs
-                    <IconArrowUpRight size={16} />
-                  </Link>
+                  <div className="flex justify-between">
+                    <Link
+                      href={`/product/${item.slug}`}
+                      className="flex items-center gap-1 text-[#0300A7] font-semibold text-sm"
+                    >
+                      View Specs
+                      <IconArrowUpRight size={16} />
+                    </Link>
 
-                  {/* ❤️ Wishlist */}
-                  <button
-                    onClick={(e) => {
-                      e.preventDefault();
-                      handleWishlist(item);
-                    }}
-                    className="border rounded-full p-2 hover:bg-muted transition"
-                  >
-                    <IconHeart
-                      size={18}
-                      className={
-                        wishlistIds.includes(item.id)
-                          ? "fill-red-500 text-red-500"
-                          : "text-gray-400"
-                      }
-                    />
-                  </button>
+                    {/* ❤️ Wishlist */}
+                    <button
+                      onClick={(e) => {
+                        e.preventDefault();
+                        handleWishlist(item);
+                      }}
+                      className="border rounded-full p-2 hover:bg-muted transition"
+                    >
+                      <IconHeart
+                        size={18}
+                        className={
+                          wishlistIds.includes(item.id)
+                            ? "fill-red-500 text-red-500"
+                            : "text-gray-400"
+                        }
+                      />
+                    </button>
+                  </div>
                 </div>
               </div>
-            </div>
+            </Link>
           ))}
         </div>
       </div>

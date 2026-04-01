@@ -25,7 +25,7 @@ export default function Page() {
             id: product.id,
             title: product.name,
             code: product.productCode,
-            category: product.brand || "Uncategorized",
+            category: product.brand || "Uncategorised",
             image: product.bannerImageUrl || "/image/category.png",
             new: false,
             slug: product.slug,

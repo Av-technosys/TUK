@@ -79,7 +79,7 @@ const Banner = () => {
         <CarouselContent>
           {slides.map((slide, index) => (
             <CarouselItem key={index}>
-              <div className="relative w-full h-[80vh]">
+              <div className="relative w-full h-[90vh]">
                 <Image
                   src={slide.img}
                   alt="banner"
@@ -119,7 +119,7 @@ const Banner = () => {
       </Carousel>
 
       {/* DOTS */}
-      <div className="absolute bottom-6 left-1/2 -translate-x-1/2 flex gap-3">
+      <div className="absolute bottom-4 left-1/2  -translate-x-1/2 flex gap-3">
         {slides.map((_, index) => (
           <button
             key={index}

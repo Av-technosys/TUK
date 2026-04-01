@@ -204,7 +204,7 @@ const Page = () => {
             {/* MAP */}
             <div className="w-full h-64 rounded-xl overflow-hidden shadow">
               <iframe
-                src="https://maps.google.com/maps?q=26.906008,75.748697&z=15&output=embed"
+                src="https://www.google.com/maps?q=51.43319,-0.19002&hl=en&z=16&output=embed"
                 className="w-full h-full border-0"
                 loading="lazy"
                 referrerPolicy="no-referrer-when-downgrade"

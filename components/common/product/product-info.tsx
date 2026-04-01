@@ -93,8 +93,8 @@ export default function ProductInfo({ product }: ProductInfoProps) {
         <span className="text-primary font-medium">
           {product?.brand || "Network Cables"}
         </span>
-        <span>|</span>
-        <span>SKU: {sku}</span>
+        {/* <span>|</span>
+        <span>SKU: {sku}</span> */}
       </div>
 
       {/* Title */}
@@ -115,7 +115,7 @@ export default function ProductInfo({ product }: ProductInfoProps) {
       </div>
 
       {/* Badges */}
-      <div className="flex gap-3 flex-wrap">
+      {/* <div className="flex gap-3 flex-wrap">
         <Badge className="bg-orange-100 text-orange-600 border-0">
           🔥 Popular
         </Badge>
@@ -127,7 +127,7 @@ export default function ProductInfo({ product }: ProductInfoProps) {
         <Badge className="bg-blue-100 text-[#1E3A8A] border-0">
           B2B Pricing
         </Badge>
-      </div>
+      </div> */}
 
       {/* Description */}
       <p className="text-muted-foreground leading-relaxed">{description}</p>
