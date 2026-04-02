@@ -1,13 +1,12 @@
 "use client";
 
 import { Suspense } from "react";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import Link from "next/link";
 import Header from "@/components/common/header";
 import Footer from "@/components/common/footer";
 import FilterSide from "@/components/common/category/FilterSide";
 import CategoryDefine from "@/components/common/category/CategoryDefine";
-import { products } from "@/components/common/product/ProductDefine";
 import { CategoryFilter } from "./CategoryFilter";
 
 export const dynamic = "force-dynamic";
@@ -24,13 +23,6 @@ export default function Page() {
   const handleCategoriesLoad = (data: any[]) => {
     setCategories(data);
   };
-
-  const filteredProducts =
-    category === "All Categories"
-      ? products
-      : products.filter(
-          (p: any) => p.category === category || p.categoryName === category,
-        );
 
   return (
     <>
@@ -64,30 +56,23 @@ export default function Page() {
 
       <section className="bg-gray-100 w-full py-1 lg:py-10">
         <div className="max-w-6xl mx-auto px-4">
-          {/* MOBILE FILTER BAR */}
 
+          {/* MOBILE FILTER */}
           <div className="lg:hidden flex items-center gap-3 mb-6">
-            {/* CATEGORY SELECT */}
+
             <select
               value={category}
               onChange={(e) => setCategory(e.target.value)}
               className="border rounded-lg px-4 py-2 text-sm bg-white"
             >
               <option value="All Categories">All</option>
-              <option value="Voice & Data">Voice & Data</option>
-              <option value="Fiber Optic">Fiber Optic</option>
-              <option value="Network Racks">Network Racks</option>
-              <option value="Patch Panels">Patch Panels</option>
-              <option value="Keystone Jacks">Keystone Jacks</option>
-              <option value="Power Distribution">Power Distribution</option>
-              <option value="Cable Management">Cable Management</option>
-              <option value="Testing Equipment">Testing Equipment</option>
-              <option value="Copper Cables">Copper Cables</option>
-              <option value="Wall Outlets">Wall Outlets</option>
-              <option value="Tools & Accessories">Tools & Accessories</option>
+              {categories.map((cat: any) => (
+                <option key={cat.id} value={cat.name}>
+                  {cat.name}
+                </option>
+              ))}
             </select>
 
-            {/* SORT */}
             <select
               value={sort}
               onChange={(e) => setSort(e.target.value)}
@@ -100,8 +85,8 @@ export default function Page() {
           </div>
 
           <div className="flex flex-col lg:flex-row gap-8">
-            {/* SIDEBAR */}
 
+            {/* SIDEBAR */}
             <div className="lg:w-1/4 lg:sticky lg:top-24 h-fit">
               <FilterSide
                 category={category}
@@ -111,8 +96,7 @@ export default function Page() {
               />
             </div>
 
-            {/* PRODUCTS */}
-
+            {/* ✅ PRODUCTS (API BASED) */}
             <div className="lg:w-3/4">
               <CategoryDefine
                 category={category}
@@ -120,6 +104,7 @@ export default function Page() {
                 setSort={setSort}
               />
             </div>
+
           </div>
         </div>
       </section>

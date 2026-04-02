@@ -24,8 +24,8 @@ export default function Page() {
           const mappedProducts = data.map((product: any) => ({
             id: product.id,
             title: product.name,
-            code: product.productCode,
-            category: product.brand || "Uncategorised",
+            code: product.productcode,
+            category: product.category || "",
             image: product.bannerImageUrl || "/image/category.png",
             new: false,
             slug: product.slug,
