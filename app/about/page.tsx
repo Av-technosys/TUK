@@ -31,17 +31,17 @@ const page = () => {
         }}
       >
         <div className="max-w-7xl mx-auto px-4 sm:px-6 md:px-8 xl:px-10 py-12 sm:py-16 xl:py-20 text-center">
-          <h1 className="text-2xl sm:text-3xl md:text-4xl xl:text-5xl font-semibold">
+          <h1 className="text-2xl sm:text-3xl md:text-4xl xl:text-5xl font-semibold font-poppins">
             Cabling Solutions for a Connected World
           </h1>
 
-          <p className="mt-4 text-sm sm:text-base md:text-lg text-blue-100 max-w-3xl mx-auto">
+          <p className="mt-4 text-sm sm:text-base md:text-lg text-blue-100 max-w-3xl mx-auto font-poppins" >
             A legacy of British manufacturing excellence in voice and data
             infrastructure since 1984.
           </p>
 
-          <div className="flex flex-wrap justify-center gap-4 mt-6">
-            <div className="flex items-center gap-2 bg-white/10 backdrop-blur-sm px-4 py-2 rounded-full text-sm">
+          <div className="flex flex-wrap justify-center font-inter gap-4 mt-6">
+            <div className="flex items-center  gap-2 bg-white/10 backdrop-blur-sm px-4 py-2 rounded-full text-sm">
               <IconShieldCheck className="w-5 h-5" />
               ISO 9001:2015 Certified
             </div>
@@ -57,7 +57,7 @@ const page = () => {
       {/* HERITAGE SECTION */}
       <section className="w-full bg-gray-50">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 md:px-8 xl:px-10 py-12 sm:py-16 xl:py-20">
-          <div className="grid md:grid-cols-2 gap-10 items-center">
+          <div className="grid md:grid-cols-2 gap-10 items-center font-poppins">
             {/* LEFT TEXT */}
             <div>
               <p className="text-sm font-semibold text-[#0300A7] tracking-widest uppercase">
@@ -123,18 +123,18 @@ const page = () => {
               </div>
 
               <div>
-                <h3 className="text-lg font-semibold text-gray-900">
+                <h3 className="text-lg font-semibold text-gray-900 font-poppins">
                   ISO 9001:2015 Firm
                 </h3>
 
-                <p className="text-sm text-gray-500">
+                <p className="text-sm text-gray-500 font-poppins">
                   Certification Number: GB1094
                 </p>
               </div>
             </div>
 
             {/* RIGHT */}
-            <p className="text-sm text-gray-600 leading-relaxed">
+            <p className="text-sm text-gray-600 leading-relaxed font-poppins">
               Our ISO 9001 registration is a testament to our commitment to
               maintaining the highest standards in manufacturing and customer
               service across our entire product range.
@@ -151,7 +151,7 @@ const page = () => {
         <div className="max-w-6xl mx-auto px-4 sm:px-6 md:px-8 xl:px-10 py-12 sm:py-16">
           {/* Heading */}
           <div className="text-center mb-10">
-            <h2 className="text-2xl sm:text-3xl font-semibold text-gray-900">
+            <h2 className="text-2xl sm:text-3xl font-semibold text-gray-900 font-inter">
               OUR CORE VALUES
             </h2>
 
@@ -159,7 +159,7 @@ const page = () => {
           </div>
 
           {/* Cards */}
-          <div className="grid sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-5 gap-6">
+          <div className="grid sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-5 gap-6 font-inter">
             {/* Card 1 */}
             <div className="bg-white rounded-xl p-6 shadow-sm text-center">
               <IconShieldCheck className="mx-auto text-[#0300A7]" size={30} />
@@ -227,12 +227,12 @@ const page = () => {
             <div>
               <div className="flex items-center gap-3">
                 <IconRecycle className="text-cyan-400" size={30} />
-                <h2 className="text-xl sm:text-2xl font-semibold">
+                <h2 className="text-xl sm:text-2xl font-semibold font-inter">
                   WEEE Compliance
                 </h2>
               </div>
 
-              <p className="mt-4 text-sm text-white leading-relaxed">
+              <p className="mt-4 text-sm text-white leading-relaxed font-inter">
                 TUK Ltd is fully registered for WEEE (Waste Electrical and
                 Electronic Equipment) compliance, ensuring our products are
                 disposed of responsibly at the end of their lifecycle.
@@ -243,10 +243,10 @@ const page = () => {
             <div className="bg-[#1B4C7D] rounded-xl p-6">
               <div className="flex items-center gap-2 text-white">
                 <IconLeaf size={22} />
-                <h3 className="font-semibold">Environmental Policy</h3>
+                <h3 className="font-semibold font-inter">Environmental Policy</h3>
               </div>
 
-              <p className="text-sm text-white mt-3 leading-relaxed">
+              <p className="text-sm text-white mt-3 leading-relaxed font-inter">
                 We are committed to minimizing our carbon footprint through
                 localized manufacturing and streamlined logistics to reduce
                 transport emissions.

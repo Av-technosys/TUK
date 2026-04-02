@@ -50,7 +50,7 @@ if (loading) {
 
       <div className="space-y-5">
 
-        <h3 className="text-sm font-semibold tracking-widest text-gray-500">
+        <h3 className="text-sm font-semibold tracking-widest text-gray-500 font-poppins">
           CATEGORIES
         </h3>
 
@@ -67,7 +67,7 @@ if (loading) {
   }}
 >
           {categories.map((cat: any) => (
-  <div key={cat.id} className="flex items-center gap-3">
+  <div key={cat.id} className="flex items-center gap-3 font-poppins">
 
     <RadioGroupItem value={cat.name} id={cat.name} />
 
@@ -88,7 +88,7 @@ if (loading) {
 
       <div className="space-y-4">
 
-        <h3 className="text-sm font-semibold tracking-widest text-gray-500">
+        <h3 className="text-sm font-semibold tracking-widest text-gray-500 font-poppins">
           SORT BY
         </h3>
 
