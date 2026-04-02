@@ -8,7 +8,7 @@ export async function GET(
 ) {
   const { id } = await ctx.params;
   const categoryId = id;
-  console.log("Fetching related products for ID:", categoryId); // ✅ debug  
+  // console.log("Fetching related products for ID:", categoryId); // ✅ debug  
 
 try{
     const related = await db
@@ -22,7 +22,7 @@ try{
       )
       .limit(8);
     
-    console.log("Related products:", related); // ✅ debug
+    // console.log("Related products:", related); // ✅ debug
 
     return Response.json(related);
   } catch (err: any) {

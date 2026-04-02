@@ -58,6 +58,11 @@ export default function EditProductPage() {
   const [relatedProductsList, setRelatedProductsList] = useState<any[]>([]);
   const [selectedRelated, setselectedRelated] = useState<string>("");
 
+  const [distributorsList, setDistributorsList] = useState<any[]>([]);
+  const [selectedDistributors, setSelectedDistributors] = useState<string[]>(
+    [],
+  );
+
   // 🔥 FETCH PRODUCT DATA
   useEffect(() => {
     const fetchProduct = async () => {
@@ -104,6 +109,7 @@ export default function EditProductPage() {
         // Content & PDF
         setContent(data.content || {});
         setPdf(data.pdfUrl || "");
+        setSelectedDistributors(data.distributors?.map((d: any) => d.id) || []);
 
         setLoading(false);
       } catch (error) {
@@ -117,18 +123,21 @@ export default function EditProductPage() {
 
   // 📚 Fetch Categories
   useEffect(() => {
-    const fetchCategories = async () => {
-      try {
-        const res = await fetch("/api/category");
-        const data = await res.json();
-        setCategoriesList(data);
-        setRelatedProductsList(data);
-      } catch (error) {
-        console.error("Error fetching categories:", error);
-      }
+    const fetchData = async () => {
+      const [catRes, distRes] = await Promise.all([
+        fetch("/api/category"),
+        fetch("/api/distributors"),
+      ]);
+
+      const catData = await catRes.json();
+      const distData = await distRes.json();
+
+      setCategoriesList(catData);
+      setRelatedProductsList(catData);
+      setDistributorsList(distData);
     };
 
-    fetchCategories();
+    fetchData();
   }, []);
 
   // 🖼️ Handle Banner Image Upload
@@ -265,6 +274,7 @@ export default function EditProductPage() {
           relatedProducts: relatedProductsArray,
           content,
           pdfUrl: pdf,
+          distributors: selectedDistributors,
         }),
       });
 
@@ -320,7 +330,6 @@ export default function EditProductPage() {
             {updating ? "Updating..." : "Update Product"}
           </Button>
         </div>
-
         {/* 🔹 Basic Info */}
         <div className="bg-white p-6 rounded-xl shadow space-y-4">
           <h3 className="text-lg font-semibold">Basic Information</h3>
@@ -389,7 +398,6 @@ export default function EditProductPage() {
             />
           </div>
         </div>
-
         {/* 🔹 Category & Related */}
         <div className="flex flex-col md:flex-row w-full gap-6">
           <div className="bg-white p-6 rounded-xl shadow space-y-4 w-full md:w-1/2">
@@ -434,8 +442,31 @@ export default function EditProductPage() {
             </Select>
           </div>
         </div>
+        <div className="bg-white p-6 rounded-xl shadow space-y-4">
+          <h3 className="text-lg font-semibold">Distributors</h3>
 
-        {/* 🔹 Features */}
+          <div className="grid grid-cols-2 gap-2">
+            {distributorsList.map((dist: any) => (
+              <label key={dist.id} className="flex items-center gap-2">
+                <input
+                  type="checkbox"
+                  checked={selectedDistributors.includes(dist.id)} // ✅ PRESELECT
+                  onChange={(e) => {
+                    if (e.target.checked) {
+                      setSelectedDistributors((prev) => [...prev, dist.id]);
+                    } else {
+                      setSelectedDistributors((prev) =>
+                        prev.filter((id) => id !== dist.id),
+                      );
+                    }
+                  }}
+                />
+                {dist.name}
+              </label>
+            ))}
+          </div>
+        </div>
+        ;{/* 🔹 Features */}
         <div className="bg-white p-6 rounded-xl shadow space-y-4">
           <h3 className="text-lg font-semibold">Features</h3>
 
@@ -460,7 +491,6 @@ export default function EditProductPage() {
             + Add Feature
           </Button>
         </div>
-
         {/* 🔹 Quick Specs */}
         <div className="bg-white p-6 rounded-xl shadow space-y-4">
           <h3 className="text-lg font-semibold">Quick Specifications</h3>
@@ -500,7 +530,6 @@ export default function EditProductPage() {
             + Add Spec
           </Button>
         </div>
-
         {/* 🔹 DI Terms */}
         <div className="bg-white p-6 rounded-xl shadow space-y-2">
           <label className="text-sm font-medium">DI Terms</label>
@@ -510,7 +539,6 @@ export default function EditProductPage() {
             onChange={(e) => setDiTerms(e.target.value)}
           />
         </div>
-
         {/* 🔹 Banner Image */}
         <div className="bg-white p-6 rounded-xl shadow space-y-4">
           <h3 className="text-lg font-semibold">Banner Image</h3>
@@ -526,7 +554,6 @@ export default function EditProductPage() {
             />
           )}
         </div>
-
         {/* 🔹 PDF */}
         <div className="bg-white p-6 rounded-xl shadow space-y-4">
           <h3 className="text-lg font-semibold">Technical Data Sheet</h3>
@@ -550,7 +577,6 @@ export default function EditProductPage() {
             </a>
           )}
         </div>
-
         {/* 🔹 Gallery Images */}
         <div className="bg-white p-6 rounded-xl shadow space-y-4">
           <h3 className="text-lg font-semibold">Gallery Images (Multiple)</h3>
@@ -582,7 +608,6 @@ export default function EditProductPage() {
             ))}
           </div>
         </div>
-
         {/* 🔹 Technical Specs */}
         <div className="bg-white p-6 rounded-xl shadow space-y-4">
           <h3 className="text-lg font-semibold">Technical Specifications</h3>
@@ -617,7 +642,6 @@ export default function EditProductPage() {
             + Add Tech Spec
           </Button>
         </div>
-
         {/* 🔹 Rich Content */}
         <div className="bg-white p-6 rounded-xl shadow space-y-4">
           <h3 className="text-lg font-semibold">Rich Content</h3>
@@ -643,7 +667,6 @@ export default function EditProductPage() {
             ))}
           </Tabs>
         </div>
-
         {/* 🔹 Action Buttons */}
         <div className="flex gap-4 justify-end">
           <Button

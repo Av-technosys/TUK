@@ -7,6 +7,7 @@ import {
   productDiTerms,
   relatedProducts as relatedProductsTable,
 } from "@/src/db/schema";
+import { productDistributor } from "@/src/db/schema";
 
 export async function POST(req: Request) {
   try {
@@ -61,6 +62,15 @@ export async function POST(req: Request) {
         .returning();
 
       const productId = product.id;
+
+      if (body.distributors?.length > 0) {
+  await tx.insert(productDistributor).values(
+    body.distributors.map((distId: string) => ({
+      productId,
+      distributorsId: distId,
+    }))
+  );
+}
 
       // 🔥 2. Insert Gallery Images (MULTIPLE)
       if (images.length > 0) {

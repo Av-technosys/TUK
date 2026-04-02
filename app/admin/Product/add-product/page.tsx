@@ -53,6 +53,10 @@ export default function AddProductPage() {
   const [pdfLoading, setPdfLoading] = useState(false);
   const [galleryImages, setGalleryImages] = useState<string[]>([]);
   const [galleryLoading, setGalleryLoading] = useState(false);
+  const [distributorsList, setDistributorsList] = useState([]);
+  const [selectedDistributors, setSelectedDistributors] = useState<string[]>(
+    [],
+  );
 
   const handlePdfUpload = async (e: any) => {
     const file = e.target.files[0];
@@ -162,17 +166,42 @@ export default function AddProductPage() {
 
     setGalleryLoading(false);
   };
+  // useEffect(() => {
+  //   const fetchCategories = async () => {
+  //     const res = await fetch("/api/category");
+  //     const data = await res.json();
+  //     setCategoriesList(data);
+  //     setRelatedProductsList(data);
+  //   };
+
+  //   fetchCategories();
+  // }, []);
+
   useEffect(() => {
-    const fetchCategories = async () => {
-      const res = await fetch("/api/category");
-      const data = await res.json();
-      setCategoriesList(data);
-      setRelatedProductsList(data);
+    const fetchData = async () => {
+      try {
+        // Call both APIs in parallel
+        const [categoryRes, distributorRes] = await Promise.all([
+          fetch("/api/category"),
+          fetch("/api/distributors"),
+        ]);
+
+        const categoryData = await categoryRes.json();
+        const distributorData = await distributorRes.json();
+
+        // Set category data
+        setCategoriesList(categoryData);
+        setRelatedProductsList(categoryData);
+
+        // Set distributor data (create state if not exists)
+        setDistributorsList(distributorData);
+      } catch (error) {
+        console.error("Error fetching data:", error);
+      }
     };
 
-    fetchCategories();
+    fetchData();
   }, []);
-
   // 🧠 Handle Submit
   const handleSubmit = async () => {
     const toastId = toast.loading("Creating product...");
@@ -199,6 +228,7 @@ export default function AddProductPage() {
           images: galleryImages,
           content,
           pdfUrl: pdf,
+          distributors: selectedDistributors,
         }),
       });
 
@@ -330,7 +360,30 @@ export default function AddProductPage() {
             </Select>
           </div>
         </div>
+        <div className="bg-white p-6 rounded-xl shadow space-y-4">
+          <h3 className="text-lg font-semibold">Distributors</h3>
 
+          <div className="grid grid-cols-2 gap-2">
+            {distributorsList.map((dist: any) => (
+              <label key={dist.id} className="flex items-center gap-2">
+                <input
+                  type="checkbox"
+                  value={dist.id}
+                  onChange={(e) => {
+                    if (e.target.checked) {
+                      setSelectedDistributors((prev) => [...prev, dist.id]);
+                    } else {
+                      setSelectedDistributors((prev) =>
+                        prev.filter((id) => id !== dist.id),
+                      );
+                    }
+                  }}
+                />
+                {dist.name}
+              </label>
+            ))}
+          </div>
+        </div>
         {/* 🔹 Features */}
         <div className="bg-white p-6 rounded-xl shadow space-y-4">
           <h3 className="text-lg font-semibold">Features</h3>

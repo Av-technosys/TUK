@@ -1,0 +1,1 @@
+ALTER TABLE "product_distributor" ADD COLUMN "image" text;

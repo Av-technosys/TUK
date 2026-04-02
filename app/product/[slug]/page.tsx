@@ -43,8 +43,8 @@ export default async function Page({ params }: ProductPageProps) {
   if (error || !product) {
     notFound();
   }
+  // console.log(product);
 
-  
   return (
     <>
       <Header />
@@ -82,9 +82,8 @@ export default async function Page({ params }: ProductPageProps) {
           {/* Top Product Section */}
           <div className="grid lg:grid-cols-2 gap-10">
             <ProductGallery images={product.images || []} />
-            <ProductInfo product={product}  />
+            <ProductInfo product={product} />
           </div>
-          
 
           {/* Technical Data Sheet Section */}
           <div className="mt-10">

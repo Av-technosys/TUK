@@ -127,6 +127,20 @@
       "when": 1774499959065,
       "tag": "0017_married_vulture",
       "breakpoints": true
+    },
+    {
+      "idx": 18,
+      "version": "7",
+      "when": 1775111665005,
+      "tag": "0018_same_otto_octavius",
+      "breakpoints": true
+    },
+    {
+      "idx": 19,
+      "version": "7",
+      "when": 1775115315064,
+      "tag": "0019_absent_roland_deschain",
+      "breakpoints": true
     }
   ]
 }

@@ -8,6 +8,7 @@ import {
   relatedProducts as relatedProductsTable,
 } from "@/src/db/schema";
 import { eq } from "drizzle-orm";
+import { distributors, productDistributor } from "@/src/db/schema";
 
 export async function GET(
   req: Request,
@@ -48,6 +49,23 @@ export async function GET(
     .from(productDiTerms)
     .where(eq(productDiTerms.productId, productData.id));
 
+   const distributorsData = await db
+  .select({
+    id: distributors.id,
+    name: distributors.name,
+    image: distributors.image,
+  })
+  .from(productDistributor)
+  .innerJoin(
+    distributors,
+    eq(productDistributor.distributorsId, distributors.id)
+  )
+ .where(eq(productDistributor.productId, productData.id));
+
+  const distributorsList = distributorsData;
+
+ 
+
   const relatedProds = await db
     .select()
     .from(relatedProductsTable)
@@ -60,6 +78,7 @@ export async function GET(
     specifications,
     diTerms,
     relatedProducts: relatedProds,
+      distributors: distributorsList, // ✅ ADD THIS
   });
   } catch (error) {
     console.error("[api/products/slug/[slug]] fetch error:", error);
@@ -69,3 +88,5 @@ export async function GET(
     );
   }
 }
+
+

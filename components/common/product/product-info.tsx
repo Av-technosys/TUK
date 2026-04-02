@@ -20,6 +20,7 @@ import {
 import DitermsSelector from "@/app/product/[slug]/DitermsSelector";
 import Link from "next/link";
 import { toast } from "sonner";
+import Image from "next/image";
 const getWishlist = () => {
   return JSON.parse(localStorage.getItem("wishlist") || "[]");
 };
@@ -36,6 +37,10 @@ interface ProductInfoProps {
     features?: Array<{ feature: string }>;
     specifications?: Array<{ key: string; value: string }>;
     diTerms?: Array<{ value: string }>;
+    distributors?: {
+      id: string;
+      name: string;
+    }[];
   };
 }
 
@@ -86,6 +91,8 @@ export default function ProductInfo({ product }: ProductInfoProps) {
       toast.success("Added to wishlist ❤️");
     }
   };
+
+  console.log(product?.distributors);
   return (
     <div className="flex flex-col gap-6">
       {/* Breadcrumb */}
@@ -221,6 +228,25 @@ export default function ProductInfo({ product }: ProductInfoProps) {
             </span>
           </div>
         </div>
+      </div>
+
+      <h3 className="text-lg font-semibold mt-4"> Distributors</h3>
+
+      <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
+        {product?.distributors?.map((d: any) => (
+          <div
+            key={d.id}
+            className="border rounded-lg p-3 flex flex-col items-center"
+          >
+            <Image
+              src={d.image}
+              alt={d.name}
+              width={100}
+              height={200}
+              className="w-24 h-14 object-contain mb-2"
+            />
+          </div>
+        ))}
       </div>
 
       {/* Footer Info */}

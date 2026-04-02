@@ -8,7 +8,7 @@ import {
 } from "@/src/db/schema";
 import { eq } from "drizzle-orm";
 import { NextResponse } from "next/server";
-
+import { distributors, productDistributor } from "@/src/db/schema";
 
 export async function GET(
   req: Request,
@@ -59,12 +59,28 @@ export async function GET(
       .from(productDiTerms)
       .where(eq(productDiTerms.productId, id));
 
+      const distributorsData = await db
+  .select({
+    distributor: distributors,
+  })
+  .from(productDistributor)
+  .leftJoin(
+    distributors,
+    eq(productDistributor.distributorsId, distributors.id)
+  )
+  .where(eq(productDistributor.productId, id));
+
+  const distributorsList = distributorsData
+  .map((item) => item.distributor)
+  .filter(Boolean);
+
     return NextResponse.json({
       ...product,
       features,
       specifications,
       images,
       diTerms,
+       distributors: distributorsList,
     });
   } catch (error) {
     console.error("GET ERROR:", error);
@@ -108,6 +124,20 @@ export async function PUT(
       .set(updateData)
       .where(eq(products.id, id));
 
+      await db
+  .delete(productDistributor)
+  .where(eq(productDistributor.productId, id));
+
+// 🔥 INSERT NEW DISTRIBUTORS
+if (body.distributors?.length > 0) {
+  await db.insert(productDistributor).values(
+    body.distributors.map((distId: string) => ({
+      productId: id,
+      distributorsId: distId,
+    }))
+  );
+}
+
     return Response.json({ success: true });
   } catch (error) {
     console.error("UPDATE ERROR:", error);
@@ -138,6 +168,9 @@ export async function DELETE(
     await db.delete(productSpecifications).where(eq(productSpecifications.productId, id));
     await db.delete(productImages).where(eq(productImages.productId, id));
     await db.delete(productDiTerms).where(eq(productDiTerms.productId, id));
+    await db
+  .delete(productDistributor)
+  .where(eq(productDistributor.productId, id));
 
     // 🔥 Delete main product
     await db.delete(products).where(eq(products.id, id));

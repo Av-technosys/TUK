@@ -71,6 +71,8 @@ export const productFeatures = pgTable("product_features", {
   feature: text("feature").notNull(),
 });
 
+
+
 export const productSpecifications = pgTable("product_specifications", {
   id: uuid("id").defaultRandom().primaryKey(),
   productId: uuid("product_id")
@@ -152,3 +154,14 @@ export const productDiTermsRelations = relations(productDiTerms, ({ one }) => ({
     references: [products.id],
   }),
 }));
+
+export const productDistributor = pgTable("product_distributor",{
+  id:uuid("id").defaultRandom().primaryKey(),
+  productId: uuid("product_id")
+    .references(() => products.id)
+    .notNull(),
+    distributorsId: uuid("distributor_id") .references(() => distributors.id)
+    .notNull(),
+    image: text("image"),
+    createdAt: timestamp("created_at").defaultNow(),
+})
