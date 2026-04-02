@@ -11,6 +11,7 @@ import { useEffect, useState } from "react";
 import Image from "next/image";
 import { Button } from "@/components/ui/button";
 import { IconArrowRight } from "@tabler/icons-react";
+import { toast } from "sonner"; // ✅ ADDED
 
 import {
   Select,
@@ -31,7 +32,7 @@ import {
 import Link from "next/link";
 
 const CategoryDefine = ({ category, sort, setSort }: any) => {
-  const [categoryList, setCategoryList] = useState<any[]>([]); // ✅ FIX
+  const [categoryList, setCategoryList] = useState<any[]>([]);
   const [products, setProducts] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
   const [wishlistIds, setWishlistIds] = useState<string[]>([]);
@@ -41,20 +42,26 @@ const CategoryDefine = ({ category, sort, setSort }: any) => {
     setWishlistIds(items.map((i: any) => i.id));
   }, []);
 
+  // ✅ UPDATED FUNCTION
   const handleWishlist = (product: any) => {
     if (isInWishlist(product.id)) {
       const updated = removeFromWishlist(product.id);
       setWishlistIds(updated.map((i: any) => i.id));
+
+      // ❌ remove toast
+      toast.error("Removed from wishlist ❌");
     } else {
       const updated = addToWishlist(product);
       setWishlistIds(updated.map((i: any) => i.id));
+
+      // ❤️ add toast
+      toast.success("Added to wishlist ❤️");
     }
   };
 
   const [page, setPage] = useState(1);
   const productsPerPage = 12;
 
-  // ✅ FETCH BOTH APIs
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -78,10 +85,8 @@ const CategoryDefine = ({ category, sort, setSort }: any) => {
     fetchData();
   }, []);
 
-  // ✅ FIND SELECTED CATEGORY OBJECT
   const selectedCat = categoryList.find((c: any) => c.name === category);
 
-  // ✅ FILTER PRODUCTS (MAIN FIX)
   let filtered =
     category === "All Categories"
       ? products
@@ -89,7 +94,6 @@ const CategoryDefine = ({ category, sort, setSort }: any) => {
           (p: any) => String(p.categoryId) === String(selectedCat?.id),
         );
 
-  // ✅ SORT (optional)
   if (sort === "name") {
     filtered = filtered.sort((a, b) => a.name.localeCompare(b.name));
   }
@@ -105,13 +109,9 @@ const CategoryDefine = ({ category, sort, setSort }: any) => {
 
   return (
     <div>
-      {/* HEADER */}
       <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-8">
         <div>
-          <h2 className="text-3xl font-semibold">
-            {category} {/* ✅ dynamic */}
-          </h2>
-
+          <h2 className="text-3xl font-semibold">{category}</h2>
           <p className="text-gray-500 mt-1">
             Showing {filtered.length} results
           </p>
@@ -134,18 +134,17 @@ const CategoryDefine = ({ category, sort, setSort }: any) => {
         </div>
       </div>
 
-      {/* PRODUCT GRID */}
       <div className="grid grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-4 sm:gap-6">
         {visibleProducts.map((item: any) => (
           <Link
-            href={`/product/${item.slug}`} // ✅ important
+            href={`/product/${item.slug}`}
             key={item.id}
             className="bg-white border rounded-xl overflow-hidden hover:shadow-lg transition block"
           >
             <div className="relative">
               {item.createdAt &&
                 new Date(item.createdAt) >
-                  new Date(Date.now() - 7 * 24 * 60 * 60 * 1000) && (
+                  new Date(Date.now() - 30 * 24 * 60 * 60 * 1000) && (
                   <span className="absolute top-3 left-3 bg-[#FB923C] text-white text-xs px-3 py-1 rounded-full">
                     NEW
                   </span>
@@ -163,8 +162,11 @@ const CategoryDefine = ({ category, sort, setSort }: any) => {
             <div className="p-4 space-y-2">
               <h3 className="font-semibold">{item.name}</h3>
 
-              <p className="text-gray-500 text-sm line-clamp-3">
-                {item.description || "No description"}
+              <p className="text-black text-sm font-semibold">
+                ProductCode:&nbsp;
+                <span className="text-gray-700 text-xs">
+                  {item.code || item.productCode || item.sku || "N/A"}
+                </span>
               </p>
 
               <div className="flex justify-between ">
@@ -192,7 +194,6 @@ const CategoryDefine = ({ category, sort, setSort }: any) => {
         ))}
       </div>
 
-      {/* PAGINATION */}
       <Pagination className="mt-10">
         <PaginationContent>
           <PaginationItem>
@@ -214,7 +215,9 @@ const CategoryDefine = ({ category, sort, setSort }: any) => {
 
           <PaginationItem>
             <PaginationNext
-              onClick={() => setPage((p) => Math.min(p + 1, totalPages))}
+              onClick={() =>
+                setPage((p) => Math.min(p + 1, totalPages))
+              }
             />
           </PaginationItem>
         </PaginationContent>

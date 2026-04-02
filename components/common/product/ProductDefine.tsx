@@ -1,10 +1,11 @@
 "use client"
 
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import Link from "next/link"
 import Image from "next/image"
 import { Button } from "@/components/ui/button"
-import { IconArrowRight } from "@tabler/icons-react"
+import { IconArrowRight, IconHeart } from "@tabler/icons-react"
+import { toast } from "sonner"
 
 import {
   Select,
@@ -23,175 +24,104 @@ import {
   PaginationPrevious,
 } from "@/components/ui/pagination"
 
-const defaultProducts = [
-  {
-    id: 1,
-    title: "Cat6 UTP Cable – Blue 305m Box",
-    code: "TUK-P6-BLUE",
-    category: "Voice & Data",
-    image: "/image/category.png",
-    new: true
-  },
-  {
-    id: 2,
-    title: "24 Port High Density Panel",
-    code: "TUK-PP-24HD",
-    category: "Patch Panels",
-    image: "/image/category1.png",
-    new: false
-  },
-  {
-    id: 3,
-    title: "OM4 LC-LC Duplex Patch Cord",
-    code: "TUK-FP-DUAL",
-    category: "Fiber Optic",
-    image: "/image/category.png",
-    new: true
-  },
-  {
-    id: 4,
-    title: "Cat6A Shielded Toolless Keystone Jack",
-    code: "TUK-FP-DUAL",
-    category: "Keystone Jacks",
-    image: "/image/category1.png",
-    new: true
-  },
-  {
-    id: 5,
-    title: "Cat6 UTP LSZH Solid Cable",
-    code: "TUK-WM-1U",
-    category: "Voice & Data",
-    image: "/image/category.png",
-    new: false
-  },
-  {
-    id: 6,
-    title: "MPO to 8xLC Fanout Kit",
-    code: "TUK-FLC-OM3",
-    category: "Fiber Optic",
-    image: "/image/category1.png",
-    new: false
-  },
-  {
-    id: 7,
-    title: "Vertical Cable Manager",
-    code: "TUK-TC-CRMP",
-    category: "Cable Management",
-    image: "/image/category.png",
-    new: false
-  },
-  {
-    id: 8,
-    title: "8 Way UK Socket PDU",
-    code: "TUK-TC-CRMP",
-    category: "Network Racks",
-    image: "/image/category1.png",
-    new: false
-  },
-  {
-    id: 9,
-    title: "Cat6 UTP Cable – Blue 305m Box",
-    code: "TUK-P6-BLUE",
-    category: "Voice & Data",
-    image: "/image/category.png",
-    new: true
-  },
-  {
-    id: 10,
-    title: "24 Port High Density Panel",
-    code: "TUK-PP-24HD",
-    category: "Patch Panels",
-    image: "/image/category1.png",
-    new: false
-  },
-  {
-    id: 11,
-    title: "OM4 LC-LC Duplex Patch Cord",
-    code: "TUK-FP-DUAL",
-    category: "Fiber Optic",
-    image: "/image/category.png",
-    new: true
-  },
-  {
-    id: 12,
-    title: "Cat6A Shielded Toolless Keystone Jack",
-    code: "TUK-FP-DUAL",
-    category: "Keystone Jacks",
-    image: "/image/category1.png",
-    new: true
-  },
-  {
-    id: 13,
-    title: "Cat6 UTP LSZH Solid Cable",
-    code: "TUK-WM-1U",
-    category: "Voice & Data",
-    image: "/image/category.png",
-    new: false
-  },
-  {
-    id: 14,
-    title: "MPO to 8xLC Fanout Kit",
-    code: "TUK-FLC-OM3",
-    category: "Fiber Optic",
-    image: "/image/category1.png",
-    new: false
-  },
-  {
-    id: 15,
-    title: "Vertical Cable Manager",
-    code: "TUK-TC-CRMP",
-    category: "Cable Management",
-    image: "/image/category.png",
-    new: false
-  },
-  {
-    id: 16,
-    title: "8 Way UK Socket PDU",
-    code: "TUK-TC-CRMP",
-    category: "Network Racks",
-    image: "/image/category1.png",
-    new: false
-  }
-]
+const getWishlist = () => {
+  return JSON.parse(localStorage.getItem("wishlist") || "[]")
+}
 
-export const products = defaultProducts
+const ProductDefine = ({ category, sort, setSort }: any) => {
 
-const ProductDefine = ({ category, sort, setSort, products: apiProducts = [] }: any) => {
-
+  const [products, setProducts] = useState<any[]>([])
+  const [loading, setLoading] = useState(true)
   const [page, setPage] = useState(1)
+  const [wishlistIds, setWishlistIds] = useState<string[]>([])
+
   const productsPerPage = 12
-  
-  // Use API products if available, otherwise fall back to default products
-  const productsList = apiProducts.length > 0 ? apiProducts : defaultProducts
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const res = await fetch("/api/products")
+        const data = await res.json()
+        setProducts(data)
+      } catch (err) {
+        console.error(err)
+      } finally {
+        setLoading(false)
+      }
+    }
+
+    fetchData()
+
+    const items = getWishlist()
+    setWishlistIds(items.map((i: any) => i.id))
+
+  }, [])
+
+  const handleWishlist = (product: any) => {
+    let wishlist = getWishlist()
+
+    const exists = wishlist.find((i: any) => i.id === product.id)
+
+    if (exists) {
+      wishlist = wishlist.filter((i: any) => i.id !== product.id)
+      localStorage.setItem("wishlist", JSON.stringify(wishlist))
+      setWishlistIds(wishlist.map((i: any) => i.id))
+
+      toast.error("Removed from wishlist ❌")
+    } else {
+      wishlist.push({
+        id: product.id,
+        name: product.name,
+        bannerImageUrl: product.bannerImageUrl,
+        sku: product.sku,
+      })
+
+      localStorage.setItem("wishlist", JSON.stringify(wishlist))
+      setWishlistIds(wishlist.map((i: any) => i.id))
+
+      toast.success("Added to wishlist ❤️")
+    }
+  }
+
+  const getProductCode = (product: any) => {
+    return (
+      product.code ||
+      product.productCode ||
+      product.sku ||
+      product.product_code ||
+      "N/A"
+    )
+  }
 
   let filtered =
     category === "All Categories"
-      ? [...productsList]
-      : productsList.filter((p: any) => p.category === category)
+      ? products
+      : products.filter((p: any) => p.category === category)
 
   if (sort === "name") {
     filtered = filtered.sort((a: any, b: any) =>
-      a.title.localeCompare(b.title)
+      (a.name || "").localeCompare(b.name || "")
     )
   }
 
   const totalPages = Math.ceil(filtered.length / productsPerPage)
-
   const start = (page - 1) * productsPerPage
   const end = start + productsPerPage
-
   const visibleProducts = filtered.slice(start, end)
+
+  if (loading) {
+    return <p className="text-center py-10">Loading...</p>
+  }
 
   return (
     <div>
 
       {/* HEADER */}
-
       <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-8">
 
         <div>
           <h2 className="text-3xl font-semibold">
-            All Products
+            {category}
           </h2>
 
           <p className="text-gray-500 mt-1">
@@ -199,96 +129,97 @@ const ProductDefine = ({ category, sort, setSort, products: apiProducts = [] }: 
           </p>
         </div>
 
-       <div className="hidden xl:flex items-center gap-3">
+        <div className="hidden xl:flex items-center gap-3">
+          <span className="text-gray-500 text-sm">Sort by:</span>
 
-          <span className="text-gray-500 text-sm">
-            Sort by:
-          </span>
-
-          <Select
-            value={sort}
-            onValueChange={setSort}
-          >
-          <SelectTrigger className="w-full sm:w-auto">
+          <Select value={sort} onValueChange={setSort}>
+            <SelectTrigger className="w-full sm:w-auto">
               <SelectValue placeholder="Latest Arrivals" />
             </SelectTrigger>
 
             <SelectContent>
-
-              <SelectItem value="latest">
-                Latest Arrivals
-              </SelectItem>
-
-              <SelectItem value="name">
-                Name
-              </SelectItem>
-
-              <SelectItem value="popular">
-                Popular
-              </SelectItem>
-
+              <SelectItem value="latest">Latest Arrivals</SelectItem>
+              <SelectItem value="name">Name</SelectItem>
+              <SelectItem value="popular">Popular</SelectItem>
             </SelectContent>
-
           </Select>
-
         </div>
 
       </div>
 
-      {/* PRODUCT GRID */}
-
+      {/* GRID */}
       <div className="grid grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-4 sm:gap-6">
 
         {visibleProducts.map((product: any) => (
 
-          <Link 
+          <Link
             key={product.id}
-            href={`/product/${product.slug || product.id}`}
+            href={`/product/${product.slug}`}
             className="bg-white border rounded-xl overflow-hidden hover:shadow-lg transition block"
           >
 
             <div className="relative">
 
-              {product.new && (
-                <span className="absolute top-3 left-3 bg-[#FB923C] text-white text-xs px-3 py-1 rounded-full z-10">
-                  NEW
-                </span>
+              {product.createdAt &&
+                new Date(product.createdAt) >
+                  new Date(Date.now() - 30 * 24 * 60 * 60 * 1000) && (
+                  <span className="absolute top-3 left-3 bg-[#FB923C] text-white text-xs px-3 py-1 rounded-full">
+                    NEW
+                  </span>
               )}
 
               <Image
-                src={product.image}
-                alt={product.title}
+                src={product.bannerImageUrl || "/image/category.png"}
+                alt={product.name}
                 width={500}
                 height={400}
                 className="w-full h-32 sm:h-44 object-cover"
-                onError={(e) => {
-                  e.currentTarget.src = "/image/category.png"
-                }}
               />
 
             </div>
 
             <div className="p-4 space-y-2">
 
-              <p className="text-xs font-semibold text-gray-400">
-                {product.category || "CABLING SOLUTIONS"}
-              </p>
-
-              <h3 className="font-semibold text-sm sm:text-base leading-snug">
-                {product.title}
+              <h3 className="font-semibold">
+                {product.name}
               </h3>
 
-              <p className="text-gray-500 text-sm">
-                {product.desc || product.description}
+              <p className="text-black text-xs font-bold">
+                ProductCode:&nbsp;
+                <span className="text-gray-700 text-xs">
+                  {getProductCode(product)}
+                </span>
               </p>
 
-              <Button
-                variant="link"
-                className="p-0 text-[#0300A7] flex items-center gap-2"
-              >
-                View
-                <IconArrowRight size={18} />
-              </Button>
+              {/* ✅ UPDATED ROW */}
+              <div className="flex items-center justify-between">
+
+                <Button
+                  variant="link"
+                  className="p-0 text-[#0300A7] flex items-center gap-2"
+                >
+                  View <IconArrowRight size={18} />
+                </Button>
+
+                <button
+                  onClick={(e) => {
+                    e.preventDefault()
+                    e.stopPropagation()
+                    handleWishlist(product)
+                  }}
+                  className="border rounded-full p-2 hover:bg-muted transition"
+                >
+                  <IconHeart
+                    size={18}
+                    className={
+                      wishlistIds.includes(product.id)
+                        ? "fill-red-500 text-red-500"
+                        : "text-gray-400"
+                    }
+                  />
+                </button>
+
+              </div>
 
             </div>
 
@@ -299,9 +230,7 @@ const ProductDefine = ({ category, sort, setSort, products: apiProducts = [] }: 
       </div>
 
       {/* PAGINATION */}
-
       <Pagination className="mt-10">
-
         <PaginationContent>
 
           <PaginationItem>
@@ -311,7 +240,6 @@ const ProductDefine = ({ category, sort, setSort, products: apiProducts = [] }: 
           </PaginationItem>
 
           {Array.from({ length: totalPages }).map((_, i) => (
-
             <PaginationItem key={i}>
               <PaginationLink
                 isActive={page === i + 1}
@@ -320,7 +248,6 @@ const ProductDefine = ({ category, sort, setSort, products: apiProducts = [] }: 
                 {i + 1}
               </PaginationLink>
             </PaginationItem>
-
           ))}
 
           <PaginationItem>
@@ -330,7 +257,6 @@ const ProductDefine = ({ category, sort, setSort, products: apiProducts = [] }: 
           </PaginationItem>
 
         </PaginationContent>
-
       </Pagination>
 
     </div>
