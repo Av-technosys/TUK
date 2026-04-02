@@ -4,6 +4,14 @@ import { useEffect, useState } from "react";
 import { IconChevronRight } from "@tabler/icons-react";
 import Image from "next/image";
 import Link from "next/link";
+import {
+  Carousel,
+  CarouselContent,
+  CarouselItem,
+  CarouselNext,
+  CarouselPrevious,
+} from "@/components/ui/carousel";
+import Autoplay from "embla-carousel-autoplay"; 
 
 const OurDistribution = () => {
   const [distributors, setDistributors] = useState<any[]>([]);
@@ -28,18 +36,13 @@ const OurDistribution = () => {
   return (
     <section className="w-full bg-white font-poppins">
       <div className="max-w-6xl mx-auto px-4 sm:px-6 xl:px-8 py-8">
-        {/* Heading */}
         <div className="flex items-center justify-center gap-4">
           <div className="flex-1 border-t-2 border-[#FB923C] max-w-20" />
-
           <p className="text-[#FB923C] uppercase tracking-widest text-sm font-semibold">
             Authorised Distributors
           </p>
-
           <div className="flex-1 border-t-2 border-orange-500 max-w-20" />
         </div>
-
-        {/* Title */}
         <h2 className="text-center text-3xl font-extrabold text-black mt-4">
           Our Distribution Network
         </h2>
@@ -48,34 +51,48 @@ const OurDistribution = () => {
           TUK products are available through our network of authorised trade
           distributors
         </p>
-
-        {/* Loading */}
         {loading && (
           <p className="text-center mt-6 text-gray-500">
             Loading distributors...
           </p>
         )}
-
-        {/* Grid */}
-        <div className="grid grid-cols-2 sm:grid-cols-3 xl:grid-cols-6 gap-6 mt-8">
-          {distributors.slice(0, 6).map((item: any) => (
-            <div
-              key={item.id}
-              className="bg-[#F9FAFB] rounded-xl p-4 flex items-center justify-center hover:shadow-md transition"
+        {!loading && distributors.length > 0 && (
+          <div className="mt-8 px-10"> 
+            <Carousel
+              opts={{
+                align: "start",
+                loop: true,
+              }}
+              plugins={[
+                Autoplay({
+                  delay: 3000,
+                }),
+              ]}
+              className="w-full"
             >
-              <div className="relative w-full h-16">
-                <Image
-                  src={item.image || item.logo || "/image/img1.png"} // ✅ fallback
-                  alt={item.name || "distributor"}
-                  fill
-                  className="object-contain"
-                />
-              </div>
-            </div>
-          ))}
-        </div>
-
-        {/* CTA */}
+              <CarouselContent>
+                {distributors.map((item: any) => (
+                  <CarouselItem key={item.id} className="basis-1/2 sm:basis-1/3 md:basis-1/4 lg:basis-1/6">
+                    <div className="p-2">
+                      <div className="bg-[#F9FAFB] rounded-xl p-4 flex items-center justify-center hover:shadow-md transition h-24">
+                        <div className="relative w-full h-16">
+                          <Image
+                            src={item.image || item.logo || "/image/img1.png"}
+                            alt={item.name || "distributor"}
+                            fill
+                            className="object-contain"
+                          />
+                        </div>
+                      </div>
+                    </div>
+                  </CarouselItem>
+                ))}
+              </CarouselContent>
+              <CarouselPrevious className="hidden md:flex" />
+              <CarouselNext className="hidden md:flex" />
+            </Carousel>
+          </div>
+        )}
         <div className="text-center mt-10">
           <Link
             href="/distributor-enquiry"
