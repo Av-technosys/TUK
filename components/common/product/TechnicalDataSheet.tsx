@@ -26,11 +26,11 @@ export default function TechnicalDataSheet({ product }: TechnicalDataSheetProps)
 
         <div className="flex flex-col">
 
-          <h3 className="font-semibold text-xl">
+          <h3 className="font-semibold text-xl font-poppins">
             Technical Data Sheet
           </h3>
 
-          <p className="text-muted-foreground text-sm">
+          <p className="text-muted-foreground text-sm font-inter">
             Complete specifications, installation guide, and compliance certificate
           </p>
 
@@ -42,7 +42,7 @@ export default function TechnicalDataSheet({ product }: TechnicalDataSheetProps)
       {/* Download Button */}
 
       <Button 
-        className="rounded-full flex items-center gap-2"
+        className="rounded-full flex items-center gap-2 font-inter"
         disabled={!pdfUrl}
         onClick={() => pdfUrl && window.open(pdfUrl, "_blank")}
       >

@@ -37,15 +37,15 @@ const Footer = () => {
 
               <div>
                 <Link href="/">
-                  <p className="font-semibold text-lg">TUK Ltd</p>
+                  <p className="font-semibold text-lg font-barlow">TUK Ltd</p>
                 </Link>
-                <p className="text-orange-400 text-sm">
+                <p className="text-orange-400 text-sm font-inter">
                   Since 1984 · Wimbledon, London
                 </p>
               </div>
             </div>
 
-            <p className="text-[#9CA3AF] text-sm leading-relaxed">
+            <p className="text-[#9CA3AF] text-sm leading-relaxed font-inter">
               Britain's leading B2B manufacturer and supplier of voice and data
               copper cabling suppliers. ISO 9001 certified. Trade only.
             </p>
@@ -70,9 +70,9 @@ const Footer = () => {
 
           {/* product categories */}
           <div className="space-y-3">
-            <h3 className="font-semibold text-lg">Product Categories</h3>
+            <h3 className="font-semibold text-lg font-barlow">Product Categories</h3>
 
-            <div className="flex flex-col space-y-2 text-[#9CA3AF] text-sm">
+            <div className="flex flex-col space-y-2 text-[#9CA3AF] text-sm font-inter">
               <Link href="/category?categoryId=41b19390-5260-43e8-8d0c-08312ee4e041">
                 RJ45 Connectors
               </Link>
@@ -99,9 +99,9 @@ const Footer = () => {
 
           {/* company */}
           <div className="space-y-3">
-            <h3 className="font-semibold text-lg">Company</h3>
+            <h3 className="font-semibold text-lg font-barlow">Company</h3>
 
-            <div className="flex flex-col space-y-2 text-[#9CA3AF] text-sm">
+            <div className="flex flex-col space-y-2 text-[#9CA3AF] text-sm font-inter">
               <Link href="/about">About TUK</Link>
               <Link href="/distributor-enquiry">Become a Distributor</Link>
               <Link href="/distributor">Distributor</Link>
@@ -111,9 +111,9 @@ const Footer = () => {
 
           {/* quality */}
           <div className="space-y-3">
-            <h3 className="font-semibold text-lg">Quality & Compliance</h3>
+            <h3 className="font-semibold text-lg font-barlow">Quality & Compliance</h3>
 
-            <div className="space-y-3 text-[#D1D5DB] ">
+            <div className="space-y-3 text-[#D1D5DB] font-inter">
               <div className="flex items-center gap-3 bg-[#23345a] px-4 py-3 rounded-lg">
                 <IconShieldCheck size={18} className="text-[#FB923C]" />
                 <p className="text-sm">ISO 9001:2015 Certified</p>
@@ -134,13 +134,13 @@ const Footer = () => {
 
         {/* bottom bar */}
 
-        <div className=" w-full border-t  border-[#1E3A8A] mt-10 pt-6 flex flex-col md:flex-row items-center justify-between gap-4 text-sm text-gray-400">
+        <div className=" w-full border-t  border-[#1E3A8A] font-inter mt-10 pt-6 flex flex-col md:flex-row items-center justify-between gap-4 text-sm text-gray-400">
           <p>
             © 2026 TUK Ltd. All rights reserved. Registered in England & Wales.
             B2B Trade Only
           </p>
 
-          <div className="flex lg:w-96 w-full justify-between lg:justify-end  lg:items-center  lg:gap-6">
+          <div className="flex lg:w-96 w-full justify-between font-inter lg:justify-end  lg:items-center  lg:gap-6">
             <Link href="/privacy-policy">Privacy Policy</Link>
             <Link href="/terms-conditions">Terms & Conditions</Link>
           </div>

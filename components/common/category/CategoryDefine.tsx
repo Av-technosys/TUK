@@ -112,13 +112,13 @@ const CategoryDefine = ({ category, sort, setSort }: any) => {
       <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-8">
         <div>
           <h2 className="text-3xl font-semibold">{category}</h2>
-          <p className="text-gray-500 mt-1">
+          <p className="text-gray-500 mt-1 font-poppins not-only:">
             Showing {filtered.length} results
           </p>
         </div>
 
         <div className="hidden lg:flex items-center gap-3">
-          <span className="text-gray-500 text-sm">Sort by:</span>
+          <span className="text-gray-500 text-sm font-poppins">Sort by:</span>
 
           <Select value={sort} onValueChange={setSort}>
             <SelectTrigger className="w-full sm:w-auto">

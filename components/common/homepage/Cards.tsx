@@ -55,22 +55,22 @@ const Cards = () => {
               const Icon = item.icon
 
               return (
-                <div key={index} className="flex items-center gap-3">
+                <div key={index} className="flex items-center gap-3 font-">
 
                   <div className="bg-[#1E3A8A] text-[#FB923C] rounded-xs p-2 flex items-center justify-center">
                     <Icon size={18} />
                   </div>
 
                   <div>
-                    <h3 className="font-semibold text-sm text-gray-900">
+                    <h3 className="font-semibold text-sm text-gray-900 font-barlow">
                       {item.title}
                     </h3>
 
-                    <p className="text-xs text-gray-600">
+                    <p className="text-xs text-gray-600 font-inter">
                       {item.line1}
                     </p>
 
-                    <p className="text-xs text-gray-500">
+                    <p className="text-xs text-gray-500 font-inter">
                       {item.line2}
                     </p>
                   </div>

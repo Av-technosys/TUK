@@ -88,7 +88,7 @@ export default function RelatedProducts({
   return (
     <div className="mt-14">
       <div className="flex justify-between items-center mb-6">
-        <h2 className="text-2xl font-semibold">Related Products</h2>
+        <h2 className="text-2xl font-semibold font-inter">Related Products</h2>
       </div>
 
       {loading && <p className="text-gray-500">Loading...</p>}
@@ -97,7 +97,7 @@ export default function RelatedProducts({
         <p className="text-gray-400">No related products found</p>
       )}
 
-      <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
+      <div className="grid grid-cols-2 md:grid-cols-4 gap-6 font-poppins">
         {Array.isArray(related) &&
           related.map((item) => (
             <Link key={item.id} href={`/product/${item.slug}`}>

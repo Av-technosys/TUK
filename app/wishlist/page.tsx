@@ -37,7 +37,7 @@ const Page = () => {
     <>
       <Header />
 
-      <section className="w-full bg-gray-100 py-12">
+      <section className="w-full bg-gray-100 py-12 font-poppins">
         <div className="max-w-5xl mx-auto px-4">
           {/* Title */}
           <div className="flex items-center justify-between mb-6">
@@ -115,7 +115,7 @@ const Page = () => {
       <section className="w-full bg-[#38bdf8] text-white">
         <div className="max-w-6xl mx-auto px-4 py-8 grid grid-cols-2 md:grid-cols-4 gap-6 text-center">
           {/* Item */}
-          <div className="flex flex-col items-center gap-1">
+          <div className="flex flex-col items-center gap-1 font-poppins">
             <IconBuilding size={24} />
             <h3 className="text-xl font-semibold">1984</h3>
             <p className="text-xs tracking-widest text-white/80">
@@ -124,7 +124,7 @@ const Page = () => {
           </div>
 
           {/* Item */}
-          <div className="flex flex-col items-center gap-1">
+          <div className="flex flex-col items-center gap-1 font-poppins">
             <IconRosetteDiscountCheck size={24} />
             <h3 className="text-xl font-semibold">ISO 9001</h3>
             <p className="text-xs tracking-widest text-white/80">
@@ -133,7 +133,7 @@ const Page = () => {
           </div>
 
           {/* Item */}
-          <div className="flex flex-col items-center gap-1">
+          <div className="flex flex-col items-center gap-1 font-poppins">
             <IconWorld size={24} />
             <h3 className="text-xl font-semibold">10+</h3>
             <p className="text-xs tracking-widest text-white/80">
@@ -142,7 +142,7 @@ const Page = () => {
           </div>
 
           {/* Item */}
-          <div className="flex flex-col items-center gap-1">
+          <div className="flex flex-col items-center gap-1 font-poppins">
             <IconUsers size={24} />
             <h3 className="text-xl font-semibold">20k+</h3>
             <p className="text-xs tracking-widest text-white/80">

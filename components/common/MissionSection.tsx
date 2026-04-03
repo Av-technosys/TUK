@@ -9,11 +9,11 @@ const MissionSection = () => {
         
         {/* LEFT CONTENT */}
         <div className="flex flex-col gap-4">
-          <h2 className="text-3xl md:text-4xl font-bold text-[#1E3A8A]">
+          <h2 className="text-3xl md:text-4xl font-bold text-[#1E3A8A] font-poppins">
             Our Mission
           </h2>
 
-          <p className="text-gray-600 leading-relaxed">
+          <p className="text-gray-600 leading-relaxed font-poppins">
             Our mission is to deliver reliable passive data and multimedia
             connectivity systems through a continuously evolving product range.
             We focus on quality, innovation, and dependable performance while

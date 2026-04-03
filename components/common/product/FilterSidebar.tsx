@@ -53,7 +53,7 @@ if (!categories.length) {
 
       <div className="space-y-5">
 
-        <h3 className="text-sm font-semibold tracking-widest text-gray-500">
+        <h3 className="text-sm font-semibold tracking-widest text-gray-500 font-poppins">
           Categories
         </h3>
 
