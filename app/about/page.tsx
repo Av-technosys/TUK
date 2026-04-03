@@ -257,10 +257,10 @@ const page = () => {
             <div className="bg-[#1B4C7D] rounded-xl p-6">
               <div className="flex items-center gap-2 text-white">
                 <IconPackage size={22} />
-                <h3 className="font-semibold">Sustainable Packaging</h3>
+                <h3 className="font-semibold font-inter">Sustainable Packaging</h3>
               </div>
 
-              <p className="text-sm text-white mt-3 leading-relaxed">
+              <p className="text-sm text-white mt-3 leading-relaxed font-inter">
                 Transitioning to 100% recyclable packaging across our flagship
                 product lines to eliminate single-use plastics from the supply
                 chain.

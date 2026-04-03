@@ -17,7 +17,7 @@ export default function PrivacyPolicyPage() {
   return (
     <div className="bg-gray-50 min-h-screen">
       {/* 🔵 HERO SECTION */}
-      <div className="bg-gradient-to-r  from-[#141D3D] to-[#364FA3] text-white py-14 px-6">
+      <div className="bg-gradient-to-r  from-[#141D3D] to-[#364FA3] text-white py-14 px-6 font-poppins">
         <div className="max-w-6xl mx-auto">
           <h1 className="text-4xl text-center font-bold">Privacy Policy</h1>
           <p className="mt-2 text-sm opacity-90 text-center">
@@ -51,12 +51,12 @@ export default function PrivacyPolicyPage() {
           {/* CARD */}
           <div
             id="who"
-            className="bg-white p-6 rounded-xl shadow hover:shadow-md transition"
+            className="bg-white p-6 rounded-xl shadow hover:shadow-md transition "
           >
-            <h2 className="text-xl font-semibold mb-2 text-gray-900">
+            <h2 className="text-xl font-semibold mb-2 text-gray-900 font-poppins">
               Who We Are
             </h2>
-            <p>
+            <p className="font-poppins">
               TUK Ltd produces and supplies cabling systems and connectivity.
               This policy relates to all such activities including those of any
               group companies.
@@ -65,13 +65,13 @@ export default function PrivacyPolicyPage() {
 
           <div
             id="data"
-            className="bg-white p-6 rounded-xl shadow hover:shadow-md transition"
+            className="bg-white p-6 rounded-xl shadow hover:shadow-md transition font-poppins"
           >
-            <h2 className="text-xl font-semibold mb-3 text-gray-900">
+            <h2 className="text-xl font-semibold mb-3 text-gray-900 font-poppins">
               Types of Data We Process
             </h2>
 
-            <h3 className="font-semibold mt-2">General</h3>
+            <h3 className="font-semibold mt-2 font-poppins">General</h3>
             <p>
               We hold data about employees, customers and suppliers. We store
               only necessary information and do not share with third parties
