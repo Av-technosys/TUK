@@ -121,25 +121,9 @@ const page = () => {
             </div>
           </div>
         </div>
-      </section>
-
-      {/* Sort Section */}
-      <section className="">
-        <div className="max-w-7xl mx-auto px-4 py-6 flex justify-end">
-          <div className="flex items-center gap-3 text-sm">
-            <span className="text-muted-foreground">Sort by:</span>
-
-            <Button
-              variant="outline"
-              className="flex cursor-pointer items-center gap-2"
-            >
-              Most Recent
-              <IconChevronDown size={16} />
-            </Button>
-          </div>
+      </section>     
+        <div className="max-w-7xl mx-auto px-4 py-6 ">
         </div>
-      </section>
-
       {/* Cards */}
       <section className=" pb-16">
         <div className="max-w-7xl mx-auto px-4">

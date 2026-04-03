@@ -17,7 +17,7 @@ export default function PrivacyPolicyPage() {
   return (
     <div className="bg-gray-50 min-h-screen">
       {/* 🔵 HERO SECTION */}
-      <div className="bg-gradient-to-r  from-[#141D3D] to-[#364FA3] text-white py-14 px-6 font-poppins">
+      <div className="bg-linear-to-r  from-[#141D3D] to-[#364FA3] text-white py-14 px-6 font-poppins">
         <div className="max-w-6xl mx-auto">
           <h1 className="text-4xl text-center font-bold">Privacy Policy</h1>
           <p className="mt-2 text-sm opacity-90 text-center">
