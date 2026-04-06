@@ -20,6 +20,7 @@ import {
 } from "@tabler/icons-react";
 import { getWishlist, removeFromWishlist } from "@/src/lib/wishlist";
 import EnquiryModal from "@/components/common/EnquiryModal";
+import Counter from "@/components/common/homepage/counter";
 
 const Page = () => {
   const [wishlist, setWishlist] = useState<any[]>([]);
@@ -111,46 +112,7 @@ const Page = () => {
         </div>
       </section>
 
-      {/* Stats Section */}
-      <section className="w-full bg-[#38bdf8] text-white">
-        <div className="max-w-6xl mx-auto px-4 py-8 grid grid-cols-2 md:grid-cols-4 gap-6 text-center">
-          {/* Item */}
-          <div className="flex flex-col items-center gap-1">
-            <IconBuilding size={24} />
-            <h3 className="text-xl font-semibold">1984</h3>
-            <p className="text-xs tracking-widest text-white/80">
-              ORIGINALLY FOUNDED
-            </p>
-          </div>
-
-          {/* Item */}
-          <div className="flex flex-col items-center gap-1">
-            <IconRosetteDiscountCheck size={24} />
-            <h3 className="text-xl font-semibold">ISO 9001</h3>
-            <p className="text-xs tracking-widest text-white/80">
-              REGISTERED FIRM
-            </p>
-          </div>
-
-          {/* Item */}
-          <div className="flex flex-col items-center gap-1">
-            <IconWorld size={24} />
-            <h3 className="text-xl font-semibold">10+</h3>
-            <p className="text-xs tracking-widest text-white/80">
-              COUNTRY COVER
-            </p>
-          </div>
-
-          {/* Item */}
-          <div className="flex flex-col items-center gap-1">
-            <IconUsers size={24} />
-            <h3 className="text-xl font-semibold">20k+</h3>
-            <p className="text-xs tracking-widest text-white/80">
-              HAPPY CLIENTS
-            </p>
-          </div>
-        </div>
-      </section>
+      <Counter />
       <Footer />
     </>
   );

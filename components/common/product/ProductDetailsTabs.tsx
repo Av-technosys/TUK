@@ -34,12 +34,12 @@ export default function ProductDetailsTabs({
     <div className="w-full mt-10 flex flex-col gap-8">
       {/* Tabs */}
 
-      <Tabs defaultValue="description" className="w-full">
+      <Tabs defaultValue="description" className="w-full ">
         <TabsList className="lg:flex grid grid-cols-5 flex-wrap lg:gap-3 bg-transparent justify-center mb-1 ">
           <TabsTrigger
             value="description"
             className="
-      px-4 py-2 rounded-full border 
+      px-4 py-2 rounded-full border cursor-pointer
        text-sm font-medium
       transition-all
  group-data-[variant=default]/tabs-list:data-active:bg-[#0300A7] group-data-[variant=default]/tabs-list:data-active:text-white group-data-[variant=default]/tabs-list:data-active:border-[#0300A7]
@@ -50,28 +50,28 @@ export default function ProductDetailsTabs({
 
           <TabsTrigger
             value="Material"
-            className="  group-data-[variant=default]/tabs-list:data-active:bg-[#0300A7] group-data-[variant=default]/tabs-list:data-active:text-white group-data-[variant=default]/tabs-list:data-active:border-[#0300A7] rounded-full"
+            className="  group-data-[variant=default]/tabs-list:data-active:bg-[#0300A7] group-data-[variant=default]/tabs-list:data-active:text-white group-data-[variant=default]/tabs-list:data-active:border-[#0300A7] rounded-full cursor-pointer"
           >
             Material
           </TabsTrigger>
 
           <TabsTrigger
             value="Specification"
-            className="  group-data-[variant=default]/tabs-list:data-active:bg-[#0300A7] group-data-[variant=default]/tabs-list:data-active:text-white group-data-[variant=default]/tabs-list:data-active:border-[#0300A7] rounded-full"
+            className="  group-data-[variant=default]/tabs-list:data-active:bg-[#0300A7] group-data-[variant=default]/tabs-list:data-active:text-white group-data-[variant=default]/tabs-list:data-active:border-[#0300A7] rounded-full cursor-pointer"
           >
             Specification
           </TabsTrigger>
 
           <TabsTrigger
             value="Packaging"
-            className="  group-data-[variant=default]/tabs-list:data-active:bg-[#0300A7] group-data-[variant=default]/tabs-list:data-active:text-white group-data-[variant=default]/tabs-list:data-active:border-[#0300A7] rounded-full"
+            className="  group-data-[variant=default]/tabs-list:data-active:bg-[#0300A7] group-data-[variant=default]/tabs-list:data-active:text-white group-data-[variant=default]/tabs-list:data-active:border-[#0300A7] rounded-full cursor-pointer"
           >
             Packaging
           </TabsTrigger>
 
           <TabsTrigger
             value="Additional"
-            className="  group-data-[variant=default]/tabs-list:data-active:bg-[#0300A7] group-data-[variant=default]/tabs-list:data-active:text-white group-data-[variant=default]/tabs-list:data-active:border-[#0300A7] rounded-full"
+            className="  group-data-[variant=default]/tabs-list:data-active:bg-[#0300A7] group-data-[variant=default]/tabs-list:data-active:text-white group-data-[variant=default]/tabs-list:data-active:border-[#0300A7] rounded-full cursor-pointer"
           >
             Additional
           </TabsTrigger>

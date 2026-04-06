@@ -110,14 +110,16 @@ export default function ProductInfo({ product }: ProductInfoProps) {
       {/* Product Code */}
       <div className="flex items-center gap-3">
         <div className="border rounded-lg px-3 py-2 flex items-center gap-2 bg-muted/40">
-          <span className="text-sm text-muted-foreground">Product Code:</span>
+          <span className="text-sm text-muted-foreground">
+            Product Code(s):
+          </span>
 
           <span className="font-medium">{productCode}</span>
 
-          <IconCopy
+          {/* <IconCopy
             size={18}
             className="cursor-pointer text-muted-foreground"
-          />
+          /> */}
         </div>
       </div>
 
@@ -172,32 +174,32 @@ export default function ProductInfo({ product }: ProductInfoProps) {
       )}
 
       <div className="flex flex-row flex-wrap gap-4 w-full">
-  {/* Request Quote */}
-  <Link href="/request-quote" className="flex-1">
-    <Button className="w-full h-14 sm:h-12 rounded-full bg-[#0b0bbf] hover:bg-[#0b0bbf] text-white text-base sm:text-sm font-medium flex items-center justify-center gap-2 px-6">
-      <IconFileText size={20} />
-      Request Quote
-    </Button>
-  </Link>
+        {/* Request Quote */}
+        <Link href="/request-quote" className="flex-1">
+          <Button className="w-full h-14 sm:h-12 rounded-full cursor-pointer bg-[#0b0bbf] hover:bg-[#0b0bbf] text-white text-base sm:text-sm font-medium flex items-center justify-center gap-2 px-6">
+            <IconFileText size={20} />
+            Request Quote
+          </Button>
+        </Link>
 
-  {/* Wishlist */}
-  <Button
-    onClick={(e) => {
-      e.preventDefault();
-      handleWishlist(product);
-    }}
-    variant="outline"
-    className="flex-1 w-full h-14 sm:h-12 rounded-full border-[#0b0bbf] text-[#0b0bbf] hover:bg-transparent text-base sm:text-sm font-medium flex items-center justify-center gap-2 px-6"
-  >
-    <IconHeart
-      size={20}
-      className={`transition-all ${
-        isWishlisted ? "fill-red-500 text-red-500" : "text-[#0b0bbf]"
-      }`}
-    />
-    {isWishlisted ? "Wishlisted" : "Add to Wishlist"}
-  </Button>
-</div>
+        {/* Wishlist */}
+        <Button
+          onClick={(e) => {
+            e.preventDefault();
+            handleWishlist(product);
+          }}
+          variant="outline"
+          className="flex-1 w-full h-14 sm:h-12 rounded-full cursor-pointer border-[#0b0bbf] text-[#0b0bbf] hover:bg-transparent text-base sm:text-sm font-medium flex items-center justify-center gap-2 px-6"
+        >
+          <IconHeart
+            size={20}
+            className={`transition-all ${
+              isWishlisted ? "fill-red-500 text-red-500" : "text-[#0b0bbf]"
+            }`}
+          />
+          {isWishlisted ? "Wishlisted" : "Add to Wishlist"}
+        </Button>
+      </div>
       <DitermsSelector diTerms={diTerms} />
       {/* B2B Pricing Box */}
       <div className="flex items-start gap-4 bg-gray-100 border rounded-xl p-4">
@@ -217,14 +219,14 @@ export default function ProductInfo({ product }: ProductInfoProps) {
 
           {/* Contact Row */}
           <div className="flex flex-wrap items-center gap-4 text-sm text-[#0300A7] font-extrabold">
-            <span className="flex items-center gap-2">
+            <span className="flex items-center gap-2 cursor-pointer">
               <IconPhone size={16} />
-              +44 (0)20 8946 9494
+              <a href="tel:+442089469494">+44 (0)20 8946 9494</a>
             </span>
 
-            <span className="flex items-center gap-2">
+            <span className="flex items-center gap-2 cursor-pointer">
               <IconMail size={16} />
-              sales@tuk.co.uk
+              <a href="mailto:sales@tuk.co.uk">sales@tuk.co.uk</a>
             </span>
           </div>
         </div>

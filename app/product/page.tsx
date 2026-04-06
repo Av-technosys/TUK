@@ -98,7 +98,6 @@ export default function Page() {
             >
               <option value="latest">Sort by</option>
               <option value="name">Name</option>
-              <option value="popular">Popular</option>
             </select>
           </div>
 

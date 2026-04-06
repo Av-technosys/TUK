@@ -128,7 +128,6 @@ const CategoryDefine = ({ category, sort, setSort }: any) => {
             <SelectContent>
               <SelectItem value="latest">Latest Arrivals</SelectItem>
               <SelectItem value="name">Name</SelectItem>
-              <SelectItem value="popular">Popular</SelectItem>
             </SelectContent>
           </Select>
         </div>
@@ -215,9 +214,7 @@ const CategoryDefine = ({ category, sort, setSort }: any) => {
 
           <PaginationItem>
             <PaginationNext
-              onClick={() =>
-                setPage((p) => Math.min(p + 1, totalPages))
-              }
+              onClick={() => setPage((p) => Math.min(p + 1, totalPages))}
             />
           </PaginationItem>
         </PaginationContent>
