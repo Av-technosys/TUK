@@ -28,7 +28,7 @@ const DitermsSelector = ({ diTerms }: { diTerms: string }) => {
 
   return (
     <div>
-      <div className="w-full float-right">
+      <div className="w-full float-right font-poppins">
         <div data-di-terms={diTerms}></div>
       </div>
     </div>

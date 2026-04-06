@@ -100,16 +100,16 @@ const page = () => {
         }}
       >
         <div className="max-w-7xl mx-auto px-4 py-16 text-center">
-          <h1 className="text-3xl md:text-4xl xl:text-5xl font-semibold">
+          <h1 className="text-3xl md:text-4xl xl:text-5xl font-semibold font-poppins">
             Authorised Distributors
           </h1>
 
-          <p className="mt-4 text-sm md:text-base text-white/80 max-w-2xl mx-auto">
+          <p className="mt-4 text-sm md:text-base text-white/80 max-w-2xl mx-auto font-poppins">
             TUK Ltd products are available worldwide through our trusted network
             of specialized partners. Find a distributor in your region below.
           </p>
 
-          <div className="flex flex-wrap justify-center gap-3 mt-6">
+          <div className="flex flex-wrap justify-center gap-3 mt-6 font-inter">
             <div className="flex items-center gap-2 bg-white/10 border border-white/20 rounded-full px-4 py-2 text-sm">
               <IconShieldCheck size={18} />
               ISO 9001:2015 Certified
@@ -121,25 +121,9 @@ const page = () => {
             </div>
           </div>
         </div>
-      </section>
-
-      {/* Sort Section */}
-      <section className="">
-        <div className="max-w-7xl mx-auto px-4 py-6 flex justify-end">
-          <div className="flex items-center gap-3 text-sm">
-            <span className="text-muted-foreground">Sort by:</span>
-
-            <Button
-              variant="outline"
-              className="flex cursor-pointer items-center gap-2"
-            >
-              Most Recent
-              <IconChevronDown size={16} />
-            </Button>
-          </div>
+      </section>     
+        <div className="max-w-7xl mx-auto px-4 py-6 ">
         </div>
-      </section>
-
       {/* Cards */}
       <section className=" pb-16">
         <div className="max-w-7xl mx-auto px-4">
@@ -166,7 +150,7 @@ const page = () => {
                 >
                   <CardContent className="flex flex-col items-center text-center gap-4 py-10 px-6 relative ">
                     {/* Logo */}
-                    <div className="flex items-center h-20 justify-center">
+                    <div className="flex items-center h-20 justify-center font-poppins">
                       <Image
                         src={item.image}
                         alt={item.name}
@@ -177,18 +161,18 @@ const page = () => {
                     </div>
 
                     {/* Title */}
-                    <h3 className="text-lg font-semibold text-gray-900">
+                    <h3 className="text-lg font-semibold text-gray-900 font-poppins">
                       {item.name}
                     </h3>
 
                     {/* Description */}
-                    <p className="text-sm text-gray-500">{item.description}</p>
+                    <p className="text-sm text-gray-500 font-poppins">{item.description}</p>
 
                     {/* Button */}
                     <Button
                       onClick={() => window.open(item.visitUrl, "_blank")}
                       variant="secondary"
-                      className=" -mb-4 w-full cursor-pointer    flex items-center justify-center gap-2 bg-gray-100 hover:bg-gray-200"
+                      className=" -mb-4 w-full cursor-pointer font-poppins   flex items-center justify-center gap-2 bg-gray-100 hover:bg-gray-200"
                     >
                       Visit Store
                       <IconExternalLink size={16} />

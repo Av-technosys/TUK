@@ -41,7 +41,7 @@ const FilterSide = ({ category, setCategory, sort, setSort }: any) => {
       {/* CATEGORIES */}
 
       <div className="space-y-5">
-        <h3 className="text-sm font-semibold tracking-widest text-gray-500">
+        <h3 className="text-sm font-semibold tracking-widest text-gray-500 font-poppins">
           CATEGORIES
         </h3>
 
@@ -58,7 +58,7 @@ const FilterSide = ({ category, setCategory, sort, setSort }: any) => {
           }}
         >
           {categories.map((cat: any) => (
-            <div key={cat.id} className="flex items-center gap-3">
+            <div key={cat.id} className="flex items-center gap-3 font-poppins">
               <RadioGroupItem value={cat.name} id={cat.name} />
 
               <label htmlFor={cat.name} className="text-black cursor-pointer">
@@ -72,7 +72,7 @@ const FilterSide = ({ category, setCategory, sort, setSort }: any) => {
       {/* SORT */}
 
       <div className="space-y-4">
-        <h3 className="text-sm font-semibold tracking-widest text-gray-500">
+        <h3 className="text-sm font-semibold tracking-widest text-gray-500 font-poppins">
           SORT BY
         </h3>
 

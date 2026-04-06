@@ -50,7 +50,7 @@ export default async function Page({ params }: ProductPageProps) {
       <Header />
 
       {/* ✅ Breadcrumb Start */}
-      <div className="w-full bg-gray-50 ">
+      <div className="w-full bg-gray-50 font-poppins ">
         <div className="container mx-auto px-4 py-4 text-sm text-muted-foreground flex flex-wrap items-center gap-2">
           <Link href="/" className="hover:text-foreground transition">
             Home

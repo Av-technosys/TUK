@@ -97,7 +97,7 @@ export default function ProductInfo({ product }: ProductInfoProps) {
     <div className="flex flex-col gap-6">
       {/* Breadcrumb */}
       <div className="text-sm text-muted-foreground flex items-center gap-2">
-        <span className="text-primary font-medium">
+        <span className="text-primary font-medium font-poppins">
           {product?.brand || "Network Cables"}
         </span>
         {/* <span>|</span>
@@ -105,16 +105,16 @@ export default function ProductInfo({ product }: ProductInfoProps) {
       </div>
 
       {/* Title */}
-      <h1 className="text-3xl font-semibold">{productName}</h1>
+      <h1 className="text-3xl font-semibold font-poppins">{productName}</h1>
 
       {/* Product Code */}
       <div className="flex items-center gap-3">
         <div className="border rounded-lg px-3 py-2 flex items-center gap-2 bg-muted/40">
-          <span className="text-sm text-muted-foreground">
+          <span className="text-sm text-muted-foreground font-poppins">
             Product Code(s):
           </span>
 
-          <span className="font-medium">{productCode}</span>
+          <span className="font-medium font-poppins">{productCode}</span>
 
           {/* <IconCopy
             size={18}
@@ -139,14 +139,16 @@ export default function ProductInfo({ product }: ProductInfoProps) {
       </div> */}
 
       {/* Description */}
-      <p className="text-muted-foreground leading-relaxed">{description}</p>
+      <p className="text-muted-foreground leading-relaxed font-poppins">
+        {description}
+      </p>
 
       {/* Key Features */}
       {features.length > 0 && (
         <div className="flex flex-col gap-3">
-          <h3 className="font-semibold text-lg">Key Features</h3>
+          <h3 className="font-semibold text-lg font-inter">Key Features</h3>
 
-          <ul className="flex flex-col gap-2">
+          <ul className="flex flex-col gap-2 font-poppins">
             {features.map((feature, idx) => (
               <li key={idx} className="flex items-start gap-2">
                 <IconCheck className="text-green-600 mt-1" size={18} />
@@ -160,9 +162,11 @@ export default function ProductInfo({ product }: ProductInfoProps) {
       {/* Quick Specifications */}
       {specs.length > 0 && (
         <div className="bg-muted/40 rounded-xl border p-4">
-          <h4 className="font-semibold mb-3">Quick Specifications</h4>
+          <h4 className="font-semibold mb-3 font-inter">
+            Quick Specifications
+          </h4>
 
-          <div className="grid grid-cols-2 gap-3 text-sm">
+          <div className="grid grid-cols-2 gap-3 text-sm font-poppins">
             {specs.slice(0, 4).map((spec, idx) => (
               <div key={idx}>
                 <p className="text-muted-foreground">{spec.key}</p>
@@ -173,7 +177,7 @@ export default function ProductInfo({ product }: ProductInfoProps) {
         </div>
       )}
 
-      <div className="flex flex-row flex-wrap gap-4 w-full">
+      <div className="flex flex-row flex-wrap gap-4 w-full font-poppins">
         {/* Request Quote */}
         <Link href="/request-quote" className="flex-1">
           <Button className="w-full h-14 sm:h-12 rounded-full cursor-pointer bg-[#0b0bbf] hover:bg-[#0b0bbf] text-white text-base sm:text-sm font-medium flex items-center justify-center gap-2 px-6">
@@ -189,7 +193,7 @@ export default function ProductInfo({ product }: ProductInfoProps) {
             handleWishlist(product);
           }}
           variant="outline"
-          className="flex-1 w-full h-14 sm:h-12 rounded-full cursor-pointer border-[#0b0bbf] text-[#0b0bbf] hover:bg-transparent text-base sm:text-sm font-medium flex items-center justify-center gap-2 px-6"
+          className="flex-1 w-full h-14 sm:h-12 rounded-full font-poppins cursor-pointer border-[#0b0bbf] text-[#0b0bbf] hover:bg-transparent text-base sm:text-sm font-medium flex items-center justify-center gap-2 px-6"
         >
           <IconHeart
             size={20}
@@ -202,7 +206,7 @@ export default function ProductInfo({ product }: ProductInfoProps) {
       </div>
       <DitermsSelector diTerms={diTerms} />
       {/* B2B Pricing Box */}
-      <div className="flex items-start gap-4 bg-gray-100 border rounded-xl p-4">
+      <div className="flex items-start gap-4 bg-gray-100 border rounded-xl p-4 font-poppins">
         {/* Icon Box */}
         <div className="bg-[#0300A7] text-white p-3 rounded-lg flex items-center justify-center">
           <IconMessageCircle size={22} />
@@ -232,7 +236,7 @@ export default function ProductInfo({ product }: ProductInfoProps) {
         </div>
       </div>
 
-      <h3 className="text-lg font-semibold mt-4"> Distributors</h3>
+      <h3 className="text-lg font-semibold mt-4 font-poppins"> Distributors</h3>
 
       <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
         {product?.distributors?.map((d: any) => (
@@ -252,7 +256,7 @@ export default function ProductInfo({ product }: ProductInfoProps) {
       </div>
 
       {/* Footer Info */}
-      <div className="flex flex-wrap items-center gap-6 text-sm text-gray-600">
+      <div className="flex flex-wrap items-center gap-6 text-sm text-gray-600 font-poppins">
         {/* ISO Certified */}
         <span className="flex items-center gap-2">
           <IconShieldCheck size={18} className="text-green-600" />

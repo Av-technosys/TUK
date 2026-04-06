@@ -38,7 +38,7 @@ const Page = () => {
     <>
       <Header />
 
-      <section className="w-full bg-gray-100 py-12">
+      <section className="w-full bg-gray-100 py-12 font-poppins">
         <div className="max-w-5xl mx-auto px-4">
           {/* Title */}
           <div className="flex items-center justify-between mb-6">

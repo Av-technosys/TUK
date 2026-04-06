@@ -111,8 +111,8 @@ export default function EnquiryModal() {
         </Button>
       </DialogTrigger>
 
-      <DialogContent className="max-w-md rounded-xl p-6">
-        <DialogTitle className="text-lg font-semibold">Enquiries</DialogTitle>
+      <DialogContent className="max-w-md rounded-xl p-6 font-poppins">
+        <DialogTitle className="text-lg font-semibold font-poppins">Enquiries</DialogTitle>
 
         <div className="space-y-4 mt-4">
           {/* Row 1 */}

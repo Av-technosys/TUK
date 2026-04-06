@@ -34,7 +34,7 @@ export default function ProductDetailsTabs({
     <div className="w-full mt-10 flex flex-col gap-8">
       {/* Tabs */}
 
-      <Tabs defaultValue="description" className="w-full ">
+      <Tabs defaultValue="description" className="w-full font-poppins">
         <TabsList className="lg:flex grid grid-cols-5 flex-wrap lg:gap-3 bg-transparent justify-center mb-1 ">
           <TabsTrigger
             value="description"
@@ -128,7 +128,7 @@ export default function ProductDetailsTabs({
 
       {/* Technical Specification */}
 
-      <div className="flex flex-col gap-4">
+      <div className="flex flex-col gap-4 font-inter">
         <h3 className="font-semibold text-lg">Technical Specification</h3>
 
         <div className="border rounded-xl overflow-hidden bg-white">

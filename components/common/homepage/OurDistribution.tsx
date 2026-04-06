@@ -66,6 +66,8 @@ const OurDistribution = () => {
               plugins={[
                 Autoplay({
                   delay: 3000,
+                  stopOnInteraction: false, 
+                  stopOnMouseEnter: false,
                 }),
               ]}
               className="w-full"

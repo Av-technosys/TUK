@@ -29,18 +29,20 @@ const ProductCategories = () => {
         {/* Heading */}
         <div className="flex items-start justify-between flex-wrap gap-6 mb-12">
           <div className="space-y-3">
-            <h2 className="text-3xl font-bold text-gray-900">
+            <h2 className="text-3xl font-bold text-gray-900 font-poppins">
               Product Categories
             </h2>
 
-            <p className="text-gray-600">
+            <p className="text-gray-600 font-poppins
+            ">
               Browse our comprehensive range of high-performance cabling hardware.
             </p>
           </div>
 
           <Link
             href="/category"
-            className="text-[#007AFF] font-bold flex items-center gap-1"
+            className="text-[#007AFF] font-bold flex items-center gap-1 font-poppins
+            "
           >
             View all categories
             <IconArrowRight size={18} />
@@ -69,7 +71,7 @@ const ProductCategories = () => {
               <div className="absolute inset-0 bg-black/40"></div>
 
               {/* text */}
-              <div className="absolute bottom-4 left-4 text-white font-semibold">
+              <div className="absolute bottom-4 left-4 text-white font-semibold font-poppins">
                 {item.name}
               </div>
 
