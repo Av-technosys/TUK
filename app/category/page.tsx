@@ -12,7 +12,7 @@ import { CategoryFilter } from "./CategoryFilter";
 export const dynamic = "force-dynamic";
 
 export default function Page() {
-  const [sort, setSort] = useState("latest");
+  const [sort, setSort] = useState("Latest");
   const [category, setCategory] = useState("All Categories");
   const [categories, setCategories] = useState<any[]>([]);
 
@@ -29,7 +29,7 @@ export default function Page() {
       <Header />
 
       {/* BREADCRUMB */}
-      <div className="w-full bg-gray-100 border-b">
+      <div className="w-full bg-gray-100 border-b font-poppins">
         <div className="max-w-6xl mx-auto px-4 py-3 text-sm text-gray-600 flex items-center gap-2">
           <Link href="/" className="hover:text-black">
             Home
@@ -54,12 +54,10 @@ export default function Page() {
         />
       </Suspense>
 
-      <section className="bg-gray-100 w-full py-1 lg:py-10">
+      <section className="bg-gray-100 w-full py-1 lg:py-10 font-poppins text-sm">
         <div className="max-w-6xl mx-auto px-4">
-
           {/* MOBILE FILTER */}
           <div className="lg:hidden flex items-center gap-3 mb-6">
-
             <select
               value={category}
               onChange={(e) => setCategory(e.target.value)}
@@ -76,15 +74,14 @@ export default function Page() {
             <select
               value={sort}
               onChange={(e) => setSort(e.target.value)}
-              className="border rounded-lg px-4 py-2 text-sm bg-white"
+              className="border rounded-lg px-4 py-2 text-sm bg-white font-poppins"
             >
-              <option value="latest">Sort by</option>
+              <option value="Latest">Latest</option>
               <option value="name">Name</option>
             </select>
           </div>
 
           <div className="flex flex-col lg:flex-row gap-8">
-
             {/* SIDEBAR */}
             <div className="lg:w-1/4 lg:sticky lg:top-24 h-fit">
               <FilterSide
@@ -103,7 +100,6 @@ export default function Page() {
                 setSort={setSort}
               />
             </div>
-
           </div>
         </div>
       </section>

@@ -13,24 +13,20 @@ import ProductCategories from "@/components/common/homepage/ProductCategories";
 import Arrivals from "@/components/common/homepage/Arrivals";
 import FeaturedProducts from "@/components/common/homepage/FeaturedProducts";
 
-
-
 export default function Home() {
   return (
     <>
-    
-      <Topbar />
       <Header />
-      <Banner/>
-      <Counter/>
-      <ProductCategories/>
-      <Arrivals/>
-      <AbouttTuk/>
-      <FeaturedProducts/>
-      <Vision/>
-      <OurDistribution/>
-      <ProductGuide/>
-      <Cards/>
+      <Banner />
+      <Counter />
+      <ProductCategories />
+      <Arrivals />
+      <AbouttTuk />
+      <FeaturedProducts />
+      <Vision />
+      <OurDistribution />
+      <ProductGuide />
+      <Cards />
       <Footer />
     </>
   );

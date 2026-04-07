@@ -5,7 +5,6 @@ import Topbar from "@/components/common/topbar";
 export default function Layout({ children }: { children: React.ReactNode }) {
   return (
     <>
-      <Topbar />
       <Header />
       {children}
       <Footer />

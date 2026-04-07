@@ -111,7 +111,7 @@ export default function Page() {
     <>
       <Header />
 
-      <section className="w-full bg-muted/40">
+      <section className="w-full font-poppins bg-muted/40">
         <div className="mx-auto max-w-6xl px-4 py-10 lg:py-16">
           {/* breadcrumb */}
           <p className="text-sm text-muted-foreground mb-6">

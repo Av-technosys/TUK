@@ -11,7 +11,7 @@ import {
   CarouselNext,
   CarouselPrevious,
 } from "@/components/ui/carousel";
-import Autoplay from "embla-carousel-autoplay"; 
+import Autoplay from "embla-carousel-autoplay";
 
 const OurDistribution = () => {
   const [distributors, setDistributors] = useState<any[]>([]);
@@ -52,12 +52,12 @@ const OurDistribution = () => {
           distributors
         </p>
         {loading && (
-          <p className="text-center mt-6 text-gray-500">
+          <p className="text-center mt-6 text-gray-500 font-barlow">
             Loading distributors...
           </p>
         )}
         {!loading && distributors.length > 0 && (
-          <div className="mt-8 px-10"> 
+          <div className="mt-8 px-10">
             <Carousel
               opts={{
                 align: "start",
@@ -66,7 +66,7 @@ const OurDistribution = () => {
               plugins={[
                 Autoplay({
                   delay: 3000,
-                  stopOnInteraction: false, 
+                  stopOnInteraction: false,
                   stopOnMouseEnter: false,
                 }),
               ]}
@@ -74,7 +74,10 @@ const OurDistribution = () => {
             >
               <CarouselContent>
                 {distributors.map((item: any) => (
-                  <CarouselItem key={item.id} className="basis-1/2 sm:basis-1/3 md:basis-1/4 lg:basis-1/6">
+                  <CarouselItem
+                    key={item.id}
+                    className="basis-1/2 sm:basis-1/3 md:basis-1/4 lg:basis-1/6"
+                  >
                     <div className="p-2">
                       <div className="bg-[#F9FAFB] rounded-xl p-4 flex items-center justify-center hover:shadow-md transition h-24">
                         <div className="relative w-full h-16">

@@ -75,75 +75,70 @@ const Arrivals = () => {
           <h2 className="text-2xl xl:text-3xl font-bold">New Arrivals</h2>
         </div>
 
-      <div className="grid sm:grid-cols-2 xl:grid-cols-3 gap-8 items-stretch">
-  {products.slice(0, 3).map((item: any) => (
-    
-    <Link key={item.id} href={`/product/${item.slug}`}>
-      <div className="bg-background border rounded-xl overflow-hidden hover:shadow-lg transition cursor-pointer h-full flex flex-col">
-        
-        <div className="relative w-full h-56">
-          {item.createdAt &&
-            new Date(item.createdAt) >
-              new Date(Date.now() - 30 * 24 * 60 * 60 * 1000) && (
-              <span className="absolute top-4 left-4 bg-[#0300A7] text-white text-xs px-3 py-1 rounded-full z-10">
-                NEW
-              </span>
-          )}
+        <div className="grid sm:grid-cols-2 xl:grid-cols-3 gap-8 items-stretch">
+          {products.slice(0, 3).map((item: any) => (
+            <Link key={item.id} href={`/product/${item.slug}`}>
+              <div className="bg-background border rounded-xl overflow-hidden hover:shadow-lg transition cursor-pointer h-full flex flex-col">
+                <div className="relative w-full h-56">
+                  {item.createdAt &&
+                    new Date(item.createdAt) >
+                      new Date(Date.now() - 30 * 24 * 60 * 60 * 1000) && (
+                      <span className="absolute top-4 left-4 bg-[#FB923C] text-white text-xs px-3 py-1 rounded-full z-10">
+                        NEW
+                      </span>
+                    )}
 
-          <Image
-            src={item.bannerImageUrl || "/image/arival1.png"}
-            alt={item.name}
-            fill
-            className="object-cover"
-          />
+                  <Image
+                    src={item.bannerImageUrl || "/image/arival1.png"}
+                    alt={item.name}
+                    fill
+                    className="object-cover"
+                  />
+                </div>
+
+                <div className="p-6 space-y-4 flex flex-col flex-grow">
+                  <h3 className="text-lg font-semibold">{item.name}</h3>
+
+                  <p className="text-gray-500 text-sm line-clamp-3">
+                    {item.description || item.Description || "No description"}
+                  </p>
+
+                  <p className="text-black text-sm font-semibold">
+                    ProductCode:&nbsp;
+                    <span className="text-gray-700 text-xs">
+                      {item.code || item.productCode || item.sku || "N/A"}
+                    </span>
+                  </p>
+
+                  <div className="flex items-center justify-between pt-2 mt-auto">
+                    <span className="flex items-center gap-1 text-[#0300A7] font-semibold text-sm">
+                      View Specs
+                      <IconArrowUpRight size={16} />
+                    </span>
+
+                    <button
+                      onClick={(e) => {
+                        e.preventDefault();
+                        e.stopPropagation();
+                        handleWishlist(item);
+                      }}
+                      className="border rounded-full p-2 hover:bg-muted transition"
+                    >
+                      <IconHeart
+                        size={18}
+                        className={
+                          wishlistIds.includes(item.id)
+                            ? "fill-red-500 text-red-500"
+                            : "text-gray-400"
+                        }
+                      />
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </Link>
+          ))}
         </div>
-
-        <div className="p-6 space-y-4 flex flex-col flex-grow">
-          <h3 className="text-lg font-semibold">{item.name}</h3>
-
-          <p className="text-gray-500 text-sm line-clamp-3">
-            {item.description || item.Description || "No description"}
-          </p>
-
-          <p className="text-black text-sm font-semibold">
-            ProductCode:&nbsp;
-            <span className="text-gray-700 text-xs">
-              {item.code || item.productCode || item.sku || "N/A"}
-            </span>
-          </p>
-
-          <div className="flex items-center justify-between pt-2 mt-auto">
-            
-            <span className="flex items-center gap-1 text-[#0300A7] font-semibold text-sm">
-              View Specs
-              <IconArrowUpRight size={16} />
-            </span>
-
-            <button
-              onClick={(e) => {
-                e.preventDefault();
-                e.stopPropagation();
-                handleWishlist(item);
-              }}
-              className="border rounded-full p-2 hover:bg-muted transition"
-            >
-              <IconHeart
-                size={18}
-                className={
-                  wishlistIds.includes(item.id)
-                    ? "fill-red-500 text-red-500"
-                    : "text-gray-400"
-                }
-              />
-            </button>
-          </div>
-        </div>
-
-      </div>
-    </Link>
-
-  ))}
-</div>
       </div>
     </section>
   );

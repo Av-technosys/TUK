@@ -63,7 +63,7 @@ export default function Header() {
       <div className="container mx-auto flex items-center justify-between py-2 px-4 lg:px-6 xl:px-8">
         {/* Logo */}
         <Link href="/" className="flex items-center">
-          <Image src="/logo.png" alt="logo" width={100} height={32} />
+          <Image src="/logo.png" alt="logo" width={140} height={32} />
         </Link>
 
         {/* Desktop Nav */}
@@ -161,6 +161,8 @@ export default function Header() {
                 <div className="flex items-center border rounded-full overflow-hidden h-8">
                   <Input
                     placeholder="Search"
+                    value={query}
+                    onChange={(e) => setQuery(e.target.value)}
                     className="border-none focus-visible:ring-0 shadow-none text-xs h-8 font-inter"
                   />
 
@@ -171,6 +173,40 @@ export default function Header() {
                     <IconSearch size={16} />
                   </Button>
                 </div>
+                {query && (
+                  <div className="absolute bottom-14 w-52 bg-white border mt-2 rounded-lg shadow-lg z-50 max-h-80 overflow-y-auto">
+                    {loading ? (
+                      <p className="p-3 text-sm">Searching...</p>
+                    ) : results.length > 0 ? (
+                      results.map((item) => (
+                        <div
+                          onClick={() => router.push(`/product/${item.slug}`)}
+                          key={item.id}
+                          className="flex items-center gap-3 p-3 hover:bg-gray-100 cursor-pointer"
+                        >
+                          <Image
+                            src={item.image}
+                            alt={item.name}
+                            width={40}
+                            height={40}
+                            className="rounded"
+                          />
+
+                          <div className="flex-1">
+                            <p className="text-sm font-medium">{item.name}</p>
+                            <p className="text-xs text-gray-500">
+                              {item.category}
+                            </p>
+                          </div>
+                        </div>
+                      ))
+                    ) : (
+                      <p className="p-3 text-sm text-gray-500">
+                        No results found
+                      </p>
+                    )}
+                  </div>
+                )}
 
                 <EnquiryModal />
               </div>

@@ -9,7 +9,7 @@ import FilterSide from "@/components/common/category/FilterSide";
 
 export default function Page() {
   const [category, setCategory] = useState("All Categories");
-  const [sort, setSort] = useState("latest");
+  const [sort, setSort] = useState("Latest");
   const [products, setProducts] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
 
@@ -47,7 +47,7 @@ export default function Page() {
     <>
       <Header />
 
-      <div className="w-full bg-gray-100 ">
+      <div className="w-full bg-gray-100 font-poppins ">
         <div className="max-w-6xl mx-auto px-4 py-3 text-sm text-gray-600 flex items-center gap-2">
           <Link href="/" className="hover:text-black">
             Home
@@ -65,7 +65,7 @@ export default function Page() {
         </div>
       </div>
 
-      <section className="bg-gray-100 w-full py-1 lg:py-10">
+      <section className="bg-gray-100 w-full py-1 lg:py-10 font-poppins text-sm">
         <div className="max-w-6xl mx-auto px-4">
           {/* MOBILE FILTER BAR */}
 
@@ -96,7 +96,7 @@ export default function Page() {
               onChange={(e) => setSort(e.target.value)}
               className="border rounded-lg px-4 py-2 text-sm bg-white"
             >
-              <option value="latest">Sort by</option>
+              <option value="Latest">Latest</option>
               <option value="name">Name</option>
             </select>
           </div>

@@ -281,10 +281,10 @@ const Page = () => {
               onChange={handleChange}
               className="border rounded-lg px-4 py-3 text-sm w-full"
             >
-              <option value="">Select Inquiry</option>
-              <option value="product">Product enquiry</option>
-              <option value="service">Service inquiry</option>
-              <option value="general">General inquiry</option>
+              <option value="">Select Enquiry</option>
+              <option value="product">Product </option>
+              <option value="service">Service </option>
+              <option value="general">General </option>
             </select>
 
             {/* Message */}

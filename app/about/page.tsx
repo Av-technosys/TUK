@@ -35,7 +35,7 @@ const page = () => {
             Cabling Solutions for a Connected World
           </h1>
 
-          <p className="mt-4 text-sm sm:text-base md:text-lg text-blue-100 max-w-3xl mx-auto font-poppins" >
+          <p className="mt-4 text-sm sm:text-base md:text-lg text-blue-100 max-w-3xl mx-auto font-poppins">
             A legacy of British manufacturing excellence in voice and data
             infrastructure since 1984.
           </p>
@@ -152,7 +152,7 @@ const page = () => {
           {/* Heading */}
           <div className="text-center mb-10">
             <h2 className="text-2xl sm:text-3xl font-semibold text-gray-900 font-inter">
-              OUR CORE VALUES
+              Our Core Values
             </h2>
 
             <div className="w-16 h-1 bg-[#0300A7] mx-auto mt-3 rounded"></div>
@@ -243,7 +243,9 @@ const page = () => {
             <div className="bg-[#1B4C7D] rounded-xl p-6">
               <div className="flex items-center gap-2 text-white">
                 <IconLeaf size={22} />
-                <h3 className="font-semibold font-inter">Environmental Policy</h3>
+                <h3 className="font-semibold font-inter">
+                  Environmental Policy
+                </h3>
               </div>
 
               <p className="text-sm text-white mt-3 leading-relaxed font-inter">
@@ -257,7 +259,9 @@ const page = () => {
             <div className="bg-[#1B4C7D] rounded-xl p-6">
               <div className="flex items-center gap-2 text-white">
                 <IconPackage size={22} />
-                <h3 className="font-semibold font-inter">Sustainable Packaging</h3>
+                <h3 className="font-semibold font-inter">
+                  Sustainable Packaging
+                </h3>
               </div>
 
               <p className="text-sm text-white mt-3 leading-relaxed font-inter">

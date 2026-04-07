@@ -108,7 +108,7 @@ const CategoryDefine = ({ category, sort, setSort }: any) => {
   }
 
   return (
-    <div>
+    <div className="font-poppins">
       <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-8">
         <div>
           <h2 className="text-3xl font-semibold">{category}</h2>
@@ -122,11 +122,11 @@ const CategoryDefine = ({ category, sort, setSort }: any) => {
 
           <Select value={sort} onValueChange={setSort}>
             <SelectTrigger className="w-full sm:w-auto">
-              <SelectValue placeholder="Latest Arrivals" />
+              <SelectValue placeholder="Latest " />
             </SelectTrigger>
 
-            <SelectContent>
-              <SelectItem value="latest">Latest Arrivals</SelectItem>
+            <SelectContent className="font-poppins">
+              <SelectItem value="Latest">Latest </SelectItem>
               <SelectItem value="name">Name</SelectItem>
             </SelectContent>
           </Select>

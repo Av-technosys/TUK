@@ -37,7 +37,7 @@ const FilterSide = ({ category, setCategory, sort, setSort }: any) => {
     return <p className="p-4 text-sm">Loading categories...</p>;
   }
   return (
-    <div className="hidden lg:block bg-white rounded-xl border p-6 space-y-8">
+    <div className="hidden lg:block bg-white rounded-xl border p-6 space-y-8 font-poppins">
       {/* CATEGORIES */}
 
       <div className="space-y-5">
@@ -81,8 +81,8 @@ const FilterSide = ({ category, setCategory, sort, setSort }: any) => {
             <SelectValue placeholder="Latest" />
           </SelectTrigger>
 
-          <SelectContent>
-            <SelectItem value="latest">Latest</SelectItem>
+          <SelectContent className="font-poppins">
+            <SelectItem value="Latest">Latest</SelectItem>
             <SelectItem value="name">Name</SelectItem>
           </SelectContent>
         </Select>

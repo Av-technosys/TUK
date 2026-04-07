@@ -83,7 +83,7 @@ const Page = () => {
                   <div className="md:col-span-8">
                     <h3 className="font-semibold text-gray-800">{item.name}</h3>
 
-                    <p className="text-sm text-gray-500">CODE: {item.sku}</p>
+                    {/* <p className="text-sm text-gray-500">CODE: {item.sku}</p> */}
 
                     <p
                       className={`text-sm ${

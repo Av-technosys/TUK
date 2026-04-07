@@ -121,14 +121,13 @@ const page = () => {
             </div>
           </div>
         </div>
-      </section>     
-        <div className="max-w-7xl mx-auto px-4 py-6 ">
-        </div>
+      </section>
+      <div className="max-w-7xl mx-auto px-4 py-6 "></div>
       {/* Cards */}
       <section className=" pb-16">
         <div className="max-w-7xl mx-auto px-4">
           {loading && (
-            <p className="text-center py-10 text-gray-600">
+            <p className="text-center py-10 text-gray-600 font-barlow">
               Loading distributors...
             </p>
           )}
@@ -166,7 +165,9 @@ const page = () => {
                     </h3>
 
                     {/* Description */}
-                    <p className="text-sm text-gray-500 font-poppins">{item.description}</p>
+                    <p className="text-sm text-gray-500 font-poppins">
+                      {item.description}
+                    </p>
 
                     {/* Button */}
                     <Button

@@ -90,7 +90,10 @@ export default async function Page({ params }: ProductPageProps) {
             <TechnicalDataSheet product={product} />
 
             <ProductDetailsTabs product={product} />
-            <RelatedProducts categoryID={product.categoryId} />
+            <RelatedProducts
+              categoryID={product.categoryId}
+              currentProductId={product.id}
+            />
           </div>
         </div>
       </section>

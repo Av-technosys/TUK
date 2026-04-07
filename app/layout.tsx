@@ -2,7 +2,7 @@ import { Metadata } from "next";
 import "./globals.css";
 import { Inter, Poppins, Barlow } from "next/font/google";
 import { Toaster } from "sonner";
-
+import Topbar from "@/components/common/topbar";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -38,26 +38,18 @@ export default function RootLayout({
     <html lang="en">
       <head>
         <script src="https://di.oemsecrets.com/js/distributor-inventory_0.3.0.min.js"></script>
-<link href="https://di.oemsecrets.com/css/distributor-inventory_0.0.4.min.css" 
-rel="stylesheet"></link>
-
+        <link
+          href="https://di.oemsecrets.com/css/distributor-inventory_0.0.4.min.css"
+          rel="stylesheet"
+        ></link>
       </head>
       <body
         className={`${inter.variable} ${poppins.variable} ${barlow.variable}`}
       >
+        <Topbar />
         {children}
         <Toaster position="top-right" richColors />
       </body>
     </html>
   );
 }
-
-
-
-
-
-
-
-
-
-

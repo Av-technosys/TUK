@@ -51,7 +51,7 @@ const slides = [
     ),
     desc: "Since 1984, TUK has been the trusted B2B partner for voice and data copper cabling — supplying manufacturers, wholesalers and distributors across 10+ countries.",
     btn: "Browse SPEEDY RJ45 →",
-    link: "/category",
+    link: "/category?categoryId=41b19390-5260-43e8-8d0c-08312ee4e041",
   },
 ];
 

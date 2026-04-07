@@ -25,8 +25,10 @@ type Product = {
 
 export default function RelatedProducts({
   categoryID,
+  currentProductId,
 }: {
   categoryID: string;
+  currentProductId: string;
 }) {
   const [related, setRelated] = useState<Product[]>([]);
   const [loading, setLoading] = useState(true);
@@ -39,7 +41,8 @@ export default function RelatedProducts({
         const data = await res.json();
 
         if (Array.isArray(data)) {
-          setRelated(data);
+          const filtered = data.filter((item) => item.id !== currentProductId);
+          setRelated(filtered);
         } else {
           setRelated([]);
         }
@@ -102,16 +105,15 @@ export default function RelatedProducts({
           related.map((item) => (
             <Link key={item.id} href={`/product/${item.slug}`}>
               <div className="bg-white border rounded-xl overflow-hidden hover:shadow-lg transition cursor-pointer h-full flex flex-col group">
-                
                 {/* Image */}
                 <div className="relative w-full h-44">
                   {item.createdAt &&
                     new Date(item.createdAt) >
                       new Date(Date.now() - 30 * 24 * 60 * 60 * 1000) && (
-                      <span className="absolute top-3 left-3 bg-[#0300A7] text-white text-xs px-2 py-1 rounded-full z-10">
+                      <span className="absolute top-3 left-3 bg-[#FB923C] text-white text-xs px-2 py-1 rounded-full z-10">
                         NEW
                       </span>
-                  )}
+                    )}
 
                   <Image
                     src={item.bannerImageUrl || "/placeholder.png"}
@@ -123,7 +125,6 @@ export default function RelatedProducts({
 
                 {/* Content */}
                 <div className="p-4 space-y-2 flex flex-col flex-grow">
-                  
                   {/* Name */}
                   <h3 className="text-sm font-semibold text-gray-800 line-clamp-2">
                     {item.name}
@@ -144,7 +145,6 @@ export default function RelatedProducts({
 
                   {/* Bottom */}
                   <div className="flex items-center justify-between pt-2 mt-auto">
-                    
                     <span className="flex items-center gap-1 text-[#0300A7] font-semibold text-sm">
                       View Specs
                       <IconArrowUpRight size={16} />
@@ -168,7 +168,6 @@ export default function RelatedProducts({
                       />
                     </button>
                   </div>
-
                 </div>
               </div>
             </Link>
