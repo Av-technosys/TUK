@@ -11,22 +11,19 @@ import {
 } from "@tabler/icons-react";
 
 interface ProductGalleryProps {
-  images?: Array<{ imageUrl: string; isPrimary: boolean }>;
+  images?: Array<{ bannerImageUrl: string; isPrimary: boolean }>;
+  bannerImageUrl: string;
 }
 
 export default function ProductGallery({
   images: productImages = [],
+  bannerImageUrl = "",
 }: ProductGalleryProps) {
   // Use product images if available, otherwise fall back to defaults
   const images =
     productImages.length > 0
-      ? productImages.map((img) => img.imageUrl)
-      : [
-          "/image/product.png",
-          "/image/product.png",
-          "/image/product.png",
-          "/image/product.png",
-        ];
+      ? productImages.map((img) => img.bannerImageUrl)
+      : [bannerImageUrl];
 
   const [index, setIndex] = useState(0);
   const [zoomStyle, setZoomStyle] = useState({});

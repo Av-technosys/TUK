@@ -43,7 +43,7 @@ export default async function Page({ params }: ProductPageProps) {
   if (error || !product) {
     notFound();
   }
-  // console.log(product);
+  console.log(product);
 
   return (
     <>
@@ -81,7 +81,10 @@ export default async function Page({ params }: ProductPageProps) {
         <div className="max-w-6xl mx-auto px-4 py-10">
           {/* Top Product Section */}
           <div className="grid lg:grid-cols-2 gap-10">
-            <ProductGallery images={product.images || []} />
+            <ProductGallery
+              bannerImageUrl={product.bannerImageUrl}
+              images={product.images || []}
+            />
             <ProductInfo product={product} />
           </div>
 

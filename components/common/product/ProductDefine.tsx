@@ -187,11 +187,11 @@ const ProductDefine = ({ category, sort, setSort }: any) => {
                 )}
 
               <Image
-                src={product.bannerImageUrl || "/image/category.png"}
+                src={product.bannerImageUrl}
                 alt={product.name}
                 width={500}
                 height={400}
-                className="w-full h-32 sm:h-44 object-cover"
+                className="w-auto h-32 sm:h-44 object-contain"
               />
             </div>
 
