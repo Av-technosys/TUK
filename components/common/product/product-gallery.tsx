@@ -11,7 +11,7 @@ import {
 } from "@tabler/icons-react";
 
 interface ProductGalleryProps {
-  images?: Array<{ bannerImageUrl: string; isPrimary: boolean }>;
+  images?: Array<{ imageUrl: string; isPrimary: boolean }>;
   bannerImageUrl: string;
 }
 
@@ -20,11 +20,9 @@ export default function ProductGallery({
   bannerImageUrl = "",
 }: ProductGalleryProps) {
   // Use product images if available, otherwise fall back to defaults
-  const images =
-    productImages.length > 0
-      ? productImages.map((img) => img.bannerImageUrl)
-      : [bannerImageUrl];
-
+  console.log("Length: ", productImages.length);
+  const images = [bannerImageUrl, ...productImages.map((img) => img.imageUrl)];
+  console.log(images);
   const [index, setIndex] = useState(0);
   const [zoomStyle, setZoomStyle] = useState({});
   const [zoom, setZoom] = useState(false);
@@ -116,12 +114,12 @@ export default function ProductGallery({
       </div>
 
       {/* THUMBNAILS */}
-      <div className="ml-6 flex gap-4 overflow-x-auto">
+      <div className="ml-6 grid grid-cols-5 gap-4 ">
         {images.map((img, i) => (
           <Card
             key={i}
             onClick={() => setIndex(i)}
-            className={`cursor-pointer overflow rounded-xl 
+            className={`cursor-pointer  overflow rounded-xl 
             ${i === index ? "ring-1 " : ""}`}
           >
             <Image

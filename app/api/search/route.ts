@@ -18,7 +18,8 @@ export async function GET(req: Request) {
         name: products.name,
         image: products.bannerImageUrl,
         category: categories.name,
-        slug: products.slug
+        slug: products.slug,
+        productCode: products.productCode
       })
       .from(products)
       .leftJoin(categories, sql`${products.categoryId} = ${categories.id}`)
@@ -26,6 +27,7 @@ export async function GET(req: Request) {
         or(
           ilike(products.name, `%${query}%`),
           ilike(categories.name, `%${query}%`),
+          ilike(products.productCode,`%${query}%`)
         )
       )
       .limit(10);
