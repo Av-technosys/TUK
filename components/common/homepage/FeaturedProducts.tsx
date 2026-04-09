@@ -70,22 +70,17 @@ const FeaturedProducts = () => {
   return (
     <section className="w-full bg-white font-poppins">
       <div className="max-w-6xl mx-auto px-4 py-5 space-y-10">
-        
         {/* Heading */}
         <div className="text-center">
-          <h2 className="text-2xl xl:text-3xl font-bold">
-            Featured Products
-          </h2>
+          <h2 className="text-2xl xl:text-3xl font-bold">Featured Products</h2>
         </div>
 
         {/* Grid */}
         <div className="grid sm:grid-cols-2 xl:grid-cols-3 gap-8">
           {products.slice(0, 3).map((item: any) => (
             <Link href={`/product/${item.slug}`} key={item.id}>
-              
               {/* Card */}
               <div className="border rounded-xl overflow-hidden hover:shadow-lg transition h-full flex flex-col">
-                
                 {/* Image */}
                 <div className="relative w-full h-56">
                   <span className="absolute top-4 left-4 bg-[#0300A7] text-white text-xs px-3 py-1 rounded-full z-10">
@@ -96,13 +91,12 @@ const FeaturedProducts = () => {
                     src={item.bannerImageUrl || "/image/arival1.png"}
                     alt={item.name}
                     fill
-                    className="object-cover"
+                    className="object-contain"
                   />
                 </div>
 
                 {/* Content */}
                 <div className="p-6 space-y-4 flex flex-col flex-1">
-                  
                   <h3 className="text-lg font-semibold line-clamp-2">
                     {item.name}
                   </h3>
@@ -113,7 +107,6 @@ const FeaturedProducts = () => {
 
                   {/* Bottom fixed */}
                   <div className="flex justify-between items-center mt-auto">
-                    
                     <span className="flex items-center gap-1 text-[#0300A7] font-semibold text-sm">
                       View Specs
                       <IconArrowUpRight size={16} />
@@ -137,10 +130,8 @@ const FeaturedProducts = () => {
                       />
                     </button>
                   </div>
-
                 </div>
               </div>
-
             </Link>
           ))}
         </div>

@@ -92,7 +92,7 @@ const Arrivals = () => {
                     src={item.bannerImageUrl || "/image/arival1.png"}
                     alt={item.name}
                     fill
-                    className="object-cover"
+                    className="object-contain"
                   />
                 </div>
 

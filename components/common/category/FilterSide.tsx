@@ -37,7 +37,7 @@ const FilterSide = ({ category, setCategory, sort, setSort }: any) => {
     return <p className="p-4 text-sm">Loading categories...</p>;
   }
   return (
-    <div className="hidden lg:block bg-white rounded-xl border p-6 space-y-8 font-poppins">
+    <div className=" lg:block bg-white rounded-xl border p-6 space-y-8 font-poppins">
       {/* CATEGORIES */}
 
       <div className="space-y-5">

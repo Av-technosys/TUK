@@ -14,7 +14,7 @@ import EnquiryModal from "./EnquiryModal";
 
 const navLinks = [
   { name: "Home", href: "/" },
-  { name: "Products", href: "/product" },
+  { name: "Products", href: "/category" },
   { name: "About", href: "/about" },
   { name: "Wishlist", href: "/wishlist" },
   { name: "Distributor", href: "/distributor" },

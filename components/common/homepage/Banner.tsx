@@ -85,7 +85,7 @@ const Banner = () => {
                   alt="banner"
                   fill
                   priority
-                  className="object-cover"
+                  className="lg:object-cover object-center"
                 />
 
                 <div className="absolute inset-0 bg-black/50" />

@@ -1,17 +1,19 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, Suspense } from "react";
 import Link from "next/link";
 import Header from "@/components/common/header";
 import Footer from "@/components/common/footer";
 import ProductDefine from "@/components/common/product/ProductDefine";
 import FilterSide from "@/components/common/category/FilterSide";
+import { CategoryFilter } from "../category/CategoryFilter";
 
 export default function Page() {
   const [category, setCategory] = useState("All Categories");
   const [sort, setSort] = useState("Latest");
   const [products, setProducts] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
+  const [categories, setCategories] = useState<any[]>([]);
 
   useEffect(() => {
     const fetchProducts = async () => {
@@ -25,7 +27,10 @@ export default function Page() {
             id: product.id,
             title: product.name,
             code: product.productcode,
-            category: product.category || "",
+            category:
+              typeof product.category === "object"
+                ? product.category?.name
+                : product.category || "",
             image: product.bannerImageUrl || "/image/category.png",
             new: false,
             slug: product.slug,
@@ -43,6 +48,37 @@ export default function Page() {
     fetchProducts();
   }, []);
 
+  const handleCategoryChange = (newCategory: string) => {
+    setCategory(newCategory);
+  };
+
+  const handleCategoriesLoad = (data: any[]) => {
+    setCategories(data);
+  };
+  const filteredProducts = products.filter((product) => {
+    if (category === "All Categories") return true;
+
+    const normalize = (val: any) => val?.toString().toLowerCase().trim();
+
+    const selected = normalize(category);
+
+    // handle string
+    if (typeof product.category === "string") {
+      return normalize(product.category).includes(selected);
+    }
+
+    // handle array
+    if (Array.isArray(product.category)) {
+      return product.category.some((cat: any) =>
+        normalize(cat).includes(selected),
+      );
+    }
+
+    return false;
+  });
+
+  console.log("Selected category:", category);
+  console.log("Products:", products);
   return (
     <>
       <Header />
@@ -55,7 +91,7 @@ export default function Page() {
 
           <span>›</span>
 
-          <Link href="/product" className="hover:text-black">
+          <Link href="/category" className="hover:text-black">
             Products
           </Link>
 
@@ -64,37 +100,34 @@ export default function Page() {
           <span className="text-black font-medium">{category}</span>
         </div>
       </div>
-
+      <Suspense fallback={<div className="w-full h-96 bg-gray-100" />}>
+        <CategoryFilter
+          onCategoryChange={handleCategoryChange}
+          onCategoriesLoad={handleCategoriesLoad}
+        />
+      </Suspense>
       <section className="bg-gray-100 w-full py-1 lg:py-10 font-poppins text-sm">
         <div className="max-w-6xl mx-auto px-4">
           {/* MOBILE FILTER BAR */}
 
           <div className="lg:hidden flex items-center gap-3 mb-6">
-            {/* CATEGORY SELECT */}
             <select
               value={category}
               onChange={(e) => setCategory(e.target.value)}
               className="border rounded-lg px-4 py-2 text-sm bg-white"
             >
               <option value="All Categories">All</option>
-              <option value="Voice & Data">Voice & Data</option>
-              <option value="Fiber Optic">Fiber Optic</option>
-              <option value="Network Racks">Network Racks</option>
-              <option value="Patch Panels">Patch Panels</option>
-              <option value="Keystone Jacks">Keystone Jacks</option>
-              <option value="Power Distribution">Power Distribution</option>
-              <option value="Cable Management">Cable Management</option>
-              <option value="Testing Equipment">Testing Equipment</option>
-              <option value="Copper Cables">Copper Cables</option>
-              <option value="Wall Outlets">Wall Outlets</option>
-              <option value="Tools & Accessories">Tools & Accessories</option>
+              {categories.map((cat: any) => (
+                <option key={cat.id} value={cat.name}>
+                  {cat.name}
+                </option>
+              ))}
             </select>
 
-            {/* SORT */}
             <select
               value={sort}
               onChange={(e) => setSort(e.target.value)}
-              className="border rounded-lg px-4 py-2 text-sm bg-white"
+              className="border rounded-lg px-4 py-2 text-sm bg-white font-poppins"
             >
               <option value="Latest">Latest</option>
               <option value="name">Name</option>
@@ -104,7 +137,7 @@ export default function Page() {
           <div className="flex flex-col lg:flex-row gap-8">
             {/* SIDEBAR */}
 
-            <div className="hidden lg:block lg:w-1/4 lg:sticky lg:top-24 h-fit">
+            <div className="  lg:w-1/4 lg:sticky lg:top-24 h-fit">
               <FilterSide
                 category={category}
                 setCategory={setCategory}
@@ -126,7 +159,7 @@ export default function Page() {
                   category={category}
                   sort={sort}
                   setSort={setSort}
-                  products={products}
+                  products={filteredProducts}
                 />
               )}
             </div>

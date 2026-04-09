@@ -119,7 +119,7 @@ export default function RelatedProducts({
                     src={item.bannerImageUrl || "/placeholder.png"}
                     alt={item.name}
                     fill
-                    className="object-cover group-hover:scale-105 transition duration-300"
+                    className="object-contain group-hover:scale-105 transition duration-300"
                   />
                 </div>
 

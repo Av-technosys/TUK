@@ -59,6 +59,35 @@ const CategoryDefine = ({ category, sort, setSort }: any) => {
     }
   };
 
+  const getPagination = (page: number, totalPages: number) => {
+    const pages: (number | string)[] = [];
+
+    if (totalPages <= 7) {
+      // show all if small
+      for (let i = 1; i <= totalPages; i++) pages.push(i);
+    } else {
+      pages.push(1);
+
+      if (page > 3) {
+        pages.push("...");
+      }
+
+      const start = Math.max(2, page - 1);
+      const end = Math.min(totalPages - 1, page + 1);
+
+      for (let i = start; i <= end; i++) {
+        pages.push(i);
+      }
+
+      if (page < totalPages - 2) {
+        pages.push("...");
+      }
+
+      pages.push(totalPages);
+    }
+
+    return pages;
+  };
   const [page, setPage] = useState(1);
   const productsPerPage = 12;
 
@@ -193,7 +222,7 @@ const CategoryDefine = ({ category, sort, setSort }: any) => {
         ))}
       </div>
 
-      <Pagination className="mt-10">
+      {/* <Pagination className="mt-10">
         <PaginationContent>
           <PaginationItem>
             <PaginationPrevious
@@ -209,6 +238,38 @@ const CategoryDefine = ({ category, sort, setSort }: any) => {
               >
                 {i + 1}
               </PaginationLink>
+            </PaginationItem>
+          ))}
+
+          <PaginationItem>
+            <PaginationNext
+              onClick={() => setPage((p) => Math.min(p + 1, totalPages))}
+            />
+          </PaginationItem>
+        </PaginationContent>
+      </Pagination> */}
+
+      <Pagination className="mt-10 ">
+        <PaginationContent className="flex flex-wrap justify-center gap-1">
+          <PaginationItem>
+            <PaginationPrevious
+              onClick={() => setPage((p) => Math.max(p - 1, 1))}
+            />
+          </PaginationItem>
+
+          {getPagination(page, totalPages).map((item, index) => (
+            <PaginationItem key={index}>
+              {item === "..." ? (
+                <span className="px-3 py-2 text-gray-500">...</span>
+              ) : (
+                <PaginationLink
+                  isActive={page === item}
+                  onClick={() => setPage(item as number)}
+                  className="min-w-[36px] text-center"
+                >
+                  {item}
+                </PaginationLink>
+              )}
             </PaginationItem>
           ))}
 

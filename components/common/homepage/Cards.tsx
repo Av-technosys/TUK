@@ -20,7 +20,6 @@ const Cards = () => {
       icon: IconPhone,
       title: "Sales Enquiries",
       line1: "+44 (0)20 8543 3131",
-      line2: "Mon–Fri 8:30am–5:30pm",
     },
     {
       icon: IconMail,

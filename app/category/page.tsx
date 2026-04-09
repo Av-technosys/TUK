@@ -37,7 +37,7 @@ export default function Page() {
 
           <span>›</span>
 
-          <Link href="/product" className="hover:text-black">
+          <Link href="/category" className="hover:text-black">
             Products
           </Link>
 
@@ -83,7 +83,7 @@ export default function Page() {
 
           <div className="flex flex-col lg:flex-row gap-8">
             {/* SIDEBAR */}
-            <div className="lg:w-1/4 lg:sticky lg:top-24 h-fit">
+            <div className=" hidden lg:block lg:w-1/4 lg:sticky lg:top-24 h-fit">
               <FilterSide
                 category={category}
                 setCategory={setCategory}
