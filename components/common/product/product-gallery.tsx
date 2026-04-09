@@ -83,13 +83,13 @@ export default function ProductGallery({
           </div>
 
           {/* Fullscreen Icon */}
-          <Button
+          {/* <Button
             variant="secondary"
             size="icon"
             className="absolute bottom-4 right-4 rounded-full"
           >
             <IconMaximize size={18} />
-          </Button>
+          </Button> */}
         </div>
 
         {/* LEFT BUTTON (outside image) */}

@@ -27,6 +27,7 @@ type Product = {
   slug: string;
   image: string;
   category: string;
+  productCode: string;
 };
 
 export default function Header() {
@@ -120,6 +121,9 @@ export default function Header() {
                     <div className="flex-1">
                       <p className="text-sm font-medium">{item.name}</p>
                       <p className="text-xs text-gray-500">{item.category}</p>
+                      <p className="text-xs text-gray-500">
+                        {item.productCode}
+                      </p>
                     </div>
                   </div>
                 ))
@@ -196,6 +200,9 @@ export default function Header() {
                             <p className="text-sm font-medium">{item.name}</p>
                             <p className="text-xs text-gray-500">
                               {item.category}
+                            </p>
+                            <p className="text-xs text-gray-500">
+                              {item.productCode}
                             </p>
                           </div>
                         </div>
