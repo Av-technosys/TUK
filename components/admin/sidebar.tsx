@@ -13,7 +13,7 @@ import {
   Code,
   Feather,
   ShoppingCart,
-  IndianRupee
+  IndianRupee,
 } from "lucide-react";
 
 const navItems = [
@@ -21,7 +21,6 @@ const navItems = [
   { label: "Product", href: "/admin/Product", icon: Box },
   { label: "Category", href: "/admin/category", icon: List },
   { label: "Distributors", href: "/admin/distributors", icon: User },
- 
 ];
 
 export function Sidebar() {
@@ -31,7 +30,7 @@ export function Sidebar() {
   const currentPath = pathname.replace(/\/$/, "");
 
   return (
-    <aside className="w-64 h-screen   bg-white border-r p-6 font-sans">
+    <aside className="w-64 h-screen   bg-white border-r p-6 font-poppins">
       {/* Header */}
       <div className="mb-8">
         <h2 className="text-2xl font-bold text-gray-800">Admin Panel</h2>

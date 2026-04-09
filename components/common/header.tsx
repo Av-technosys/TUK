@@ -59,7 +59,7 @@ export default function Header() {
   };
   const router = useRouter();
   return (
-    <header className="w-full border-b bg-white font-poppins ">
+    <header className="w-full border-b bg-white font-barlow ">
       <div className="container mx-auto flex items-center justify-between py-2 px-4 lg:px-6 xl:px-8">
         {/* Logo */}
         <Link href="/" className="flex items-center">
@@ -136,7 +136,7 @@ export default function Header() {
         </div>
 
         {/* Mobile */}
-        <div className="lg:hidden">
+        <div className="lg:hidden font-poppins">
           <Sheet>
             <SheetTrigger>
               <div className="cursor-pointer">
@@ -145,7 +145,7 @@ export default function Header() {
             </SheetTrigger>
 
             <SheetContent side="left">
-              <div className="flex flex-col gap-5 px-5 py-5">
+              <div className="flex flex-col gap-5 px-5 py-5 font-barlow">
                 <nav className="flex flex-col gap-4">
                   {navLinks.map((item) => (
                     <Link
