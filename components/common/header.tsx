@@ -178,7 +178,7 @@ export default function Header() {
                   </Button>
                 </div>
                 {query && (
-                  <div className="absolute bottom-14 w-52 bg-white border mt-2 rounded-lg shadow-lg z-50 max-h-80 overflow-y-auto">
+                  <div className="absolute top-72 w-52 bg-white border mt-2 rounded-lg shadow-lg z-50 max-h-80 overflow-y-auto">
                     {loading ? (
                       <p className="p-3 text-sm">Searching...</p>
                     ) : results.length > 0 ? (

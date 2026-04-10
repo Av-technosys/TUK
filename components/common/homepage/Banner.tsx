@@ -79,30 +79,30 @@ const Banner = () => {
         <CarouselContent>
           {slides.map((slide, index) => (
             <CarouselItem key={index}>
-              <div className="relative w-full h-[90vh]">
+              <div className="relative w-full h-[50vh] sm:h-[60vh] md:h-[75vh] lg:h-[90vh]">
                 <Image
                   src={slide.img}
                   alt="banner"
                   fill
                   priority
-                  className="lg:object-cover object-center"
+                  className="object-cover"
                 />
 
                 <div className="absolute inset-0 bg-black/50" />
 
                 <div className="absolute inset-0 flex items-center justify-center text-center">
-                  <div className="max-w-3xl text-white px-6">
-                    <h1 className="text-4xl md:text-6xl font-bold font-barlow leading-tight">
+                  <div className="max-w-3xl text-white px-4 sm:px-6">
+                    <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-6xl font-bold font-barlow leading-tight">
                       {slide.title}
                     </h1>
 
-                    <p className="mt-4 text-lg font-inter text-gray-200">
+                    <p className="mt-2 sm:mt-4 text-sm sm:text-base md:text-lg font-inter text-gray-200">
                       {slide.desc}
                     </p>
 
-                    <div className="mt-6">
+                    <div className="mt-4 sm:mt-6">
                       <Link href={slide.link}>
-                        <Button className="cursor-pointer bg-[#F97316] font-inter font-bold px-4 py-6  text-white rounded-full">
+                        <Button className="cursor-pointer bg-[#F97316] font-inter font-bold px-3 sm:px-4 py-3 sm:py-6 text-xs sm:text-sm md:text-base text-white rounded-full">
                           {slide.btn}
                         </Button>
                       </Link>
@@ -114,8 +114,8 @@ const Banner = () => {
           ))}
         </CarouselContent>
 
-        <CarouselPrevious className="absolute left-4 top-1/2 z-10" />
-        <CarouselNext className="absolute right-4 top-1/2  z-10" />
+        <CarouselPrevious className="absolute left-2 sm:left-4 top-1/2 z-10" />
+        <CarouselNext className="absolute right-2 sm:right-4 top-1/2 z-10" />
       </Carousel>
 
       {/* DOTS */}

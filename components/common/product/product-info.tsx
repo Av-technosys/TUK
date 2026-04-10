@@ -236,24 +236,31 @@ export default function ProductInfo({ product }: ProductInfoProps) {
         </div>
       </div>
 
-      <h3 className="text-lg font-semibold mt-4 font-poppins"> Distributors</h3>
+      {product?.distributors && product.distributors.length > 0 && (
+        <>
+          <h3 className="text-lg font-semibold mt-4 font-poppins">
+            {" "}
+            Distributors
+          </h3>
 
-      <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
-        {product?.distributors?.map((d: any) => (
-          <div
-            key={d.id}
-            className="border rounded-lg p-3 flex flex-col items-center"
-          >
-            <Image
-              src={d.image}
-              alt={d.name}
-              width={100}
-              height={200}
-              className="w-24 h-14 object-contain mb-2"
-            />
+          <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
+            {product.distributors.map((d: any) => (
+              <div
+                key={d.id}
+                className="border rounded-lg p-3 flex flex-col items-center"
+              >
+                <Image
+                  src={d.image}
+                  alt={d.name}
+                  width={100}
+                  height={200}
+                  className="w-24 h-14 object-contain mb-2"
+                />
+              </div>
+            ))}
           </div>
-        ))}
-      </div>
+        </>
+      )}
 
       {/* Footer Info */}
       {/* <div className="flex flex-wrap items-center gap-6 text-sm text-gray-600 font-poppins">
