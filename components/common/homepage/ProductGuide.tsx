@@ -86,7 +86,7 @@ const ProductGuide = () => {
         {/* Content */}
         <div className="w-full md:w-1/2">
           <h2 className="text-xl md:text-2xl font-bold mb-4 mt-4 md:mt-10 font-poppins">
-            Get the 2024 Product Guide
+            Get the 2025 Product Guide
           </h2>
 
           <p className="text-sm md:text-md mb-6 font-poppins">
