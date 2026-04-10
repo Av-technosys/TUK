@@ -54,7 +54,7 @@ const ProductGuide = () => {
 
       // 👉 Direct download
       const link = document.createElement("a");
-      link.href = "/TUK-Product-Guide-2019.pdf"; // put pdf in public/pdf/
+      link.href = "/Product Guide March 2025 - TUK Ltd.pdf"; // put pdf in public/pdf/
       link.download = "Product-Guide.pdf";
       link.click();
     } catch (error) {

@@ -44,7 +44,7 @@ export default function TechnicalDataSheet({
         onClick={() => pdfUrl && window.open(pdfUrl, "_blank")}
       >
         <IconDownload size={18} />
-        Download PDF
+        Download Datasheet
       </Button>
     </div>
   );

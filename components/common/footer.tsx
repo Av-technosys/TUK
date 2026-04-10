@@ -70,7 +70,9 @@ const Footer = () => {
 
           {/* product categories */}
           <div className="space-y-3">
-            <h3 className="font-semibold text-lg font-barlow">Product Categories</h3>
+            <h3 className="font-semibold text-lg font-barlow">
+              Product Categories
+            </h3>
 
             <div className="flex flex-col space-y-2 text-[#9CA3AF] text-sm font-inter">
               <Link href="/category?categoryId=41b19390-5260-43e8-8d0c-08312ee4e041">
@@ -111,7 +113,9 @@ const Footer = () => {
 
           {/* quality */}
           <div className="space-y-3">
-            <h3 className="font-semibold text-lg font-barlow">Quality & Compliance</h3>
+            <h3 className="font-semibold text-lg font-barlow">
+              Quality & Compliance
+            </h3>
 
             <div className="space-y-3 text-[#D1D5DB] font-inter">
               <div className="flex items-center gap-3 bg-[#23345a] px-4 py-3 rounded-lg">
@@ -137,7 +141,7 @@ const Footer = () => {
         <div className=" w-full border-t  border-[#1E3A8A] font-inter mt-10 pt-6 flex flex-col md:flex-row items-center justify-between gap-4 text-sm text-gray-400">
           <p>
             © 2026 TUK Ltd. All rights reserved. Registered in England & Wales.
-            B2B Trade Only
+            B2B Trade
           </p>
 
           <div className="flex lg:w-96 w-full justify-between font-inter lg:justify-end  lg:items-center  lg:gap-6">

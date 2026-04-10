@@ -9,7 +9,7 @@ export default function AdminLayout({
 }) {
   return (
     <>
-      <Topbar />
+      {/* <Topbar /> */}
       <Header />
       {children}
       <Footer />

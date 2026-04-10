@@ -9,7 +9,7 @@ const sections = [
 
 export default function TermsConditionsPage() {
   return (
-    <div className="bg-gray-50 min-h-screen">
+    <div className="bg-gray-50 min-h-screen font-poppins">
       {/* 🔵 HERO */}
       <div className="bg-gradient-to-r from-[#141D3D] to-[#364FA3] text-white py-14 px-6">
         <div className="max-w-6xl mx-auto">
