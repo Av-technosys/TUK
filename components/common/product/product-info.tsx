@@ -256,25 +256,22 @@ export default function ProductInfo({ product }: ProductInfoProps) {
       </div>
 
       {/* Footer Info */}
-      <div className="flex flex-wrap items-center gap-6 text-sm text-gray-600 font-poppins">
-        {/* ISO Certified */}
+      {/* <div className="flex flex-wrap items-center gap-6 text-sm text-gray-600 font-poppins">
         <span className="flex items-center gap-2">
           <IconShieldCheck size={18} className="text-green-600" />
           ISO 9001 Certified
         </span>
 
-        {/* Fast Delivery */}
         <span className="flex items-center gap-2">
           <IconTruck size={18} className="text-blue-600" />
           Fast UK Delivery
         </span>
 
-        {/* Warranty */}
         <span className="flex items-center gap-2">
           <IconRosetteDiscountCheck size={18} className="text-orange-500" />2
           Year Warranty
         </span>
-      </div>
+      </div> */}
     </div>
   );
 }
