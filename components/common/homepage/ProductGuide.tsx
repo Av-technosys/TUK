@@ -69,22 +69,22 @@ const ProductGuide = () => {
     >
       <div
         className="flex flex-col md:flex-row w-full border-2 bg-[#141D3D]
-    rounded-xl gap-8 md:gap-12 justify-center items-center md:items-start lg:p-0 p-4 md:p-6"
+    rounded-xl gap-8 md:gap-4 justify-center items-center md:items-start lg:p-0 p-4 md:p-6"
       >
         {/* Image */}
         <div className="flex justify-center">
           <Image
-            src="/image/Guide.png"
+            src="/image/guide2025.png"
             alt="Product Guide"
             width={300}
             height={600}
-            className="object-contain w-[200px] md:w-[300px]"
+            className="object-cover w-[300px] md:w-[600px] mt-4 md:mt-8"
             priority
           />
         </div>
 
         {/* Content */}
-        <div className="w-full md:w-1/2">
+        <div className="w-full md:w-1/2 md:px-6 px-2 ">
           <h2 className="text-xl md:text-2xl font-bold mb-4 mt-4 md:mt-10 font-poppins">
             Get the 2025 Product Guide
           </h2>
@@ -158,7 +158,7 @@ const ProductGuide = () => {
             </Button>
           </form>
 
-          <p className="text-xs md:text-sm text-gray-500 mt-4 font-inter">
+          <p className="text-xs md:text-sm text-gray-500 mt-2 mb-1 font-inter">
             By clicking you agree to our privacy policy and receiving B2B
             updates.
           </p>
