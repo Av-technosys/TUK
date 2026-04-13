@@ -19,7 +19,7 @@ const Cards = () => {
     {
       icon: IconPhone,
       title: "Sales Enquiries",
-      line1: "+44 (0)20 8543 3131",
+      line1: "+44 (0)20 8946 6688",
     },
     {
       icon: IconMail,

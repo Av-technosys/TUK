@@ -12,7 +12,7 @@ const Topbar = () => {
         <div className="flex flex-col md:flex-row md:items-center gap-0.5 md:gap-3 text-xs">
           <div className="flex items-center gap-1 font-inter">
             <IconPhone className="w-3.5 h-3.5 text-[#FB923C]" />
-            <span className="font-inter font-normal">+44 (0)20 8543 3131</span>
+            <span className="font-inter font-normal">+44 (0)20 8946 6688</span>
           </div>
 
           <div className="flex items-center gap-1">
