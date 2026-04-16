@@ -83,9 +83,17 @@ export default function ProductDetailsTabs({
           <div className="border rounded-xl p-6 bg-white">
             <h3 className="font-semibold mb-4">Product Description</h3>
 
-            <p className="text-muted-foreground leading-relaxed">
-              {stripHtml(description)}
-            </p>
+            <div className="text-muted-foreground space-y-2">
+              {stripHtml(description)
+                .split(/(?=[A-Z][a-z]*:)|–|[-]/)
+                .filter((item: string) => item.trim())
+                .map((item: string, idx: number) => (
+                  <div key={idx} className="flex items-start gap-2">
+                    <span className="text-blue-600 mt-1"></span>
+                    <span>{item.trim()}</span>
+                  </div>
+                ))}
+            </div>
           </div>
         </TabsContent>
 
@@ -94,7 +102,17 @@ export default function ProductDetailsTabs({
         <TabsContent value="Material">
           <div className="border rounded-xl p-6 bg-white">
             <h3 className="font-semibold mb-4">Material</h3>
-            <p className="text-muted-foreground "> {stripHtml(Material)}</p>
+            <div className="text-muted-foreground space-y-2">
+              {stripHtml(Material)
+                .split(/(?=[A-Z][a-z]*:)|–|[-]/)
+                .filter((item: string) => item.trim())
+                .map((item: string, idx: number) => (
+                  <div key={idx} className="flex items-start gap-2">
+                    <span className="text-blue-600 mt-1"></span>
+                    <span>{item.trim()}</span>
+                  </div>
+                ))}
+            </div>
           </div>
         </TabsContent>
 
@@ -103,7 +121,17 @@ export default function ProductDetailsTabs({
         <TabsContent value="Specification">
           <div className="border rounded-xl p-6 bg-white">
             <h3 className="font-semibold mb-4">Specification</h3>
-            <p className="text-muted-foreground">{stripHtml(Specification)}</p>
+            <div className="text-muted-foreground space-y-2">
+              {stripHtml(Specification)
+                .split(/(?=[A-Z][a-z]*:)|–|[-]/)
+                .filter((item: string) => item.trim())
+                .map((item: string, idx: number) => (
+                  <div key={idx} className="flex items-start gap-2">
+                    <span className="text-blue-600 mt-1"></span>
+                    <span>{item.trim()}</span>
+                  </div>
+                ))}
+            </div>
           </div>
         </TabsContent>
 
@@ -112,7 +140,17 @@ export default function ProductDetailsTabs({
         <TabsContent value="Packaging">
           <div className="border rounded-xl p-6 bg-white">
             <h3 className="font-semibold mb-4">Packaging</h3>
-            <p className="text-muted-foreground">{stripHtml(Packaging)}</p>
+            <div className="text-muted-foreground space-y-2">
+              {stripHtml(Packaging)
+                .split(/(?=[A-Z][a-z]*:)|–|[-]/)
+                .filter((item: string) => item.trim())
+                .map((item: string, idx: number) => (
+                  <div key={idx} className="flex items-start gap-2">
+                    <span className="text-blue-600 mt-1"></span>
+                    <span>{item.trim()}</span>
+                  </div>
+                ))}
+            </div>
           </div>
         </TabsContent>
 
@@ -121,7 +159,17 @@ export default function ProductDetailsTabs({
         <TabsContent value="Additional">
           <div className="border rounded-xl p-6 bg-white">
             <h3 className="font-semibold mb-4">Additional</h3>
-            <p className="text-muted-foreground">{stripHtml(Additional)}</p>
+            <div className="text-muted-foreground space-y-2">
+              {stripHtml(Additional)
+                .split(/(?=[A-Z][a-z]*:)|–|[-]/)
+                .filter((item: string) => item.trim())
+                .map((item: string, idx: number) => (
+                  <div key={idx} className="flex items-start gap-2">
+                    <span className="text-blue-600 mt-1"></span>
+                    <span>{item.trim()}</span>
+                  </div>
+                ))}
+            </div>
           </div>
         </TabsContent>
       </Tabs>

@@ -14,47 +14,34 @@ export function CategoryFilter({
 }: CategoryFilterProps) {
   const searchParams = useSearchParams();
   const categoryId = searchParams.get("categoryId");
-  const [categories, setCategories] = useState<any[]>([]);
   const [localCategories, setLocalCategories] = useState<any[]>([]);
-
-  // useEffect(() => {
-  //   const fetchCategories = async () => {
-  //     const res = await fetch("/api/category")
-  //     const data = await res.json()
-  //     setCategories(data)
-  //     onCategoriesLoad(data)
-  //   }
-
-  //   fetchCategories()
-  // }, [onCategoriesLoad])
 
   useEffect(() => {
     const fetchCategories = async () => {
       const res = await fetch("/api/category");
       const data = await res.json();
 
-      setLocalCategories(data); // local state
+      setLocalCategories(data);
 
       // call parent ONLY once
       if (onCategoriesLoad) {
         onCategoriesLoad(data);
       }
+
+      // If categoryId is in URL, find and select that category
+      if (categoryId) {
+        const found = data.find(
+          (c: any) => String(c.id) === String(categoryId),
+        );
+
+        if (found) {
+          onCategoryChange(found.name);
+        }
+      }
     };
 
     fetchCategories();
-  }, []); // ✅ important
-
-  useEffect(() => {
-    if (categoryId && categories.length) {
-      const found = categories.find(
-        (c: any) => String(c.id) === String(categoryId),
-      );
-
-      if (found) {
-        onCategoryChange(found.name);
-      }
-    }
-  }, [categoryId, categories, onCategoryChange]);
+  }, [categoryId, onCategoryChange, onCategoriesLoad]);
 
   return null;
 }
