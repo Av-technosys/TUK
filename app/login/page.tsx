@@ -49,7 +49,10 @@ export default function Login() {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-gray-100 to-gray-200">
+    <div
+      className="min-h-screen flex items-center justify-center bg-gradient-to-br from-gray-100 to-gray-200 font-poppins
+    "
+    >
       <div className="w-[380px] bg-white shadow-xl rounded-2xl p-8 space-y-5">
         {/* Heading */}
         <div className="text-center space-y-1">

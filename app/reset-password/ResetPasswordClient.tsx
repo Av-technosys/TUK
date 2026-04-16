@@ -61,7 +61,7 @@ export function ResetPasswordClient() {
   };
 
   return (
-    <div className="flex h-screen items-center justify-center">
+    <div className="flex h-screen items-center justify-center font-poppins">
       <div className="w-[350px] space-y-4">
         <h1 className="text-xl font-bold">Reset Password</h1>
 
