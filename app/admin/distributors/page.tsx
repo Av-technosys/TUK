@@ -51,7 +51,7 @@ export default function DistributorList() {
                   <img
                     src={item.image}
                     alt={item.name}
-                    className="h-16 w-16 object-contain -mr-14 ml-10 "
+                    className="h-16 w-16 object-contain -mr-14 lg:ml-10 "
                   />
                 )}
               </td>
