@@ -378,7 +378,7 @@ export default function EditProductPage() {
             </div>
           </div>
 
-          <div>
+          {/* <div>
             <label className="text-sm font-medium">Short Description</label>
             <Textarea
               value={form.shortDescription}
@@ -386,7 +386,7 @@ export default function EditProductPage() {
                 setForm({ ...form, shortDescription: e.target.value })
               }
             />
-          </div>
+          </div> */}
 
           <div>
             <label className="text-sm font-medium">Description</label>
