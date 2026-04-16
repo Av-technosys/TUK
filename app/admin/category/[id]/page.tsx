@@ -118,7 +118,7 @@ export default function EditCategoryPage() {
   };
 
   return (
-    <div className="p-6 max-w-xl  ">
+    <div className="p-6 max-w-xl font-barlow ">
       <h1 className="ml-4 text-2xl font-semibold">Edit Category</h1>
       <Card className="ml-10 mt-4">
         <CardContent className="p-6 space-y-5">

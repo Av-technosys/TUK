@@ -25,7 +25,7 @@ export default function DistributorList() {
   };
 
   return (
-    <div className="p-6">
+    <div className="p-6 font-barlow">
       <div className="flex justify-between mb-4">
         <h2 className="text-xl font-semibold">Distributors</h2>
         <Link href="/admin/distributors/add">

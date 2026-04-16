@@ -99,7 +99,7 @@ export default function AddDistributor() {
   };
 
   return (
-    <div className="p-6 space-y-4 max-w-md ml-4 ">
+    <div className="p-6 space-y-4 max-w-md ml-4 font-barlow ">
       <h2 className="text-xl font-semibold">Add Distributor</h2>
 
       <div className="space-y-4 ml-10">

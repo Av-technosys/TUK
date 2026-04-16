@@ -115,7 +115,7 @@ export default function AddCategoryPage() {
   };
 
   return (
-    <div className="p-6 max-w-xl mx-auto">
+    <div className="p-6 max-w-xl mx-auto font-barlow">
       <h1 className="text-2xl font-bold mb-6">Add Category</h1>
 
       <div className="space-y-4 bg-white p-6 rounded-xl shadow">

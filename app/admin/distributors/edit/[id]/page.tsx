@@ -105,7 +105,7 @@ export default function EditDistributor() {
   };
 
   return (
-    <div className="p-6 space-y-4 max-w-md ml-4 ">
+    <div className="p-6 space-y-4 max-w-md ml-4 font-barlow">
       <h2 className="text-xl font-semibold">Edit Distributor</h2>
 
       <div className="ml-10 space-y-4">

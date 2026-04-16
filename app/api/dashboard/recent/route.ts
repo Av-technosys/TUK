@@ -9,7 +9,7 @@ export async function GET() {
       .select()
       .from(categories)
       .orderBy(desc(categories.id))
-      .limit(5);
+      .limit(10);
 
     // 🔹 Attach products to each category
     const categoriesWithProducts = await Promise.all(
@@ -18,7 +18,7 @@ export async function GET() {
           .select()
           .from(products)
           .where(eq(products.categoryId, cat.id))
-          .limit(3); // only show 3 products
+          .limit(1); // only show 3 products
 
         return {
           ...cat,

@@ -1,11 +1,10 @@
-
-import { DashboardCards } from "@/components/admin/dashboardCard"
-import { LogoutButton } from "@/components/admin/logoutButton"
+import { DashboardCards } from "@/components/admin/dashboardCard";
+import { LogoutButton } from "@/components/admin/logoutButton";
 
 export default async function DashboardPage() {
   // const data = await db.select().from(productTable)
   return (
-    <div className="space-y-6 p-3">
+    <div className="space-y-6 p-3 font-barlow">
       {/* Page Header */}
       <header className="mb-6 flex justify-between items-center">
         <div>
@@ -23,19 +22,15 @@ export default async function DashboardPage() {
 
       {/* Row 2 */}
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-        <div className="lg:col-span-2">
-          {/* <OrderStatusBoxes /> */}
-        </div>
+        <div className="lg:col-span-2">{/* <OrderStatusBoxes /> */}</div>
         {/* <QuickActions /> */}
       </div>
 
       {/* Row 3 */}
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-        <div className="lg:col-span-2">
-          {/* <RecentOrdersTable /> */}
-        </div>
+        <div className="lg:col-span-2">{/* <RecentOrdersTable /> */}</div>
         {/* <OrderStatusChart /> */}
       </div>
     </div>
-  )
+  );
 }
