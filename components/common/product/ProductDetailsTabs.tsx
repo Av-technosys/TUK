@@ -94,7 +94,7 @@ export default function ProductDetailsTabs({
         <TabsContent value="Material">
           <div className="border rounded-xl p-6 bg-white">
             <h3 className="font-semibold mb-4">Material</h3>
-            <p className="text-muted-foreground"> {stripHtml(Material)}</p>
+            <p className="text-muted-foreground "> {stripHtml(Material)}</p>
           </div>
         </TabsContent>
 

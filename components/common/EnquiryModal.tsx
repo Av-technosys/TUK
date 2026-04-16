@@ -18,6 +18,11 @@ import {
 } from "@/src/lib/validation";
 
 export default function EnquiryModal() {
+  const isCompanyMandatory = true; 
+
+  // Robot checkbox ke liye state
+  const [isRobotChecked, setIsRobotChecked] = useState(false);
+
   const [form, setForm] = useState({
     name: "",
     company: "",
@@ -47,6 +52,11 @@ export default function EnquiryModal() {
       return;
     }
 
+    if (isCompanyMandatory && !validateRequired(form.company)) {
+      toast.error("Company Name is required");
+      return;
+    }
+
     if (!validateRequired(form.email)) {
       toast.error("Email is required");
       return;
@@ -72,6 +82,12 @@ export default function EnquiryModal() {
       return;
     }
 
+    // ✅ Robot Validation Check
+    if (!isRobotChecked) {
+      toast.error("Please confirm you are not a robot");
+      return;
+    }
+
     try {
       const res = await fetch("/api/enquiry", {
         method: "POST",
@@ -86,6 +102,7 @@ export default function EnquiryModal() {
       if (data.success) {
         toast.success("Enquiry sent successfully 🚀");
 
+        // Reset Form and Checkbox
         setForm({
           name: "",
           company: "",
@@ -95,6 +112,7 @@ export default function EnquiryModal() {
           spend: "",
           message: "",
         });
+        setIsRobotChecked(false);
       } else {
         toast.error(data.error);
       }
@@ -115,10 +133,9 @@ export default function EnquiryModal() {
         <DialogTitle className="text-lg font-semibold font-poppins">Enquiries</DialogTitle>
 
         <div className="space-y-4 mt-4">
-          {/* Row 1 */}
           <div className="grid grid-cols-2 gap-3">
             <div>
-              <label htmlFor="">Full Name*</label>
+              <label className="text-sm font-medium">Full Name*</label>
               <Input
                 name="name"
                 value={form.name}
@@ -127,7 +144,9 @@ export default function EnquiryModal() {
               />
             </div>
             <div>
-              <label htmlFor="">Company Name*</label>
+              <label className="text-sm font-medium">
+                Company Name{isCompanyMandatory ? "*" : ""}
+              </label>
               <Input
                 name="company"
                 value={form.company}
@@ -137,10 +156,9 @@ export default function EnquiryModal() {
             </div>
           </div>
 
-          {/* Row 2 */}
           <div className="grid grid-cols-2 gap-3">
             <div>
-              <label htmlFor="">Email*</label>
+              <label className="text-sm font-medium">Email*</label>
               <Input
                 name="email"
                 value={form.email}
@@ -149,7 +167,7 @@ export default function EnquiryModal() {
               />
             </div>
             <div>
-              <label htmlFor="">Phone*</label>
+              <label className="text-sm font-medium">Phone*</label>
               <Input
                 name="phone"
                 value={form.phone}
@@ -161,7 +179,6 @@ export default function EnquiryModal() {
             </div>
           </div>
 
-          {/* Product */}
           <Input
             name="product"
             value={form.product}
@@ -169,7 +186,6 @@ export default function EnquiryModal() {
             placeholder="Product of Interest"
           />
 
-          {/* Spend */}
           <Input
             name="spend"
             value={form.spend}
@@ -177,7 +193,6 @@ export default function EnquiryModal() {
             placeholder="Typical Annual Spend on TUK"
           />
 
-          {/* Message */}
           <Textarea
             name="message"
             value={form.message}
@@ -185,13 +200,20 @@ export default function EnquiryModal() {
             placeholder="Other Comments / Info"
           />
 
-          {/* Fake captcha (UI only like image) */}
-          <div className="border rounded-md p-3 flex items-center gap-2 text-sm">
-            <input type="checkbox" />
-            I'm not a robot
+
+          <div className="border rounded-md p-3 flex items-center gap-2 text-sm bg-gray-50/50">
+            <input 
+              type="checkbox" 
+              id="robot-check"
+              className="w-4 h-4 cursor-pointer"
+              checked={isRobotChecked}
+              onChange={(e) => setIsRobotChecked(e.target.checked)}
+            />
+            <label htmlFor="robot-check" className="cursor-pointer select-none">
+              I'm not a robot*
+            </label>
           </div>
 
-          {/* Button */}
           <Button
             onClick={handleSubmit}
             className="w-full cursor-pointer bg-[#1E3A8A] rounded-full"

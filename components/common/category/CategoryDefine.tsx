@@ -265,7 +265,7 @@ const CategoryDefine = ({ category, sort, setSort }: any) => {
                 <PaginationLink
                   isActive={page === item}
                   onClick={() => setPage(item as number)}
-                  className="min-w-[36px] text-center"
+                  className="min-w-9 text-center"
                 >
                   {item}
                 </PaginationLink>

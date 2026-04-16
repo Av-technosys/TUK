@@ -78,7 +78,7 @@ const ProductGuide = () => {
             alt="Product Guide"
             width={300}
             height={600}
-            className="object-cover w-[300px] md:w-[600px] mt-4 md:mt-8"
+            className="object-cover w-75 md:w-150 mt-4 ml-4 md:mt-8"
             priority
           />
         </div>
@@ -158,7 +158,7 @@ const ProductGuide = () => {
             </Button>
           </form>
 
-          <p className="text-xs md:text-sm text-gray-500 mt-2 mb-1 font-inter">
+          <p className="text-xs md:text-sm text-gray-500 mt-1 py-2 mb-1 font-inter">
             By clicking you agree to our privacy policy and receiving B2B
             updates.
           </p>
