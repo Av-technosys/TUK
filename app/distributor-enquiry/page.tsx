@@ -178,29 +178,33 @@ const Page = () => {
             </div>
 
             {/* PHONE */}
-            <div className="flex gap-4">
+           {/* PHONE */}
+            <a 
+              href="tel:+442089466688" 
+              className="flex gap-4 cursor-pointer group"
+            >
               <div className="p-2 rounded-md bg-[#2596BE1A]">
                 <IconPhoneFilled className="text-[#2596BE]" />
               </div>
-              {/* <IconPhone className="text-[#1E3A8A]" /> */}
               <div className="text-sm text-gray-700">
                 <p className="font-semibold">Phone</p>
-                <p>+44 (0) 20 8946 6688</p>
+                <p className="group-hover:underline">+44 (0) 20 8946 6688</p>
               </div>
-            </div>
+            </a>
 
             {/* EMAIL */}
-            <div className="flex gap-4">
+            <a 
+              href="mailto:sales@tuk.co.uk" 
+              className="flex gap-4 cursor-pointer group"
+            >
               <div className="p-2 rounded-md bg-[#2596BE1A]">
                 <IconMailFilled className="text-[#2596BE]" />
               </div>
-              {/* <IconMail className="text-[#1E3A8A]" /> */}
               <div className="text-sm text-gray-700">
                 <p className="font-semibold">Email</p>
-                <p>sales@tuk.co.uk</p>
+                <p className="group-hover:underline">sales@tuk.co.uk</p>
               </div>
-            </div>
-
+            </a>
             {/* MAP */}
             <div className="w-full h-64 rounded-xl overflow-hidden shadow">
               <iframe

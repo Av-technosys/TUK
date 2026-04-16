@@ -33,16 +33,14 @@ const ProductCategories = () => {
               Product Categories
             </h2>
 
-            <p className="text-gray-600 font-poppins
-            ">
+            <p className="text-gray-600 font-poppins">
               Browse our comprehensive range of high-performance cabling hardware.
             </p>
           </div>
 
           <Link
             href="/category"
-            className="text-[#007AFF] font-bold flex items-center gap-1 font-poppins
-            "
+            className="text-[#007AFF] font-bold flex items-center gap-1 font-poppins"
           >
             View all categories
             <IconArrowRight size={18} />
@@ -54,7 +52,8 @@ const ProductCategories = () => {
 
           {categories.map((item: any) => (
             <Link
-            href={`/category?categoryId=${item.id}`}
+              // Logic: URL me categoryId bhej raha hai jo aapke category page filters ko mil jayega
+              href={`/category?categoryId=${item.id}`}
               key={item.id}
               className="relative overflow-hidden rounded-xl group cursor-pointer bg-white"
             >

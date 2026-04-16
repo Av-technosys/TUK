@@ -64,11 +64,27 @@ export default function Page() {
   };
 
   const handleSubmit = async () => {
-    if (!form.name || !form.email || !form.requirement) {
-      toast.error("Please fill required fields");
+    // 1. Basic Required Fields Check
+    if (!form.name || !form.email || !form.requirement || !form.phone) {
+      toast.error("Please fill all required fields");
       return;
     }
 
+    // 2. Email Validation with relevant message
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(form.email)) {
+      toast.error("Please enter a valid business email address");
+      return;
+    }
+
+    // 3. Phone Validation (10 digits) with relevant message
+    const phoneRegex = /^\d{10}$/;
+    if (!phoneRegex.test(form.phone.replace(/\s/g, ""))) {
+      toast.error("Please enter a valid 10-digit phone number");
+      return;
+    }
+
+    // 4. Privacy Policy Check
     if (!checked) {
       toast.error("Please accept privacy policy");
       return;
@@ -77,9 +93,7 @@ export default function Page() {
     try {
       const res = await fetch("/api/quote", {
         method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
+        headers: { "Content-Type": "application/json" },
         body: JSON.stringify(form),
       });
 
@@ -87,7 +101,6 @@ export default function Page() {
 
       if (data.success) {
         toast.success("Quote request sent 🚀");
-
         setForm({
           name: "",
           company: "",
@@ -97,7 +110,6 @@ export default function Page() {
           business: "",
           requirement: "",
         });
-
         setChecked(false);
       } else {
         toast.error(data.error);
@@ -252,22 +264,7 @@ export default function Page() {
                   </div>
                 </div>
                 {/* company */}
-                <div className="space-y-2">
-                  <label className="text-sm font-medium">Company Name</label>
-
-                  <div className="relative">
-                    <IconBuilding className="absolute left-3 top-1/2 -translate-y-1/2 size-4 text-muted-foreground" />
-                    <Input
-                      name="company"
-                      value={form.business}
-                      onChange={handleChange}
-                      placeholder="Your Registered Business Name"
-                      className="pl-10"
-                    />
-                  </div>
-                </div>
               </div>
-
               {/* textarea */}
               <div className="mt-6 space-y-2">
                 <label className="text-sm font-medium">Business Email</label>
@@ -293,7 +290,7 @@ export default function Page() {
                 >
                   I agree to TUK ltd's{" "}
                   <span className="text-[#F97316] underline cursor-pointer">
-                    Privacy Policy
+                  <Link href="/privacy-policy">  Privacy Policy</Link>
                   </span>{" "}
                   and understand my data will be used to process this enquiry.
                 </label>

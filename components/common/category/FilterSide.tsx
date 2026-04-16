@@ -71,7 +71,7 @@ const FilterSide = ({ category, setCategory, sort, setSort }: any) => {
 
       {/* SORT */}
 
-      <div className="space-y-4">
+      {/* <div className="space-y-4">
         <h3 className="text-sm font-semibold tracking-widest text-gray-500 font-poppins">
           SORT BY
         </h3>
@@ -86,7 +86,7 @@ const FilterSide = ({ category, setCategory, sort, setSort }: any) => {
             <SelectItem value="name">Name</SelectItem>
           </SelectContent>
         </Select>
-      </div>
+      </div> */}
     </div>
   );
 };
