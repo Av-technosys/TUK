@@ -3,6 +3,14 @@
 import { useEffect, useState } from "react";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from "@/components/ui/table";
 
 import { DndContext, closestCenter } from "@dnd-kit/core";
 
@@ -25,35 +33,41 @@ function SortableRow({ item, handleDelete }: any) {
   };
 
   return (
-    <tr ref={setNodeRef} style={style} className="border-b text-center">
+    <TableRow ref={setNodeRef} style={style}>
       {/* Drag Handle */}
-      <td {...listeners} className="cursor-grab">
+      <TableCell {...listeners} className="cursor-grab text-center">
         ☰
-      </td>
+      </TableCell>
 
-      <td>
+      <TableCell className="text-center">
         {item.image && (
           <img
             src={item.image}
             alt={item.name}
-            className="h-16 w-16 object-contain"
+            className="h-16 w-16 object-contain mx-auto"
           />
         )}
-      </td>
+      </TableCell>
 
-      <td>{item.name}</td>
-      <td>{item.slug}</td>
+      <TableCell className="text-center">{item.name}</TableCell>
+      <TableCell className="text-center">{item.slug}</TableCell>
 
-      <td className="space-x-2">
-        <Link href={`/admin/distributors/edit/${item.id}`}>
-          <Button>Edit</Button>
-        </Link>
+      <TableCell className="text-center">
+        <div className="flex justify-center gap-2">
+          <Link href={`/admin/distributors/edit/${item.id}`}>
+            <Button size="sm">Edit</Button>
+          </Link>
 
-        <Button variant="destructive" onClick={() => handleDelete(item.id)}>
-          Delete
-        </Button>
-      </td>
-    </tr>
+          <Button
+            variant="destructive"
+            size="sm"
+            onClick={() => handleDelete(item.id)}
+          >
+            Delete
+          </Button>
+        </div>
+      </TableCell>
+    </TableRow>
   );
 }
 
@@ -111,16 +125,16 @@ export default function DistributorList() {
         </Link>
       </div>
 
-      <table className="w-full border">
-        <thead>
-          <tr className="border-b">
-            <th></th> {/* drag column */}
-            <th>Image</th>
-            <th>Name</th>
-            <th>Slug</th>
-            <th>Actions</th>
-          </tr>
-        </thead>
+      <Table>
+        <TableHeader>
+          <TableRow>
+            <TableHead className="w-12"></TableHead>
+            <TableHead className="text-center">Image</TableHead>
+            <TableHead className="text-center">Name</TableHead>
+            <TableHead className="text-center">Slug</TableHead>
+            <TableHead className="text-center">Actions</TableHead>
+          </TableRow>
+        </TableHeader>
 
         <DndContext
           collisionDetection={closestCenter}
@@ -130,7 +144,7 @@ export default function DistributorList() {
             items={data.map((i) => i.id)}
             strategy={verticalListSortingStrategy}
           >
-            <tbody>
+            <TableBody>
               {data.map((item) => (
                 <SortableRow
                   key={item.id}
@@ -138,10 +152,10 @@ export default function DistributorList() {
                   handleDelete={handleDelete}
                 />
               ))}
-            </tbody>
+            </TableBody>
           </SortableContext>
         </DndContext>
-      </table>
+      </Table>
     </div>
   );
 }

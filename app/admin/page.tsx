@@ -7,7 +7,7 @@ export default async function DashboardPage() {
     <div className="space-y-6 p-3 font-barlow">
       {/* Page Header */}
       <header className="mb-6 flex justify-between items-center">
-        <div>
+        <div className="p-2">
           <h1 className="text-2xl font-bold text-slate-800">
             Dashboard Overview
           </h1>

@@ -48,7 +48,6 @@ function SortableRow({ cat, handleDelete, router }: any) {
 
   return (
     <TableRow ref={setNodeRef} style={style}>
-      {/* 🔥 Drag Handle */}
       <TableCell {...listeners} className="cursor-grab w-10">
         <GripVertical />
       </TableCell>
@@ -60,9 +59,10 @@ function SortableRow({ cat, handleDelete, router }: any) {
         />
       </TableCell>
 
-      <TableCell>{cat.name}</TableCell>
-      <TableCell>{cat.description}</TableCell>
+      {/* ✅ Name */}
+      <TableCell className="font-medium">{cat.name}</TableCell>
 
+      {/* ✅ Actions (no gap now) */}
       <TableCell className="text-right space-x-2">
         <Button
           className="bg-black text-white px-3 py-1 text-sm rounded"
@@ -161,11 +161,10 @@ export default function CategoryPage() {
       <Table>
         <TableHeader>
           <TableRow>
-            <TableHead></TableHead> {/* 👈 Drag column */}
+            <TableHead></TableHead>
             <TableHead>Image</TableHead>
-            <TableHead>Name</TableHead>
-            <TableHead>Description</TableHead>
-            <TableHead className="text-right">Actions</TableHead>
+            <TableHead className="text-center lg:text-left">Name</TableHead>
+            <TableHead className="text-center lg:text-right">Actions</TableHead>
           </TableRow>
         </TableHeader>
 

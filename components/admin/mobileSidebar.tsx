@@ -5,10 +5,13 @@ import { Menu } from "lucide-react";
 import { Sidebar } from "@/components/admin/sidebar";
 import { Button } from "@/components/ui/button";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
+import { useState } from "react";
 
 export function MobileSidebar() {
+  const [open, setOpen] = useState(false);
+
   return (
-    <Sheet>
+    <Sheet open={open} onOpenChange={setOpen}>
       <SheetTrigger>
         <Button
           variant="ghost"
@@ -20,7 +23,7 @@ export function MobileSidebar() {
       </SheetTrigger>
 
       <SheetContent side="left" className="p-0 w-64">
-        <Sidebar />
+        <Sidebar onClose={() => setOpen(false)} />
       </SheetContent>
     </Sheet>
   );

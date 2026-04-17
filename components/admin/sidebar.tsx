@@ -18,16 +18,22 @@ import {
 
 const navItems = [
   { label: "Dashboard", href: "/admin", icon: LayoutGrid },
-  { label: "Product", href: "/admin/Product", icon: Box },
-  { label: "Category", href: "/admin/category", icon: List },
+  { label: "Products", href: "/admin/Product", icon: Box },
+  { label: "Categories", href: "/admin/category", icon: List },
   { label: "Distributors", href: "/admin/distributors", icon: User },
 ];
 
-export function Sidebar() {
+export function Sidebar({ onClose }: { onClose?: () => void }) {
   const pathname = usePathname();
 
   // normalize path (remove trailing slash)
   const currentPath = pathname.replace(/\/$/, "");
+
+  const handleLinkClick = () => {
+    if (onClose) {
+      onClose();
+    }
+  };
 
   return (
     <aside className="w-64 h-screen   bg-white border-r p-6 font-poppins">
@@ -48,7 +54,7 @@ export function Sidebar() {
           }
 
           return (
-            <Link key={href} href={href}>
+            <Link key={href} href={href} onClick={handleLinkClick}>
               <SidebarItem
                 icon={<Icon size={24} className="text-orange-400" />}
                 label={label}

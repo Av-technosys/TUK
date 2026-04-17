@@ -70,7 +70,7 @@ export default function ProductsPage() {
       <div className="max-w-6xl mx-auto">
         {/* Header */}
         <div className="flex justify-between">
-          <h2 className="text-2xl font-bold mb-6">All Products</h2>
+          <h2 className=" w-full text-lg font-bold mb-6">All Products</h2>
           {/* searchbar */}
           <div className="relative w-full max-w-sm mr-4">
             <input
@@ -78,7 +78,7 @@ export default function ProductsPage() {
               value={searchQuery}
               onChange={(event) => setSearchQuery(event.target.value)}
               placeholder="Search products..."
-              className=" w-full border border-gray-300 rounded-lg py-2 px-4 focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className=" w-full border hidden lg:block border-gray-300 rounded-lg py-2 px-4 focus:outline-none focus:ring-2 focus:ring-blue-500"
             />
           </div>
           <Button
@@ -90,6 +90,14 @@ export default function ProductsPage() {
             Add Product
           </Button>
         </div>
+
+        <input
+          type="text"
+          value={searchQuery}
+          onChange={(event) => setSearchQuery(event.target.value)}
+          placeholder="Search products..."
+          className=" w-full border lg:hidden block border-gray-300 mb-4 rounded-lg py-2 px-4 focus:outline-none focus:ring-2 focus:ring-blue-500"
+        />
 
         {/* Table */}
         <div className="bg-white rounded-xl shadow overflow-x-auto">

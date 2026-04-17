@@ -78,7 +78,7 @@ const ProductGuide = () => {
             alt="Product Guide"
             width={300}
             height={600}
-            className="object-cover w-75 md:w-150 mt-4 ml-4 md:mt-8"
+            className="object-cover w-75 md:w-150 lg:mt-4 lg:ml-4 md:mt-8"
             priority
           />
         </div>
