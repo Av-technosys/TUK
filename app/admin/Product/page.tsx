@@ -98,7 +98,7 @@ export default function ProductsPage() {
               <tr>
                 <th className="p-3">Image</th>
                 <th className="p-3">Name</th>
-                <th className="p-3">Slug</th>
+                <th className="p-3">Category</th>
                 <th className="p-3">ProductCode</th>
                 <th className="p-3">Actions</th>
               </tr>
@@ -122,7 +122,15 @@ export default function ProductsPage() {
                   </td>
 
                   <td className="p-3 font-medium">{p.name}</td>
-                  <td className="p-3">{p.slug}</td>
+                  <td className="p-3">
+                    {p.category ? (
+                      <span className="inline-block px-3 py-1 rounded-full text-xs font-semibold">
+                        {p.category}
+                      </span>
+                    ) : (
+                      <span className="text-gray-400 text-xs">No category</span>
+                    )}
+                  </td>
                   <td className="p-3 ">{p.productCode}</td>
 
                   <td className="p-3 flex gap-2 mt-4">
