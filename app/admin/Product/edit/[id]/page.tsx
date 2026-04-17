@@ -308,6 +308,11 @@ export default function EditProductPage() {
     setGalleryImages((prev) => prev.filter((_, i) => i !== index));
   };
 
+  // 🗑️ Remove PDF
+  const removePdf = () => {
+    setPdf("");
+  };
+
   if (loading) {
     return (
       <div className="p-4 md:p-8 bg-gray-50 min-h-screen flex items-center justify-center">
@@ -567,14 +572,22 @@ export default function EditProductPage() {
           {pdfLoading && <p className="text-sm">Uploading...</p>}
 
           {pdf && (
-            <a
-              href={pdf}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-blue-600 underline text-sm"
-            >
-              View PDF
-            </a>
+            <div className="flex items-center gap-3">
+              <a
+                href={pdf}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-blue-600 underline text-sm"
+              >
+                View PDF
+              </a>
+              <button
+                onClick={removePdf}
+                className="bg-red-500 cursor-pointer text-white rounded px-3 py-1 text-sm hover:bg-red-600"
+              >
+                Delete PDF
+              </button>
+            </div>
           )}
         </div>
         {/* 🔹 Gallery Images */}
@@ -590,9 +603,9 @@ export default function EditProductPage() {
 
           {galleryLoading && <p className="text-sm">Uploading...</p>}
 
-          <div className="flex flex-wrap gap-3">
+          <div className="flex flex-wrap gap-4">
             {galleryImages.map((img, i) => (
-              <div key={i} className="relative">
+              <div key={i} className="relative group">
                 <img
                   src={img}
                   alt={`Gallery ${i}`}
@@ -600,13 +613,17 @@ export default function EditProductPage() {
                 />
                 <button
                   onClick={() => removeImage(i)}
-                  className="absolute cursor-pointer -top-2 -right-2 bg-red-500 text-white rounded-full w-6 h-6 flex items-center justify-center text-xs"
+                  className="absolute cursor-pointer -top-2 -right-2 bg-red-500 text-white rounded-full w-6 h-6 flex items-center justify-center text-xs hover:bg-red-600 transition"
                 >
                   ✕
                 </button>
               </div>
             ))}
           </div>
+
+          {galleryImages.length === 0 && (
+            <p className="text-sm text-gray-500">No gallery images yet</p>
+          )}
         </div>
         {/* 🔹 Technical Specs */}
         <div className="bg-white p-6 rounded-xl shadow space-y-4">

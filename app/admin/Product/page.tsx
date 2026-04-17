@@ -18,6 +18,7 @@ import { toast } from "sonner";
 
 export default function ProductsPage() {
   const [products, setProducts] = useState<any[]>([]);
+  const [searchQuery, setSearchQuery] = useState("");
 
   const router = useRouter();
 
@@ -53,12 +54,33 @@ export default function ProductsPage() {
     }
   };
 
+  const normalizedQuery = searchQuery.trim().toLowerCase();
+  const filteredProducts = normalizedQuery
+    ? products.filter((p) => {
+        const searchable = [p.name, p.slug, p.brand, p.sku, p.productCode]
+          .filter(Boolean)
+          .join(" ")
+          .toLowerCase();
+        return searchable.includes(normalizedQuery);
+      })
+    : products;
+
   return (
     <div className="p-6 bg-gray-50 min-h-screen font-barlow">
       <div className="max-w-6xl mx-auto">
         {/* Header */}
         <div className="flex justify-between">
           <h2 className="text-2xl font-bold mb-6">All Products</h2>
+          {/* searchbar */}
+          <div className="relative w-full max-w-sm mr-4">
+            <input
+              type="text"
+              value={searchQuery}
+              onChange={(event) => setSearchQuery(event.target.value)}
+              placeholder="Search products..."
+              className=" w-full border border-gray-300 rounded-lg py-2 px-4 focus:outline-none focus:ring-2 focus:ring-blue-500"
+            />
+          </div>
           <Button
             onClick={() =>
               (window.location.href = "/admin/Product/add-product")
@@ -77,15 +99,14 @@ export default function ProductsPage() {
                 <th className="p-3">Image</th>
                 <th className="p-3">Name</th>
                 <th className="p-3">Slug</th>
-                <th className="p-3">Brand</th>
-                <th className="p-3">SKU</th>
+                <th className="p-3">ProductCode</th>
                 <th className="p-3">Actions</th>
               </tr>
             </thead>
 
             <tbody className="items-center">
-              {products.map((p) => (
-                <tr key={p.id} className="border-t">
+              {filteredProducts.map((p) => (
+                <tr key={p.id} className="border-t ">
                   <td className="p-3">
                     {p.bannerImageUrl ? (
                       <img
@@ -102,8 +123,7 @@ export default function ProductsPage() {
 
                   <td className="p-3 font-medium">{p.name}</td>
                   <td className="p-3">{p.slug}</td>
-                  <td className="p-3">{p.brand}</td>
-                  <td className="p-3">{p.sku}</td>
+                  <td className="p-3 ">{p.productCode}</td>
 
                   <td className="p-3 flex gap-2 mt-4">
                     <Button

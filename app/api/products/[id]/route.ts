@@ -124,6 +124,74 @@ export async function PUT(
       .set(updateData)
       .where(eq(products.id, id));
 
+    // 🔥 DELETE & UPDATE FEATURES
+    await db
+      .delete(productFeatures)
+      .where(eq(productFeatures.productId, id));
+
+    if (body.features?.length > 0) {
+      await db.insert(productFeatures).values(
+        body.features.map((feature: string) => ({
+          productId: id,
+          feature,
+        }))
+      );
+    }
+
+    // 🔥 DELETE & UPDATE SPECIFICATIONS
+    await db
+      .delete(productSpecifications)
+      .where(eq(productSpecifications.productId, id));
+
+    if (body.specs?.length > 0) {
+      await db.insert(productSpecifications).values(
+        body.specs.map((spec: any) => ({
+          productId: id,
+          key: spec.key,
+          value: spec.value,
+        }))
+      );
+    }
+
+    // 🔥 DELETE & UPDATE TECH SPECS
+    if (body.techspecs?.length > 0) {
+      await db.insert(productSpecifications).values(
+        body.techspecs.map((spec: any) => ({
+          productId: id,
+          key: spec.key,
+          value: spec.value,
+        }))
+      );
+    }
+
+    // 🔥 DELETE & UPDATE GALLERY IMAGES
+    await db
+      .delete(productImages)
+      .where(eq(productImages.productId, id));
+
+    if (body.images?.length > 0) {
+      await db.insert(productImages).values(
+        body.images.map((imageUrl: string) => ({
+          productId: id,
+          imageUrl,
+        }))
+      );
+    }
+
+    // 🔥 DELETE & UPDATE DI TERMS
+    await db
+      .delete(productDiTerms)
+      .where(eq(productDiTerms.productId, id));
+
+    if (body.diTerms?.length > 0) {
+      await db.insert(productDiTerms).values(
+        body.diTerms.map((term: string) => ({
+          productId: id,
+          value: term,
+        }))
+      );
+    }
+
       await db
   .delete(productDistributor)
   .where(eq(productDistributor.productId, id));
