@@ -55,17 +55,18 @@ export function DashboardCards() {
     return <p className="text-center mt-10">Loading dashboard...</p>;
   }
 
- const recentProducts = data?.recentCategories?.flatMap((cat: any) => cat.products) || [];
-const recentCategories = data?.recentCategories || [];
+  const recentProducts =
+    data?.recentCategories?.flatMap((cat: any) => cat.products) || [];
+  const recentCategories = data?.recentCategories || [];
 
   // ✅ Format Data
   const formattedProducts = recentProducts.map((p: RecentProduct) => ({
     id: p.id,
     name: p.name,
-     image: p.bannerImageUrl || "/no-image.png", // ✅ FIXED
+    image: p.bannerImageUrl || "/no-image.png", // ✅ FIXED
     price: `₹${p.price}`,
     category: p.categoryId,
-    sku:p.sku,
+    sku: p.sku,
     stock: p.stock || 0,
     status:
       p.stock > 10 ? "Active" : p.stock > 0 ? "Low stock" : "Out of stock",
@@ -129,14 +130,14 @@ const recentCategories = data?.recentCategories || [];
           </CardHeader>
 
           <CardContent>
-            {formattedProducts.map((p:any) => (
+            {formattedProducts.map((p: any) => (
               <div key={p.id} className="flex gap-3 p-3 border-b">
                 <img
                   src={p.image || "/no-image.png"}
                   alt={p.name}
                   className="h-12 w-20 rounded-lg object-cover"
                   onError={(e) => {
-                    ;(e.currentTarget as HTMLImageElement).src = "/no-image.png"
+                    (e.currentTarget as HTMLImageElement).src = "/no-image.png";
                   }}
                 />
                 <div className="flex-1">
@@ -163,14 +164,13 @@ const recentCategories = data?.recentCategories || [];
                 <img src={c.image} className="h-12 w-20 rounded" />
                 <div className="flex-1">
                   <p className="font-medium">{c.name}</p>
-                 
 
                   {/* 🔥 Associated Products */}
-                  <Badge variant="outline" className="mt-2">
+                  {/* <Badge variant="outline" className="mt-2">
   {c.products?.length || 0} Products
-</Badge>
+</Badge> */}
                 </div>
-                <Badge>{c.featured ? "Featured" : "Standard"}</Badge>
+                {/* <Badge>{c.featured ? "Featured" : "Standard"}</Badge> */}
               </div>
             ))}
           </CardContent>

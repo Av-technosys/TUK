@@ -117,6 +117,7 @@ export async function PUT(
       categoryId: body.categoryId ?? null,
       bannerImageUrl: body.bannerImageUrl ?? null,
       pdfUrl: body.pdfUrl ?? null,
+      content: body.content ?? null,
     };
 
     await db
@@ -143,20 +144,22 @@ export async function PUT(
       .delete(productSpecifications)
       .where(eq(productSpecifications.productId, id));
 
-    if (body.specs?.length > 0) {
-      await db.insert(productSpecifications).values(
-        body.specs.map((spec: any) => ({
-          productId: id,
-          key: spec.key,
-          value: spec.value,
-        }))
-      );
-    }
+    // Combine specs and techspecs into one array to avoid duplication
+    const allSpecs = [
+      ...(body.specs?.filter((s: any) => s?.key && s?.value) || []),
+      ...(body.techspecs?.filter((s: any) => s?.key && s?.value) || []),
+    ];
 
-    // 🔥 DELETE & UPDATE TECH SPECS
-    if (body.techspecs?.length > 0) {
+    if (allSpecs.length > 0) {
+      // Remove duplicates based on key-value combination
+      const uniqueSpecs = Array.from(
+        new Map(
+          allSpecs.map((spec: any) => [`${spec.key}-${spec.value}`, spec])
+        ).values()
+      );
+
       await db.insert(productSpecifications).values(
-        body.techspecs.map((spec: any) => ({
+        uniqueSpecs.map((spec: any) => ({
           productId: id,
           key: spec.key,
           value: spec.value,

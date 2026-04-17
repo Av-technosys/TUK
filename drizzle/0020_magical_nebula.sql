@@ -1,0 +1,1 @@
+ALTER TABLE "distributors" ADD COLUMN "position" integer DEFAULT 0;

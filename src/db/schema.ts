@@ -18,6 +18,8 @@ export const categories = pgTable("categories", {
   slug: varchar("slug", { length: 255 }).notNull().unique(),
   description: text("description"),
     image: varchar("image", { length: 500 }), 
+      position: integer("position").default(0), // 👈 ADD
+
   createdAt: timestamp("created_at").defaultNow().notNull(),
   updatedAt: timestamp("updated_at").defaultNow().notNull(),
 });
@@ -28,6 +30,8 @@ export const distributors = pgTable("distributors", {
   slug: varchar("slug", { length: 255 }).notNull().unique(),
   description: text("description"),
   visitUrl: varchar("url", { length: 500 }),
+    position: integer("position").default(0), // 👈 ADD THIS
+
   image: varchar("image", { length: 500 }), 
   createdAt: timestamp("created_at").defaultNow().notNull(),
   updatedAt: timestamp("updated_at").defaultNow().notNull(),

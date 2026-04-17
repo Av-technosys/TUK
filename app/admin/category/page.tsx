@@ -25,6 +25,83 @@ import {
   AlertDialogTrigger,
 } from "@/components/ui/alert-dialog";
 
+import { DndContext, closestCenter } from "@dnd-kit/core";
+
+import {
+  SortableContext,
+  verticalListSortingStrategy,
+  arrayMove,
+  useSortable,
+} from "@dnd-kit/sortable";
+
+import { CSS } from "@dnd-kit/utilities";
+import { GripVertical } from "lucide-react";
+
+function SortableRow({ cat, handleDelete, router }: any) {
+  const { attributes, listeners, setNodeRef, transform, transition } =
+    useSortable({ id: cat.id });
+
+  const style = {
+    transform: CSS.Transform.toString(transform),
+    transition,
+  };
+
+  return (
+    <TableRow ref={setNodeRef} style={style}>
+      {/* 🔥 Drag Handle */}
+      <TableCell {...listeners} className="cursor-grab w-10">
+        <GripVertical />
+      </TableCell>
+
+      <TableCell>
+        <img
+          src={cat.image || "/no-image.png"}
+          className="w-12 h-12 rounded object-cover"
+        />
+      </TableCell>
+
+      <TableCell>{cat.name}</TableCell>
+      <TableCell>{cat.description}</TableCell>
+
+      <TableCell className="text-right space-x-2">
+        <Button
+          className="bg-black text-white px-3 py-1 text-sm rounded"
+          onClick={() => router.push(`/admin/category/${cat.id}`)}
+        >
+          Edit
+        </Button>
+
+        <AlertDialog>
+          <AlertDialogTrigger>
+            <Button variant="destructive" className="px-3 py-1 text-sm">
+              Delete
+            </Button>
+          </AlertDialogTrigger>
+
+          <AlertDialogContent>
+            <AlertDialogHeader>
+              <AlertDialogTitle>Are you absolutely sure?</AlertDialogTitle>
+
+              <AlertDialogDescription>
+                This action cannot be undone. This will permanently delete the
+                category.
+              </AlertDialogDescription>
+            </AlertDialogHeader>
+
+            <AlertDialogFooter>
+              <AlertDialogCancel>Cancel</AlertDialogCancel>
+
+              <AlertDialogAction onClick={() => handleDelete(cat.id)}>
+                Yes, Delete
+              </AlertDialogAction>
+            </AlertDialogFooter>
+          </AlertDialogContent>
+        </AlertDialog>
+      </TableCell>
+    </TableRow>
+  );
+}
+
 export default function CategoryPage() {
   const [categories, setCategories] = useState<any[]>([]);
   const router = useRouter();
@@ -47,15 +124,36 @@ export default function CategoryPage() {
     fetchCategories();
   };
 
+  // 🔥 DRAG LOGIC
+  const handleDragEnd = async (event: any) => {
+    const { active, over } = event;
+
+    if (!over || active.id === over.id) return;
+
+    const oldIndex = categories.findIndex((c) => c.id === active.id);
+    const newIndex = categories.findIndex((c) => c.id === over.id);
+
+    const newItems = arrayMove(categories, oldIndex, newIndex);
+
+    setCategories(newItems);
+
+    await fetch("/api/category/reorder", {
+      method: "POST",
+      body: JSON.stringify({
+        items: newItems.map((item, index) => ({
+          id: item.id,
+          position: index,
+        })),
+      }),
+    });
+  };
+
   return (
     <div className="p-6 font-barlow">
       <div className="flex justify-between mb-6">
         <h1 className="text-2xl font-semibold">Categories</h1>
 
-        <Button
-          className="cursor-pointer"
-          onClick={() => router.push("/admin/category/add")}
-        >
+        <Button onClick={() => router.push("/admin/category/add")}>
           + Add Category
         </Button>
       </div>
@@ -63,6 +161,7 @@ export default function CategoryPage() {
       <Table>
         <TableHeader>
           <TableRow>
+            <TableHead></TableHead> {/* 👈 Drag column */}
             <TableHead>Image</TableHead>
             <TableHead>Name</TableHead>
             <TableHead>Description</TableHead>
@@ -70,65 +169,26 @@ export default function CategoryPage() {
           </TableRow>
         </TableHeader>
 
-        <TableBody>
-          {categories.map((cat) => (
-            <TableRow key={cat.id}>
-              <TableCell>
-                <img
-                  src={cat.image || "/no-image.png"}
-                  className="w-12 h-12 rounded object-cover"
+        <DndContext
+          collisionDetection={closestCenter}
+          onDragEnd={handleDragEnd}
+        >
+          <SortableContext
+            items={categories.map((c) => c.id)}
+            strategy={verticalListSortingStrategy}
+          >
+            <TableBody>
+              {categories.map((cat) => (
+                <SortableRow
+                  key={cat.id}
+                  cat={cat}
+                  handleDelete={handleDelete}
+                  router={router}
                 />
-              </TableCell>
-
-              <TableCell>{cat.name}</TableCell>
-              <TableCell>{cat.description}</TableCell>
-
-              <TableCell className="text-right space-x-2">
-                {/* EDIT */}
-                <Button
-                  className="bg-black cursor-pointer text-white px-3 py-1 text-sm font-medium rounded"
-                  variant="outline"
-                  onClick={() => router.push(`/admin/category/${cat.id}`)}
-                >
-                  Edit
-                </Button>
-
-                {/* 🔥 DELETE WITH DIALOG */}
-                <AlertDialog>
-                  <AlertDialogTrigger>
-                    <Button
-                      variant="destructive"
-                      className="px-3 py-1 cursor-pointer text-sm font-medium  rounded "
-                    >
-                      Delete
-                    </Button>
-                  </AlertDialogTrigger>
-
-                  <AlertDialogContent>
-                    <AlertDialogHeader>
-                      <AlertDialogTitle>
-                        Are you absolutely sure?
-                      </AlertDialogTitle>
-
-                      <AlertDialogDescription>
-                        This action cannot be undone. This will permanently
-                        delete the category.
-                      </AlertDialogDescription>
-                    </AlertDialogHeader>
-
-                    <AlertDialogFooter>
-                      <AlertDialogCancel>Cancel</AlertDialogCancel>
-
-                      <AlertDialogAction onClick={() => handleDelete(cat.id)}>
-                        Yes, Delete
-                      </AlertDialogAction>
-                    </AlertDialogFooter>
-                  </AlertDialogContent>
-                </AlertDialog>
-              </TableCell>
-            </TableRow>
-          ))}
-        </TableBody>
+              ))}
+            </TableBody>
+          </SortableContext>
+        </DndContext>
       </Table>
     </div>
   );

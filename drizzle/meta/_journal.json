@@ -141,6 +141,20 @@
       "when": 1775115315064,
       "tag": "0019_absent_roland_deschain",
       "breakpoints": true
+    },
+    {
+      "idx": 20,
+      "version": "7",
+      "when": 1776410814249,
+      "tag": "0020_magical_nebula",
+      "breakpoints": true
+    },
+    {
+      "idx": 21,
+      "version": "7",
+      "when": 1776411481273,
+      "tag": "0021_chilly_nightcrawler",
+      "breakpoints": true
     }
   ]
 }

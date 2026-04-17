@@ -24,10 +24,45 @@ export default function ProductDetailsTabs({
   const Additional = product?.content?.Additional;
   const specifications = product?.specifications || [];
 
-  const stripHtml = (html: string) => {
-    if (typeof window === "undefined") return html; // SSR safety
-    const doc = new DOMParser().parseFromString(html, "text/html");
-    return doc.body.textContent || "";
+  const renderHtml = (html?: string) => {
+    if (!html) return { __html: "<p>No information available.</p>" };
+
+    const trimmed = html.trim();
+
+    // If the string already contains HTML tags, render as-is.
+    if (/<[a-z][\s\S]*>/i.test(trimmed)) {
+      return { __html: trimmed };
+    }
+
+    // Split by bullet points
+    const bulletRegex = /•\s*/;
+    const bullets = trimmed
+      .split(bulletRegex)
+      .map((item) => item.trim())
+      .filter(Boolean);
+
+    // If we found multiple bullet items, render as list
+    if (bullets.length > 1) {
+      return {
+        __html: `<ul style="list-style-type: disc; padding-left: 1.5rem; margin-top: 0; margin-bottom: 0;">${bullets
+          .map(
+            (item) =>
+              `<li style="margin-bottom: 0.75rem; line-height: 1.6;">${item.replace(/\n/g, "<br />")}</li>`,
+          )
+          .join("")}</ul>`,
+      };
+    }
+
+    // Otherwise, convert to paragraphs with line break preservation
+    const paragraphs = trimmed
+      .split(/\n{2,}/)
+      .map(
+        (block) =>
+          `<p style="margin-bottom: 1rem; line-height: 1.6;">${block.trim().replace(/\n/g, "<br />")}</p>`,
+      )
+      .join("");
+
+    return { __html: paragraphs };
   };
 
   return (
@@ -83,17 +118,10 @@ export default function ProductDetailsTabs({
           <div className="border rounded-xl p-6 bg-white">
             <h3 className="font-semibold mb-4">Product Description</h3>
 
-            <div className="text-muted-foreground space-y-2">
-              {stripHtml(description)
-                .split(/(?=[A-Z][a-z]*:)|–|[-]/)
-                .filter((item: string) => item.trim())
-                .map((item: string, idx: number) => (
-                  <div key={idx} className="flex items-start gap-2">
-                    <span className="text-blue-600 mt-1"></span>
-                    <span>{item.trim()}</span>
-                  </div>
-                ))}
-            </div>
+            <div
+              className="text-muted-foreground space-y-4 break-words"
+              dangerouslySetInnerHTML={renderHtml(description)}
+            />
           </div>
         </TabsContent>
 
@@ -102,17 +130,10 @@ export default function ProductDetailsTabs({
         <TabsContent value="Material">
           <div className="border rounded-xl p-6 bg-white">
             <h3 className="font-semibold mb-4">Material</h3>
-            <div className="text-muted-foreground space-y-2">
-              {stripHtml(Material)
-                .split(/(?=[A-Z][a-z]*:)|–|[-]/)
-                .filter((item: string) => item.trim())
-                .map((item: string, idx: number) => (
-                  <div key={idx} className="flex items-start gap-2">
-                    <span className="text-blue-600 mt-1"></span>
-                    <span>{item.trim()}</span>
-                  </div>
-                ))}
-            </div>
+            <div
+              className="text-muted-foreground space-y-4 break-words"
+              dangerouslySetInnerHTML={renderHtml(Material)}
+            />
           </div>
         </TabsContent>
 
@@ -121,17 +142,10 @@ export default function ProductDetailsTabs({
         <TabsContent value="Specification">
           <div className="border rounded-xl p-6 bg-white">
             <h3 className="font-semibold mb-4">Specification</h3>
-            <div className="text-muted-foreground space-y-2">
-              {stripHtml(Specification)
-                .split(/(?=[A-Z][a-z]*:)|–|[-]/)
-                .filter((item: string) => item.trim())
-                .map((item: string, idx: number) => (
-                  <div key={idx} className="flex items-start gap-2">
-                    <span className="text-blue-600 mt-1"></span>
-                    <span>{item.trim()}</span>
-                  </div>
-                ))}
-            </div>
+            <div
+              className="text-muted-foreground space-y-4 break-words"
+              dangerouslySetInnerHTML={renderHtml(Specification)}
+            />
           </div>
         </TabsContent>
 
@@ -140,17 +154,10 @@ export default function ProductDetailsTabs({
         <TabsContent value="Packaging">
           <div className="border rounded-xl p-6 bg-white">
             <h3 className="font-semibold mb-4">Packaging</h3>
-            <div className="text-muted-foreground space-y-2">
-              {stripHtml(Packaging)
-                .split(/(?=[A-Z][a-z]*:)|–|[-]/)
-                .filter((item: string) => item.trim())
-                .map((item: string, idx: number) => (
-                  <div key={idx} className="flex items-start gap-2">
-                    <span className="text-blue-600 mt-1"></span>
-                    <span>{item.trim()}</span>
-                  </div>
-                ))}
-            </div>
+            <div
+              className="text-muted-foreground space-y-4 break-words"
+              dangerouslySetInnerHTML={renderHtml(Packaging)}
+            />
           </div>
         </TabsContent>
 
@@ -159,17 +166,10 @@ export default function ProductDetailsTabs({
         <TabsContent value="Additional">
           <div className="border rounded-xl p-6 bg-white">
             <h3 className="font-semibold mb-4">Additional</h3>
-            <div className="text-muted-foreground space-y-2">
-              {stripHtml(Additional)
-                .split(/(?=[A-Z][a-z]*:)|–|[-]/)
-                .filter((item: string) => item.trim())
-                .map((item: string, idx: number) => (
-                  <div key={idx} className="flex items-start gap-2">
-                    <span className="text-blue-600 mt-1"></span>
-                    <span>{item.trim()}</span>
-                  </div>
-                ))}
-            </div>
+            <div
+              className="text-muted-foreground space-y-4 break-words"
+              dangerouslySetInnerHTML={renderHtml(Additional)}
+            />
           </div>
         </TabsContent>
       </Tabs>

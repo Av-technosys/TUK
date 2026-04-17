@@ -99,7 +99,7 @@ export default function ProductsPage() {
                 <th className="p-3">Image</th>
                 <th className="p-3">Name</th>
                 <th className="p-3">Category</th>
-                <th className="p-3">ProductCode</th>
+                <th className="p-3">Product Code</th>
                 <th className="p-3">Actions</th>
               </tr>
             </thead>
