@@ -1,7 +1,7 @@
 "use client";
 
 import { Suspense } from "react";
-import { useState } from "react";
+import { useState, useCallback } from "react";
 import Link from "next/link";
 import Header from "@/components/common/header";
 import Footer from "@/components/common/footer";
@@ -16,13 +16,13 @@ export default function Page() {
   const [category, setCategory] = useState("All Categories");
   const [categories, setCategories] = useState<any[]>([]);
 
-  const handleCategoryChange = (newCategory: string) => {
+  const handleCategoryChange = useCallback((newCategory: string) => {
     setCategory(newCategory);
-  };
+  }, []);
 
-  const handleCategoriesLoad = (data: any[]) => {
+  const handleCategoriesLoad = useCallback((data: any[]) => {
     setCategories(data);
-  };
+  }, []);
 
   return (
     <>
