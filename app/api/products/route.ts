@@ -18,6 +18,7 @@ export async function GET() {
       isFeatured: products.isFeatured,
       isActive: products.isActive,
       createdAt: products.createdAt,
+      categoryId: products.categoryId,
       category: categories.name,
     })
     .from(products)

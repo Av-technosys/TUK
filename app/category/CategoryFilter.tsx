@@ -30,13 +30,21 @@ export function CategoryFilter({
 
       // If categoryId is in URL, find and select that category
       if (categoryId) {
-        const found = data.find(
-          (c: any) => String(c.id) === String(categoryId),
-        );
+        // Handle "all" special case for "All Categories"
+        if (categoryId === "all") {
+          onCategoryChange("All Categories");
+        } else {
+          const found = data.find(
+            (c: any) => String(c.id) === String(categoryId),
+          );
 
-        if (found) {
-          onCategoryChange(found.name);
+          if (found) {
+            onCategoryChange(found.name);
+          }
         }
+      } else {
+        // If no categoryId in URL, default to "All Categories"
+        onCategoryChange("All Categories");
       }
     };
 

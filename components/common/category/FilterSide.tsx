@@ -50,10 +50,14 @@ const FilterSide = ({ category, setCategory, sort, setSort }: any) => {
           onValueChange={(value) => {
             setCategory(value);
 
-            const selected = categories.find((c) => c.name === value);
-
-            if (selected) {
-              router.push(`/category?categoryId=${selected.id}`);
+            if (value === "All Categories") {
+              // For "All Categories", navigate without categoryId parameter
+              router.push(`/category`);
+            } else {
+              const selected = categories.find((c) => c.name === value);
+              if (selected) {
+                router.push(`/category?categoryId=${selected.id}`);
+              }
             }
           }}
         >
