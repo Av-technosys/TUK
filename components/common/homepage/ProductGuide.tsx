@@ -2,11 +2,24 @@
 
 import { Button } from "@base-ui/react";
 import Image from "next/image";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { toast } from "sonner";
 import { validateEmail, validatePhone } from "@/src/lib/validation";
 
+interface ProductGuideData {
+  heading: string;
+  subheading: string;
+  buttonText: string;
+}
+
 const ProductGuide = () => {
+  const [guideData, setGuideData] = useState<ProductGuideData>({
+    heading: "Get the 2025 Product Guide",
+    subheading:
+      "Detailed specifications, installation diagrams, and the full SPEEDY RJ45 range. Direct to your inbox.",
+    buttonText: "Send PDF Guide",
+  });
+
   const [form, setForm] = useState({
     firstName: "",
     lastName: "",
@@ -17,16 +30,20 @@ const ProductGuide = () => {
     company: "",
   });
 
-  // const handleChange = (e: any) => {
-  //   setForm({ ...form, [e.target.name]: e.target.value });
-  // };
+  useEffect(() => {
+    fetch("/api/pages/home")
+      .then((res) => res.json())
+      .then((data) => {
+        if (data.productGuide) setGuideData(data.productGuide);
+      })
+      .catch(console.error);
+  }, []);
 
   const handleChange = (e: any) => {
     const { name, value } = e.target;
 
-    // ✅ Allow only numbers in phone field
     if (name === "phone") {
-      const numericValue = value.replace(/\D/g, ""); // remove non-digits
+      const numericValue = value.replace(/\D/g, "");
       setForm({ ...form, phone: numericValue });
       return;
     }
@@ -37,13 +54,11 @@ const ProductGuide = () => {
   const handleSubmit = async (e: any) => {
     e.preventDefault();
 
-    // Basic validation
     if (!validateEmail(form.email)) {
       toast.error("Invalid email address");
       return;
     }
 
-    // ✅ Phone validation
     if (!validatePhone(form.phone)) {
       toast.error("Invalid phone number (Enter valid 10 digit number)");
       return;
@@ -52,9 +67,8 @@ const ProductGuide = () => {
     try {
       toast.success("Downloading PDF...");
 
-      // 👉 Direct download
       const link = document.createElement("a");
-      link.href = "/Product Guide March 2025 - TUK Ltd.pdf"; // put pdf in public/pdf/
+      link.href = "/Product Guide March 2025 - TUK Ltd.pdf";
       link.download = "Product-Guide.pdf";
       link.click();
     } catch (error) {
@@ -86,12 +100,11 @@ const ProductGuide = () => {
         {/* Content */}
         <div className="w-full md:w-1/2 md:px-6 px-2 ">
           <h2 className="text-xl md:text-2xl font-bold mb-4 mt-4 md:mt-10 font-poppins">
-            Get the 2025 Product Guide
+            {guideData.heading}
           </h2>
 
           <p className="text-sm md:text-md mb-6 font-poppins">
-            Detailed specifications, installation diagrams, and the full SPEEDY
-            RJ45 range. Direct to your inbox.
+            {guideData.subheading}
           </p>
 
           <form
@@ -154,7 +167,7 @@ const ProductGuide = () => {
               type="submit"
               className="bg-[#0300A7] text-white rounded-md px-4 py-2 w-full md:col-span-2"
             >
-              Send PDF Guide
+              {guideData.buttonText}
             </Button>
           </form>
 

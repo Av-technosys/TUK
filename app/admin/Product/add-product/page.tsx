@@ -287,19 +287,19 @@ export default function AddProductPage() {
               />
             </div>
 
-            <div>
+            {/* <div>
               <label className="text-sm font-medium">Brand</label>
               <Input
                 onChange={(e) => setForm({ ...form, brand: e.target.value })}
               />
-            </div>
+            </div> */}
 
-            <div>
+            {/* <div>
               <label className="text-sm font-medium">SKU</label>
               <Input
                 onChange={(e) => setForm({ ...form, sku: e.target.value })}
               />
-            </div>
+            </div> */}
 
             <div>
               <label className="text-sm font-medium">Product Code</label>

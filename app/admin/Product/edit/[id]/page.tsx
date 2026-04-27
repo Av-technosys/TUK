@@ -356,7 +356,7 @@ export default function EditProductPage() {
               />
             </div>
 
-            <div>
+            {/* <div>
               <label className="text-sm font-medium">Brand</label>
               <Input
                 value={form.brand}
@@ -370,7 +370,7 @@ export default function EditProductPage() {
                 value={form.sku}
                 onChange={(e) => setForm({ ...form, sku: e.target.value })}
               />
-            </div>
+            </div> */}
 
             <div>
               <label className="text-sm font-medium">Product Code</label>

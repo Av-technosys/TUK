@@ -1,28 +1,80 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { Loader2 } from "lucide-react";
 
-const sections = [
-  { id: "who", label: "Who We Are" },
-  { id: "data", label: "Data We Process" },
-  { id: "usage", label: "How We Use Data" },
-  { id: "access", label: "Access Rights" },
-  { id: "responsible", label: "Responsible Person" },
-  { id: "changes", label: "Updates" },
-];
+interface Section {
+  title: string;
+  content?: string;
+  subsections?: Array<{
+    subtitle: string;
+    content: string;
+  }>;
+}
+
+interface PrivacyPolicyData {
+  id: string;
+  title: string;
+  slug: string;
+  subtitle: string;
+  sections: Section[];
+}
 
 export default function PrivacyPolicyPage() {
-  const [active, setActive] = useState("");
+  const [data, setData] = useState<PrivacyPolicyData | null>(null);
+  const [isLoading, setIsLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
+
+  useEffect(() => {
+    fetchPrivacyPolicy();
+  }, []);
+
+  const fetchPrivacyPolicy = async () => {
+    try {
+      setIsLoading(true);
+      const response = await fetch("/api/pages/privacy-policy");
+      if (!response.ok) throw new Error("Failed to fetch");
+      const result = await response.json();
+      setData(result);
+      setError(null);
+    } catch (err) {
+      setError("Failed to load privacy policy");
+      console.error(err);
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  if (isLoading) {
+    return (
+      <div className="flex items-center justify-center min-h-screen">
+        <Loader2 className="h-8 w-8 animate-spin text-blue-600" />
+      </div>
+    );
+  }
+
+  if (error || !data) {
+    return (
+      <div className="flex items-center justify-center min-h-screen">
+        <p className="text-red-600 text-lg">
+          {error || "Failed to load privacy policy"}
+        </p>
+      </div>
+    );
+  }
+
+  const sections = data.sections.map((section, index) => ({
+    id: `section-${index}`,
+    label: section.title,
+  }));
 
   return (
     <div className="bg-gray-50 min-h-screen font-poppins">
       {/* 🔵 HERO SECTION */}
-      <div className="bg-linear-to-r  from-[#141D3D] to-[#364FA3] text-white py-14 px-6 ">
+      <div className="bg-linear-to-r from-[#141D3D] to-[#364FA3] text-white py-14 px-6">
         <div className="max-w-6xl mx-auto">
-          <h1 className="text-4xl text-center font-bold">Privacy Policy</h1>
-          <p className="mt-2 text-sm opacity-90 text-center">
-            Your data privacy and protection is important to us.
-          </p>
+          <h1 className="text-4xl text-center font-bold">{data.title}</h1>
+          <p className="mt-2 text-sm opacity-90 text-center">{data.subtitle}</p>
         </div>
       </div>
 
@@ -48,108 +100,40 @@ export default function PrivacyPolicyPage() {
 
         {/* 📄 MAIN CONTENT */}
         <div className="lg:col-span-3 space-y-6">
-          {/* CARD */}
-          <div
-            id="who"
-            className="bg-white p-6 rounded-xl shadow hover:shadow-md transition "
-          >
-            <h2 className="text-xl font-semibold mb-2 text-gray-900 font-poppins">
-              Who We Are
-            </h2>
-            <p className="font-poppins">
-              TUK Ltd produces and supplies cabling systems and connectivity.
-              This policy relates to all such activities including those of any
-              group companies.
-            </p>
-          </div>
+          {data.sections.map((section, index) => (
+            <div
+              key={index}
+              id={`section-${index}`}
+              className="bg-white p-6 rounded-xl shadow hover:shadow-md transition"
+            >
+              <h2 className="text-xl font-semibold mb-3 text-gray-900 font-poppins">
+                {section.title}
+              </h2>
 
-          <div
-            id="data"
-            className="bg-white p-6 rounded-xl shadow hover:shadow-md transition font-poppins"
-          >
-            <h2 className="text-xl font-semibold mb-3 text-gray-900 font-poppins">
-              Types of Data We Process
-            </h2>
+              {/* Regular Content */}
+              {section.content && !section.subsections && (
+                <p className="text-gray-700 whitespace-pre-wrap">
+                  {section.content}
+                </p>
+              )}
 
-            <h3 className="font-semibold mt-2 font-poppins">General</h3>
-            <p>
-              We hold data about employees, customers and suppliers. We store
-              only necessary information and do not share with third parties
-              unless required.
-            </p>
-
-            <h3 className="font-semibold mt-3">Cookies</h3>
-            <p>We minimise cookies and do not use them for marketing.</p>
-
-            <h3 className="font-semibold mt-3">Website Analytics</h3>
-            <p>We use anonymised analytics to improve performance.</p>
-
-            <h3 className="font-semibold mt-3">Mailing Lists</h3>
-            <p>
-              We use collected data to inform customers about products. No data
-              selling.
-            </p>
-
-            <h3 className="font-semibold mt-3">Public Information</h3>
-            <p>
-              Public domain data may be retained unless requested otherwise.
-            </p>
-          </div>
-
-          <div
-            id="usage"
-            className="bg-white p-6 rounded-xl shadow hover:shadow-md transition"
-          >
-            <h2 className="text-xl font-semibold mb-3 text-gray-900">
-              How We Use Data
-            </h2>
-
-            <ul className="list-disc pl-6 space-y-1">
-              <li>Provide goods and services</li>
-              <li>Promotions and updates</li>
-              <li>Manage accounts</li>
-              <li>Verify identity</li>
-              <li>Fraud prevention</li>
-              <li>Market research</li>
-              <li>Customer service</li>
-              <li>Legal compliance</li>
-            </ul>
-          </div>
-
-          <div
-            id="access"
-            className="bg-white p-6 rounded-xl shadow hover:shadow-md transition"
-          >
-            <h2 className="text-xl font-semibold mb-2 text-gray-900">
-              Access to Your Personal Information
-            </h2>
-            <p>
-              You can request access, modification or deletion of your data
-              under GDPR.
-            </p>
-          </div>
-
-          <div
-            id="responsible"
-            className="bg-white p-6 rounded-xl shadow hover:shadow-md transition"
-          >
-            <h2 className="text-xl font-semibold mb-2 text-gray-900">
-              Responsible Person
-            </h2>
-            <p>
-              Managing Director Stephen Mercer is responsible for data handling.
-            </p>
-          </div>
-
-          <div
-            id="changes"
-            className="bg-white p-6 rounded-xl shadow hover:shadow-md transition"
-          >
-            <h2 className="text-xl font-semibold mb-2 text-gray-900">
-              Policy Updates
-            </h2>
-            <p className="text-sm text-gray-500">Last updated: 24 May 2018</p>
-          </div>
+              {/* Subsections */}
+              {section.subsections && (
+                <div className="space-y-3">
+                  {section.subsections.map((subsection, subIndex) => (
+                    <div key={subIndex}>
+                      <h3 className="font-semibold text-gray-800 mb-1">
+                        {subsection.subtitle}
+                      </h3>
+                      <p className="text-gray-700 text-sm whitespace-pre-wrap">
+                        {subsection.content}
+                      </p>
+                    </div>
+                  ))}
+                </div>
+              )}
+            </div>
+          ))}
         </div>
       </div>
     </div>

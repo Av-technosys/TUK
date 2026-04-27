@@ -12,9 +12,19 @@ import {
   CarouselPrevious,
 } from "@/components/ui/carousel";
 import Link from "next/link";
-import { link } from "fs";
+import { ChevronRight } from "lucide-react";
 
-const slides = [
+type BannerSlide = {
+  id: string;
+  title: string;
+  subtitle?: string;
+  ctaText: string;
+  ctaLink: string;
+  imageUrl: string;
+  isActive: boolean;
+};
+
+const fallbackSlides = [
   {
     img: "/banner 3.png",
     title: (
@@ -58,6 +68,36 @@ const slides = [
 const Banner = () => {
   const [api, setApi] = useState<any>();
   const [active, setActive] = useState(0);
+  const [slides, setSlides] = useState<any[]>(fallbackSlides);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const fetchBanners = async () => {
+      try {
+        const res = await fetch("/api/banner/get");
+        const data = await res.json();
+
+        if (Array.isArray(data) && data.length > 0) {
+          setSlides(
+            data.map((banner: BannerSlide) => ({
+              img: banner.imageUrl,
+              title: banner.title,
+              desc: banner.subtitle || "",
+              btn: banner.ctaText,
+              link: banner.ctaLink,
+            })),
+          );
+        }
+      } catch (error) {
+        console.error("Failed to fetch banners:", error);
+        // Keep fallback slides
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchBanners();
+  }, []);
 
   useEffect(() => {
     if (!api) return;

@@ -1,6 +1,6 @@
 "use client";
 
-import React from "react";
+import React, { useState, useEffect } from "react";
 import Header from "@/components/common/header";
 import Footer from "@/components/common/footer";
 import {
@@ -15,10 +15,104 @@ import {
   IconRecycle,
 } from "@tabler/icons-react";
 import Image from "next/image";
-import MissionSection from "@/components/common/MissionSection";
 import OurDistribution from "@/components/common/homepage/OurDistribution";
+import { Loader2 } from "lucide-react";
+
+interface AboutPageData {
+  id: string;
+  title: string;
+  slug: string;
+  hero: {
+    title: string;
+    subtitle: string;
+    badges: Array<{ icon: string; text: string }>;
+  };
+  heritage: {
+    subtitle: string;
+    title: string;
+    content: string[];
+    image: string;
+    experience: string;
+    experienceText: string;
+  };
+  mission: {
+    title: string;
+    description: string;
+    bigImage: string;
+    smallImage: string;
+  };
+  iso: {
+    title: string;
+    certNumber: string;
+    description: string;
+  };
+  coreValues: Array<{
+    icon: string;
+    title: string;
+    description: string;
+  }>;
+  weee: {
+    title: string;
+    description: string;
+    cards: Array<{
+      icon: string;
+      title: string;
+      description: string;
+    }>;
+  };
+}
+
+const getIconComponent = (iconName: string) => {
+  const iconMap: Record<string, React.ReactNode> = {
+    IconShieldCheck: <IconShieldCheck />,
+    IconBulb: <IconBulb />,
+    IconLink: <IconLink />,
+    IconLeaf: <IconLeaf />,
+    IconHeadset: <IconHeadset />,
+    IconPackage: <IconPackage />,
+    IconRecycle: <IconRecycle />,
+  };
+  return iconMap[iconName];
+};
 
 const page = () => {
+  const [data, setData] = useState<AboutPageData | null>(null);
+  const [isLoading, setIsLoading] = useState(true);
+
+  useEffect(() => {
+    const fetchAboutPage = async () => {
+      try {
+        const response = await fetch("/api/pages/about");
+        if (response.ok) {
+          const result = await response.json();
+          setData(result);
+        }
+      } catch (error) {
+        console.error("Failed to fetch about page:", error);
+      } finally {
+        setIsLoading(false);
+      }
+    };
+
+    fetchAboutPage();
+  }, []);
+
+  if (isLoading) {
+    return (
+      <div className="flex items-center justify-center min-h-screen">
+        <Loader2 className="h-8 w-8 animate-spin text-blue-600" />
+      </div>
+    );
+  }
+
+  if (!data) {
+    return (
+      <div className="flex items-center justify-center min-h-screen">
+        <p className="text-gray-600">Failed to load about page</p>
+      </div>
+    );
+  }
+
   return (
     <>
       <Header />
@@ -32,24 +126,28 @@ const page = () => {
       >
         <div className="max-w-7xl mx-auto px-4 sm:px-6 md:px-8 xl:px-10 py-12 sm:py-16 xl:py-20 text-center">
           <h1 className="text-2xl sm:text-3xl md:text-4xl xl:text-5xl font-semibold font-poppins">
-            Cabling Solutions for a Connected World
+            {data.hero.title}
           </h1>
 
           <p className="mt-4 text-sm sm:text-base md:text-lg text-blue-100 max-w-3xl mx-auto font-poppins">
-            A legacy of British manufacturing excellence in voice and data
-            infrastructure since 1984.
+            {data.hero.subtitle}
           </p>
 
           <div className="flex flex-wrap justify-center font-inter gap-4 mt-6">
-            <div className="flex items-center  gap-2 bg-white/10 backdrop-blur-sm px-4 py-2 rounded-full text-sm">
-              <IconShieldCheck className="w-5 h-5" />
-              ISO 9001:2015 Certified
-            </div>
-
-            <div className="flex items-center gap-2 bg-white/10 backdrop-blur-sm px-4 py-2 rounded-full text-sm">
-              <IconMapPin className="w-5 h-5" />
-              Based in London, UK
-            </div>
+            {data.hero.badges.map((badge, index) => (
+              <div
+                key={index}
+                className="flex items-center gap-2 bg-white/10 backdrop-blur-sm px-4 py-2 rounded-full text-sm"
+              >
+                {badge.icon === "IconShieldCheck" && (
+                  <IconShieldCheck className="w-5 h-5" />
+                )}
+                {badge.icon === "IconMapPin" && (
+                  <IconMapPin className="w-5 h-5" />
+                )}
+                {badge.text}
+              </div>
+            ))}
           </div>
         </div>
       </section>
@@ -61,39 +159,27 @@ const page = () => {
             {/* LEFT TEXT */}
             <div>
               <p className="text-sm font-semibold text-[#0300A7] tracking-widest uppercase">
-                Established 1984
+                {data.heritage.subtitle}
               </p>
 
               <h2 className="mt-3 text-2xl sm:text-3xl xl:text-4xl font-semibold text-gray-900">
-                Our Heritage of Innovation
+                {data.heritage.title}
               </h2>
 
-              <p className="mt-4 text-gray-600 text-sm sm:text-base leading-relaxed">
-                Originally founded in 1984, TUK Ltd is based in South West
-                London and has manufacturing facilities both in the UK and Far
-                East. For nearly four decades, we have been at the forefront of
-                the cabling industry.
-              </p>
-
-              <p className="mt-4 text-gray-600 text-sm sm:text-base leading-relaxed">
-                The quality of our products is ensured through ISO 9001
-                manufacturing and a two-stage quality assurance procedure,
-                making us a trusted partner for telecommunications, data
-                centres, and enterprise networking.
-              </p>
-
-              <p className="mt-4 text-gray-600 text-sm sm:text-base leading-relaxed">
-                Our commitment to excellence has allowed us to grow from a small
-                local supplier to an international distributor of
-                high-performance RJ45 solutions, multimedia connectors, and
-                modular patch panels.
-              </p>
+              {data.heritage.content.map((paragraph, index) => (
+                <p
+                  key={index}
+                  className="mt-4 text-gray-600 text-sm sm:text-base leading-relaxed"
+                >
+                  {paragraph}
+                </p>
+              ))}
             </div>
 
             {/* RIGHT IMAGE */}
             <div className="relative">
               <Image
-                src="/image/about.png"
+                src={data.heritage.image}
                 alt="network"
                 width={600}
                 height={400}
@@ -102,9 +188,11 @@ const page = () => {
 
               {/* EXPERIENCE CARD */}
               <div className="absolute bottom-4 right-4 bg-[#0300A7] text-white px-6 py-4 rounded-lg shadow-lg">
-                <p className="text-xl font-semibold">40+</p>
+                <p className="text-xl font-semibold">
+                  {data.heritage.experience}
+                </p>
                 <p className="text-xs uppercase tracking-wide">
-                  Years Experience
+                  {data.heritage.experienceText}
                 </p>
               </div>
             </div>
@@ -124,27 +212,67 @@ const page = () => {
 
               <div>
                 <h3 className="text-lg font-semibold text-gray-900 font-poppins">
-                  ISO 9001:2015 Firm
+                  {data.iso.title}
                 </h3>
 
                 <p className="text-sm text-gray-500 font-poppins">
-                  Certification Number: GB1094
+                  {data.iso.certNumber}
                 </p>
               </div>
             </div>
 
             {/* RIGHT */}
             <p className="text-sm text-gray-600 leading-relaxed font-poppins">
-              Our ISO 9001 registration is a testament to our commitment to
-              maintaining the highest standards in manufacturing and customer
-              service across our entire product range.
+              {data.iso.description}
             </p>
           </div>
         </div>
       </section>
 
       {/* MISSION SECTION */}
-      <MissionSection />
+      <section className="w-full bg-white py-12">
+        <div className="mx-auto w-full max-w-6xl px-4 grid gap-10 md:grid-cols-2 items-center">
+          {/* LEFT CONTENT */}
+          <div className="flex flex-col gap-4">
+            <h2 className="text-3xl md:text-4xl font-bold text-[#1E3A8A] font-poppins">
+              {data.mission.title}
+            </h2>
+
+            <p className="text-gray-600 leading-relaxed font-poppins">
+              {data.mission.description}
+            </p>
+          </div>
+
+          {/* RIGHT IMAGES */}
+          <div className="relative flex justify-center md:justify-end">
+            {/* BIG IMAGE */}
+            <div
+              className="overflow-hidden rounded-2xl shadow-lg 
+            w-3/5 sm:w-1/2 md:w-full md:max-w-xs 
+            ml-14 sm:ml-20 md:ml-0"
+            >
+              <Image
+                src={data.mission.bigImage}
+                alt="mission"
+                width={600}
+                height={400}
+                className="w-full h-full object-cover"
+              />
+            </div>
+
+            {/* SMALL IMAGE */}
+            <div className="overflow-hidden rounded-2xl shadow-lg absolute top-1/2 -translate-y-1/2 left-4 md:left-6 w-1/2 sm:w-2/5 md:w-1/2">
+              <Image
+                src={data.mission.smallImage}
+                alt="mission"
+                width={500}
+                height={300}
+                className="w-full h-full object-cover"
+              />
+            </div>
+          </div>
+        </div>
+      </section>
 
       {/* CORE VALUES */}
       <section className="w-full bg-gray-50">
@@ -160,56 +288,22 @@ const page = () => {
 
           {/* Cards */}
           <div className="grid sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-5 gap-6 font-inter">
-            {/* Card 1 */}
-            <div className="bg-white rounded-xl p-6 shadow-sm text-center">
-              <IconShieldCheck className="mx-auto text-[#0300A7]" size={30} />
-              <h3 className="mt-4 font-semibold text-gray-900">
-                Quality First
-              </h3>
-              <p className="text-sm text-gray-600 mt-2">
-                Rigorous two-stage QA testing for every product we manufacture.
-              </p>
-            </div>
-
-            {/* Card 2 */}
-            <div className="bg-white rounded-xl p-6 shadow-sm text-center">
-              <IconBulb className="mx-auto text-[#0300A7]" size={30} />
-              <h3 className="mt-4 font-semibold text-gray-900">Innovation</h3>
-              <p className="text-sm text-gray-600 mt-2">
-                Developing patented solutions like our SPEEDY RJ45 system.
-              </p>
-            </div>
-
-            {/* Card 3 */}
-            <div className="bg-white rounded-xl p-6 shadow-sm text-center">
-              <IconLink className="mx-auto text-[#0300A7]" size={30} />
-              <h3 className="mt-4 font-semibold text-gray-900">Reliability</h3>
-              <p className="text-sm text-gray-600 mt-2">
-                Consistent lead times and high stock availability.
-              </p>
-            </div>
-
-            {/* Card 4 */}
-            <div className="bg-white rounded-xl p-6 shadow-sm text-center">
-              <IconLeaf className="mx-auto text-[#0300A7]" size={30} />
-              <h3 className="mt-4 font-semibold text-gray-900">
-                Sustainability
-              </h3>
-              <p className="text-sm text-gray-600 mt-2">
-                WEEE compliance and eco-conscious manufacturing processes.
-              </p>
-            </div>
-
-            {/* Card 5 */}
-            <div className="bg-white rounded-xl p-6 shadow-sm text-center">
-              <IconHeadset className="mx-auto text-[#0300A7]" size={30} />
-              <h3 className="mt-4 font-semibold text-gray-900">
-                Technical Support
-              </h3>
-              <p className="text-sm text-gray-600 mt-2">
-                Expert guidance from our London-based engineering team.
-              </p>
-            </div>
+            {data.coreValues.map((value, index) => (
+              <div
+                key={index}
+                className="bg-white rounded-xl p-6 shadow-sm text-center"
+              >
+                <div className="text-[#0300A7]">
+                  {getIconComponent(value.icon)}
+                </div>
+                <h3 className="mt-4 font-semibold text-gray-900">
+                  {value.title}
+                </h3>
+                <p className="text-sm text-gray-600 mt-2">
+                  {value.description}
+                </p>
+              </div>
+            ))}
           </div>
         </div>
       </section>
@@ -228,53 +322,34 @@ const page = () => {
               <div className="flex items-center gap-3">
                 <IconRecycle className="text-cyan-400" size={30} />
                 <h2 className="text-xl sm:text-2xl font-semibold font-inter">
-                  WEEE Compliance
+                  {data.weee.title}
                 </h2>
               </div>
 
               <p className="mt-4 text-sm text-white leading-relaxed font-inter">
-                TUK Ltd is fully registered for WEEE (Waste Electrical and
-                Electronic Equipment) compliance, ensuring our products are
-                disposed of responsibly at the end of their lifecycle.
+                {data.weee.description}
               </p>
             </div>
 
-            {/* CARD 1 */}
-            <div className="bg-[#1B4C7D] rounded-xl p-6">
-              <div className="flex items-center gap-2 text-white">
-                <IconLeaf size={22} />
-                <h3 className="font-semibold font-inter">
-                  Environmental Policy
-                </h3>
+            {/* CARDS */}
+            {data.weee.cards.map((card, index) => (
+              <div key={index} className="bg-[#1B4C7D] rounded-xl p-6">
+                <div className="flex items-center gap-2 text-white">
+                  {card.icon === "IconLeaf" && <IconLeaf size={22} />}
+                  {card.icon === "IconPackage" && <IconPackage size={22} />}
+                  <h3 className="font-semibold font-inter">{card.title}</h3>
+                </div>
+
+                <p className="text-sm text-white mt-3 leading-relaxed font-inter">
+                  {card.description}
+                </p>
               </div>
-
-              <p className="text-sm text-white mt-3 leading-relaxed font-inter">
-                We are committed to minimizing our carbon footprint through
-                localized manufacturing and streamlined logistics to reduce
-                transport emissions.
-              </p>
-            </div>
-
-            {/* CARD 2 */}
-            <div className="bg-[#1B4C7D] rounded-xl p-6">
-              <div className="flex items-center gap-2 text-white">
-                <IconPackage size={22} />
-                <h3 className="font-semibold font-inter">
-                  Sustainable Packaging
-                </h3>
-              </div>
-
-              <p className="text-sm text-white mt-3 leading-relaxed font-inter">
-                Transitioning to 100% recyclable packaging across our flagship
-                product lines to eliminate single-use plastics from the supply
-                chain.
-              </p>
-            </div>
+            ))}
           </div>
         </div>
       </section>
 
-      {/* PARTNERS SECTION */}
+      {/* PARTNERS SECTION - KEEP UNCHANGED */}
       <OurDistribution />
       <Footer />
     </>

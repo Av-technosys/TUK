@@ -169,3 +169,16 @@ export const productDistributor = pgTable("product_distributor",{
     image: text("image"),
     createdAt: timestamp("created_at").defaultNow(),
 })
+
+export const banners = pgTable("banners", {
+  id: uuid("id").defaultRandom().primaryKey(),
+  title: varchar("title", { length: 255 }).notNull(),
+  subtitle: varchar("subtitle", { length: 500 }),
+  ctaText: varchar("cta_text", { length: 100 }),
+  ctaLink: varchar("cta_link", { length: 500 }),
+  imageUrl: text("image_url").notNull(),
+  isActive: boolean("is_active").default(true),
+  position: integer("position").default(0),
+  createdAt: timestamp("created_at").defaultNow().notNull(),
+  updatedAt: timestamp("updated_at").defaultNow().notNull(),
+});

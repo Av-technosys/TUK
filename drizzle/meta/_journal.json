@@ -155,6 +155,27 @@
       "when": 1776411481273,
       "tag": "0021_chilly_nightcrawler",
       "breakpoints": true
+    },
+    {
+      "idx": 22,
+      "version": "7",
+      "when": 1776919522834,
+      "tag": "0022_flat_professor_monster",
+      "breakpoints": true
+    },
+    {
+      "idx": 23,
+      "version": "7",
+      "when": 1776924469264,
+      "tag": "0023_luxuriant_ezekiel_stane",
+      "breakpoints": true
+    },
+    {
+      "idx": 24,
+      "version": "7",
+      "when": 1777012040987,
+      "tag": "0024_spotty_nuke",
+      "breakpoints": true
     }
   ]
 }

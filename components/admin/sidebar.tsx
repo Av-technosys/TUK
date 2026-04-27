@@ -14,13 +14,29 @@ import {
   Feather,
   ShoppingCart,
   IndianRupee,
+  SlidersIcon,
+  SlidersHorizontalIcon,
+  SlidersHorizontal,
+  Sparkles,
 } from "lucide-react";
 
 const navItems = [
   { label: "Dashboard", href: "/admin", icon: LayoutGrid },
   { label: "Products", href: "/admin/Product", icon: Box },
+  { label: "Pages", href: "/admin/Pages", icon: FileText },
+  {
+    label: "Featured Products",
+    href: "/admin/featured-products",
+    icon: ShoppingCart,
+  },
+  {
+    label: "New Products",
+    href: "/admin/new-products",
+    icon: Sparkles,
+  },
   { label: "Categories", href: "/admin/category", icon: List },
   { label: "Distributors", href: "/admin/distributors", icon: User },
+  { label: "Slider", href: "/admin/slider", icon: SlidersHorizontalIcon },
 ];
 
 export function Sidebar({ onClose }: { onClose?: () => void }) {

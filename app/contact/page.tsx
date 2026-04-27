@@ -1,6 +1,7 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import { Loader2 } from "lucide-react";
 import {
   IconMapPin,
   IconPhone,
@@ -31,8 +32,28 @@ import {
   validateRequired,
 } from "@/src/lib/validation";
 
+interface ContactPageData {
+  hero: { title: string; subtitle: string };
+  contactInfo: {
+    heading: string;
+    address: { label: string; value: string };
+    phone: { label: string; value: string };
+    email: { label: string; value: string };
+  };
+}
+
 const Page = () => {
   const [isChecked, setIsChecked] = useState(false);
+  const [pageData, setPageData] = useState<ContactPageData | null>(null);
+  const [isLoadingPage, setIsLoadingPage] = useState(true);
+
+  useEffect(() => {
+    fetch("/api/pages/contact")
+      .then((res) => res.json())
+      .then((data) => setPageData(data))
+      .catch(console.error)
+      .finally(() => setIsLoadingPage(false));
+  }, []);
 
   const [form, setForm] = useState({
     name: "",
@@ -136,6 +157,14 @@ const Page = () => {
       toast.error("Something went wrong");
     }
   };
+  if (isLoadingPage) {
+    return (
+      <div className="flex items-center justify-center min-h-screen">
+        <Loader2 className="h-8 w-8 animate-spin text-blue-600" />
+      </div>
+    );
+  }
+
   return (
     <>
       <Header />
@@ -148,11 +177,12 @@ const Page = () => {
           }}
         >
           <div className="max-w-7xl mx-auto px-6 text-center space-y-4">
-            <h1 className="text-3xl font-bold">Contact Us</h1>
+            <h1 className="text-3xl font-bold">
+              {pageData?.hero.title ?? "Contact Us"}
+            </h1>
             <p className="text-sm font-light opacity-90">
-              Get in touch with our expert team for voice and data cabling
-              solutions, <br />
-              technical support, or bespoke requirements.
+              {pageData?.hero.subtitle ??
+                "Get in touch with our expert team for voice and data cabling solutions, technical support, or bespoke requirements."}
             </p>
           </div>
         </div>
@@ -161,7 +191,9 @@ const Page = () => {
         <div className="max-w-5xl mx-auto px-6 py-16 grid xl:grid-cols-12 gap-12">
           {/* LEFT SIDE */}
           <div className="space-y-8 xl:col-span-6">
-            <h2 className="text-xl font-semibold">Get In Touch</h2>
+            <h2 className="text-xl font-semibold">
+              {pageData?.contactInfo.heading ?? "Get In Touch"}
+            </h2>
 
             {/* ADDRESS */}
             <div className="flex gap-4">
@@ -169,40 +201,46 @@ const Page = () => {
                 <IconMapPinFilled className="text-[#2596BE]" />
               </div>
               <div className="text-sm text-gray-700">
-                <p className="font-semibold">Our Address</p>
-                <p>
-                  Unit 4, Wimbledon Stadium Business Centre, Riverside Road,
-                  London SW17 0BA
+                <p className="font-semibold">
+                  {pageData?.contactInfo.address.label ?? "Our Address"}
                 </p>
+                <p>{pageData?.contactInfo.address.value}</p>
               </div>
             </div>
 
             {/* PHONE */}
-         {/* PHONE */}
-            <a 
-              href="tel:+442089466688" 
+            <a
+              href={`tel:${pageData?.contactInfo.phone.value?.replace(/[^+\d]/g, "") ?? ""}`}
               className="flex gap-4 group cursor-pointer"
             >
               <div className="p-2 rounded-md bg-[#2596BE1A] group-hover:bg-[#2596BE33] transition-colors">
                 <IconPhoneFilled className="text-[#2596BE]" />
               </div>
               <div className="text-sm text-gray-700">
-                <p className="font-semibold">Phone</p>
-                <p className="group-hover:text-[#2596BE] transition-colors">+44 (0) 20 8946 6688</p>
+                <p className="font-semibold">
+                  {pageData?.contactInfo.phone.label ?? "Phone"}
+                </p>
+                <p className="group-hover:text-[#2596BE] transition-colors">
+                  {pageData?.contactInfo.phone.value}
+                </p>
               </div>
             </a>
 
             {/* EMAIL */}
-            <a 
-              href="mailto:sales@tuk.co.uk" 
+            <a
+              href={`mailto:${pageData?.contactInfo.email.value ?? ""}`}
               className="flex gap-4 group cursor-pointer"
             >
               <div className="p-2 rounded-md bg-[#2596BE1A] group-hover:bg-[#2596BE33] transition-colors">
                 <IconMailFilled className="text-[#2596BE]" />
               </div>
               <div className="text-sm text-gray-700">
-                <p className="font-semibold">Email</p>
-                <p className="group-hover:text-[#2596BE] transition-colors">sales@tuk.co.uk</p>
+                <p className="font-semibold">
+                  {pageData?.contactInfo.email.label ?? "Email"}
+                </p>
+                <p className="group-hover:text-[#2596BE] transition-colors">
+                  {pageData?.contactInfo.email.value}
+                </p>
               </div>
             </a>
 

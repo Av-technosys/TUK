@@ -1,6 +1,6 @@
 "use client";
 
-import React from "react";
+import React, { useEffect, useState } from "react";
 import {
   IconMapPin,
   IconPhone,
@@ -8,29 +8,66 @@ import {
   IconShieldCheck,
 } from "@tabler/icons-react";
 
+interface ContactBarData {
+  headOffice: { title: string; line1: string; line2: string };
+  salesEnquiries: { title: string; line1: string };
+  email: { title: string; line1: string };
+  certifications: { title: string; line1: string; line2: string };
+}
+
 const Cards = () => {
-  const items = [
-    {
-      icon: IconMapPin,
+  const [contactBar, setContactBar] = useState<ContactBarData>({
+    headOffice: {
       title: "Head Office",
       line1: "TUK Ltd, Wimbledon",
       line2: "London, SW19, UK",
     },
-    {
-      icon: IconPhone,
+    salesEnquiries: {
       title: "Sales Enquiries",
       line1: "+44 (0)20 8946 6688",
     },
-    {
-      icon: IconMail,
+    email: {
       title: "Email",
       line1: "sales@tuk.co.uk",
     },
-    {
-      icon: IconShieldCheck,
+    certifications: {
       title: "Certifications",
       line1: "ISO 9001:2015",
       line2: "UKCA & CE Marked",
+    },
+  });
+
+  useEffect(() => {
+    fetch("/api/pages/home")
+      .then((res) => res.json())
+      .then((data) => {
+        if (data.contactBar) setContactBar(data.contactBar);
+      })
+      .catch(console.error);
+  }, []);
+
+  const items = [
+    {
+      icon: IconMapPin,
+      title: contactBar.headOffice.title,
+      line1: contactBar.headOffice.line1,
+      line2: contactBar.headOffice.line2,
+    },
+    {
+      icon: IconPhone,
+      title: contactBar.salesEnquiries.title,
+      line1: contactBar.salesEnquiries.line1,
+    },
+    {
+      icon: IconMail,
+      title: contactBar.email.title,
+      line1: contactBar.email.line1,
+    },
+    {
+      icon: IconShieldCheck,
+      title: contactBar.certifications.title,
+      line1: contactBar.certifications.line1,
+      line2: contactBar.certifications.line2,
     },
   ];
 
