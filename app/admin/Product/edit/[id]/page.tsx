@@ -286,7 +286,7 @@ export default function EditProductPage() {
         });
 
         setTimeout(() => {
-          router.push("/admin/Product");
+          router.push(`/admin/Product?recentId=${id}`);
         }, 800);
       } else {
         toast.error(data.error || "Update failed ❌", {
