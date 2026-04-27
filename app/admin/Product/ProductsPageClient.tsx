@@ -46,7 +46,10 @@ export function ProductsPageClient() {
     };
 
     fetchProducts();
-  }, [searchParams]);
+    // Intentionally run once: removing `recentId` from the URL should not trigger
+    // another fetch that would undo the "move to top" UI behavior.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   const handleDelete = async (id: string) => {
     const res = await fetch(`/api/products/${id}`, {

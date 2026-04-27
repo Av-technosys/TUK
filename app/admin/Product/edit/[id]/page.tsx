@@ -413,7 +413,7 @@ export default function EditProductPage() {
               onValueChange={(val) => setCategoryId(val || "")}
             >
               <SelectTrigger>
-                <SelectValue placeholder="Select Category" />
+                <SelectValue children={() => {return categoryId ? categoriesList.find((cat) => cat.id === categoryId)?.name : "Select Category"}} placeholder="Select Category" />
               </SelectTrigger>
 
               <SelectContent>
@@ -434,7 +434,7 @@ export default function EditProductPage() {
               onValueChange={(val) => setselectedRelated(val || "")}
             >
               <SelectTrigger>
-                <SelectValue placeholder="Select Related Product" />
+                <SelectValue children={() => {return selectedRelated ? relatedProductsList.find((prod) => prod.id === selectedRelated)?.name : "Select Related Product"}}  placeholder="Select Related Product" />
               </SelectTrigger>
 
               <SelectContent>

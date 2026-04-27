@@ -190,34 +190,8 @@ export default function ProductDetailsTabs({
                 <span>{spec.value}</span>
               </div>
             ))
-          ) : (
-            <>
-              <div className="grid grid-cols-2 border-b p-4">
-                <span className="text-muted-foreground">Cable Type</span>
-                <span>Cat6 UTP</span>
-              </div>
-
-              <div className="grid grid-cols-2 border-b p-4">
-                <span className="text-muted-foreground">Conductor</span>
-                <span>23AWG Solid Copper</span>
-              </div>
-
-              <div className="grid grid-cols-2 border-b p-4">
-                <span className="text-muted-foreground">Frequency</span>
-                <span>Up to 250MHz</span>
-              </div>
-
-              <div className="grid grid-cols-2 border-b p-4">
-                <span className="text-muted-foreground">Length</span>
-                <span>305m (1000ft)</span>
-              </div>
-
-              <div className="grid grid-cols-2 p-4">
-                <span className="text-muted-foreground">Standards</span>
-                <span>TIA/EIA-568-B.2</span>
-              </div>
-            </>
-          )}
+          ):<></>
+        }
         </div>
       </div>
     </div>

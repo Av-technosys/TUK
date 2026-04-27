@@ -239,11 +239,18 @@ export default function AddProductPage() {
           id: toastId,
         });
 
-        // optional redirect
-        // router.push("/admin/Product");
-
         setTimeout(() => {
-          router.push("/admin/Product");
+          const createdId =
+            data?.productId ??
+            data?.product?.id ??
+            data?.data?.id ??
+            data?.id ??
+            null;
+          router.push(
+            createdId
+              ? `/admin/Product?recentId=${encodeURIComponent(createdId)}`
+              : "/admin/Product",
+          );
         }, 800);
       } else {
         toast.error(data.error || "Failed to create product ❌", {
@@ -328,7 +335,7 @@ export default function AddProductPage() {
 
             <Select onValueChange={(value) => setCategoryId(value as string)}>
               <SelectTrigger>
-                <SelectValue placeholder="Select Category" />
+                <SelectValue children={() => {return categoryId ? categoriesList.find((cat) => cat.id === categoryId)?.name : "Select Category"}} placeholder="Select Category" />
               </SelectTrigger>
 
               <SelectContent>
@@ -347,7 +354,7 @@ export default function AddProductPage() {
               onValueChange={(value) => setselectedRelated(value as string)}
             >
               <SelectTrigger>
-                <SelectValue placeholder="Select Related Product" />
+                <SelectValue children={() => {return selectedRelated ? relatedProductsList.find((prod) => prod.id === selectedRelated)?.name : "Select Related Product"}} placeholder="Select Related Product" />
               </SelectTrigger>
 
               <SelectContent>
